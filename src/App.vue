@@ -7,7 +7,7 @@ import HomeView from './views/HomeView.vue'
 import ItineraryView from './views/ItineraryView.vue'
 
 
-const currentPage = ref('HomeView')
+const currentPage = ref(HomeView)
 
 function changeView(page) {
   currentPage.value = page
@@ -20,7 +20,7 @@ function changeView(page) {
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="SENPIR v0.1.2" />
+      <HelloWorld msg="SENPIR v0.1.4" />
 
       <nav>
 
