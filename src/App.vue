@@ -20,7 +20,7 @@ function changeView(page) {
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="SENPIR v0.1.1" />
+      <HelloWorld msg="SENPIR v0.1.2" />
 
       <nav>
 
