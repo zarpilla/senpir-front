@@ -10,8 +10,11 @@
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
     <script>
+      console.log('service-worker 00')
       if ('serviceWorker' in navigator) {
+        console.log('service-worker 01')
          window.addEventListener('load', () => {
+          console.log('service-worker 02')
             navigator.serviceWorker.register('/sw.js');
          });
        }
