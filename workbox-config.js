@@ -1,9 +1,9 @@
 module.exports = {
 	globDirectory: 'dist/',
 	globPatterns: [
-		'**/*.{css,js,svg,ico,png,html,txt}'
+		'**/*.{css,js,svg,ico,png,html,txt,map}'
 	],
-	swDest: 'dist/sw.js',
+	swDest: 'dist/service-worker.js',
 	ignoreURLParametersMatching: [
 		/^utm_/,
 		/^fbclid$/
@@ -11,7 +11,7 @@ module.exports = {
 	runtimeCaching: [
 		{
 			urlPattern: 'https://senpir.webcoop.cat/.*',
-			handler: 'CacheFirst',
+			handler: 'NetworkFirst',
 			method: 'GET',
 			options: {
 				cacheName: 'app-cache',				
@@ -26,7 +26,7 @@ module.exports = {
 		},
 		{
 			urlPattern: 'https://senpir-api.webcoop.cat/.*',
-			handler: 'CacheFirst',
+			handler: 'NetworkFirst',
 			method: 'GET',
 			options: {
 				cacheName: 'api-cache',				

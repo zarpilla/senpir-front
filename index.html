@@ -13,7 +13,7 @@
       console.log('service-worker 00')
       if ('serviceWorker' in navigator) {
          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js');
+            navigator.serviceWorker.register('/service-worker.js');
          });
        }
       </script>
