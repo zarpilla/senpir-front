@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "build": "vite build",
+    "build.pwa": "vite build && npm run pwa",
+    "pwa": "workbox generateSW workbox-config.js",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "dev": "vite",
     "format": "prettier --write src/",
