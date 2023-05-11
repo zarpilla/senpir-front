@@ -1,6 +1,18 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
+
+import HomeView from './views/HomeView.vue'
+import ItineraryView from './views/ItineraryView.vue'
+
+
+const currentPage = ref('HomeView')
+
+function changeView(page) {
+  currentPage.value = page
+}
+
 </script>
 
 <template>
@@ -8,16 +20,22 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="SENPIR v0.1" />
+      <HelloWorld msg="SENPIR v0.1.1" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/itinerary">Itinerary</RouterLink>
+
+        <a @click="changeView(HomeView)">Home</a>
+        <a @click="changeView(ItineraryView)">Itinerary</a>
+        
+        <!-- <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/itinerary">Itinerary</RouterLink> -->
       </nav>
     </div>
   </header>
 
-  <RouterView />
+  <!-- <RouterView /> -->
+  <component :is="currentPage" />
+
 </template>
 
 <style scoped>
