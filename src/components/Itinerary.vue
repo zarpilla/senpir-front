@@ -5,6 +5,7 @@ import { useGameStore } from '../stores/game'
 
 import Picture from './Picture.vue'
 import Activity from './Activity.vue'
+import ActivitySort from './ActivitySort.vue'
 
 const itineraryStore = useItineraryStore();
 
@@ -59,8 +60,13 @@ onMounted(() => {
     <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
 
     <div class="activities" v-for="(activity,i) in itineraryStore.data.value.attributes.activities" :key="activity.id">
-      <Activity :activity="activity" :index="i"></Activity>
+      <ActivitySort v-if="activity.type === 'sort'" :activity="activity" :index="i"></ActivitySort>
+      <Activity v-else :activity="activity" :index="i"></Activity>      
     </div>
+    <h2>Final</h2>
+    <div class="mt-2">{{ itineraryStore.data.value.attributes.answer_text }}</div>
+    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
+
 <!--     
     <pre class="mt-2">{{ itineraryStore.data.value }}</pre> -->
 
