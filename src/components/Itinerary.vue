@@ -27,7 +27,7 @@ onMounted(() => {
       // console.log(loc.coords.latitude);
       // console.log(loc.coords.longitude);
       // console.log(loc.coords.accuracy);
-      console.log('loc', loc)
+      // console.log('loc', loc)
 
     },
       function error(msg) { alert('Please enable your GPS position feature.'); console.error('err', msg) },

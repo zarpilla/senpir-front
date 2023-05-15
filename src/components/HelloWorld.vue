@@ -7,14 +7,10 @@ const itineraryStore = useItineraryStore()
 const route = useRoute()
 
 const slug = route.query.route
-console.log('slug', slug)
-console.log('route.params2', route)
 
 watch(
       () => route.query.route,
       async newSlug => {
-        console.log('newSlug', newSlug)
-        // userData.value = await fetchUser(newId)
         itineraryStore.setSlug(newSlug)
       }
     )
