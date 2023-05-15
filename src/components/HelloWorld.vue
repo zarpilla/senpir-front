@@ -1,9 +1,30 @@
 <script setup>
+import { useRouter, useRoute } from 'vue-router'
+import { watch } from 'vue'
+import { useItineraryStore } from '../stores/itinerary'
+
+const itineraryStore = useItineraryStore()
+const route = useRoute()
+
+const slug = route.params.slug
+console.log('slug', slug)
+console.log('route.params2', route)
+
+watch(
+      () => route.params.slug,
+      async newSlug => {
+        // userData.value = await fetchUser(newId)
+        itineraryStore.setSlug(newSlug)
+      }
+    )
+
 defineProps({
   msg: {
     type: String,
     required: true
   }
+
+  // $route.params.id
 })
 </script>
 

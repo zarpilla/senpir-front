@@ -5,20 +5,25 @@ import localforage from 'localforage'
 
 export const useItineraryStore = defineStore('itinerary', () => {
   const data = ref({})
+  const slug = ref("")
   // const doubleCount = computed(() => count.value * 2)
 
   function setItinerary(value) {
     data.value = value
   }
 
+  function setSlug(value) {
+    slug.value = value
+  }
+
   async function loadItinerary() {
 
-    const itinerary = import.meta.env.VITE_ITINERARY
+    const itinerary = slug.value // import.meta.env.VITE_ITINERARY
     const key = `itinerary-${itinerary}`
     try {
       console.log('from api', navigator.onLine)
       if (navigator.onLine) {
-        const query = `itineraries?slug=${itinerary}&populate=image&populate=image_preview&populate=map&populate=audio&populate=answer_image&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio`
+        const query = `itineraries?filters[slug][$eq]=${itinerary}&populate=image&populate=image_preview&populate=map&populate=audio&populate=answer_image&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio`
         const { data } = await service({ requiresAuth: false }).get(query)
 
         if (data.data && data.data.length) {
@@ -49,7 +54,7 @@ export const useItineraryStore = defineStore('itinerary', () => {
 
   }
 
-  return { data, setItinerary, loadItinerary }
+  return { data, slug, setSlug, setItinerary, loadItinerary }
 })
 
 
