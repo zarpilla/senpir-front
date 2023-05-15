@@ -61,11 +61,6 @@ watch(answerOk, (newValue) => {
     <Picture :image="activity.image"></Picture>
     <h2>Opcions</h2>
 
-    <pre>{{ answers }}</pre>
-    <pre>{{ unsortedAnswers }}</pre>
-    <pre>{{ answerOk }}</pre>
-
-
     <div class="activity-options" v-if="checked">
       <!-- <div class="activity-option" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in unsorted" :key="option.id"
         @click="checkOption(i)">
@@ -75,7 +70,7 @@ watch(answerOk, (newValue) => {
       </div> -->
       <VueDraggableNext class="activity-options" v-model="unsorted" :move="onMoveCallback">
         <transition-group>
-          <div v-for="(element, i) in unsorted" :key="list.id">
+          <div v-for="(element, i) in unsorted" :key="unsorted.id">
             <h3>{{ element.name }}</h3>
             <Picture :image="element.image"></Picture>
             <div>{{ element.description }}</div>
