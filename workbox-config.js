@@ -10,7 +10,7 @@ module.exports = {
 	],
 	runtimeCaching: [
 		{
-			urlPattern: 'https://senpir.webcoop.cat/.*',
+			urlPattern: 'https://*.webcoop.cat/.*',
 			handler: 'NetworkFirst',
 			method: 'GET',
 			options: {
