@@ -1,3 +1,4 @@
+
 module.exports = {
 	globDirectory: 'dist/',
 	globPatterns: [
@@ -17,7 +18,7 @@ module.exports = {
 				cacheName: 'app-cache',				
 				cacheableResponse: {
 				  // github.com/{user}.png will redirect to avatars.githubusercontent.com
-				  statuses: [0, 200, 302, 304],
+				  statuses: [0, 200/* , 302 */],
 				},
 				fetchOptions: {
 				  redirect: 'follow',
