@@ -19,7 +19,6 @@ export default ({ requiresAuth = false, multipart = false } = {}) => {
 
   instance.interceptors.response.use(
     (response) => {
-      // console.log('good boy!')
       return response;
     },
     (error) => {

@@ -1,25 +1,31 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useItineraryStore } from '../stores/itinerary'
+import { useGameStore } from '../stores/game'
 
+import Picture from './Picture.vue'
+import Activity from './Activity.vue'
 
 const itineraryStore = useItineraryStore();
 
+const gameStore = useGameStore();
 
 itineraryStore.loadItinerary().then(itinerary => {
-  console.log('itinerary', itineraryStore.data.value)
+  gameStore.start(itineraryStore.data.value.attributes.activities)
 })
 
 const location = ref({})
+
+// const itinerary = computed(() => itineraryStore.data && itineraryStore.data.value ? itineraryStore.data.value.attributes : null)
 
 onMounted(() => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (loc) {
 
       location.value = loc
-      console.log(loc.coords.latitude);
-      console.log(loc.coords.longitude);
-      console.log(loc.coords.accuracy);
+      // console.log(loc.coords.latitude);
+      // console.log(loc.coords.longitude);
+      // console.log(loc.coords.accuracy);
       console.log('loc', loc)
 
     },
@@ -34,12 +40,32 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="greetings">
-    <h1>Itinerary</h1>
-    <div>latitude: {{ location?.coords?.latitude }}</div>
+  <div class="greetings" v-if="itineraryStore.data && itineraryStore.data.value">
+    <h1>{{ itineraryStore.data.value.attributes.name }}</h1>
+    <div class="mt-2">{{ itineraryStore.data.value.short_description }}</div>
+    <div class="mt-2">{{ itineraryStore.data.value.description }}</div>
+    <div class="mt-2">latitude: {{ location?.coords?.latitude }}</div>
     <div>longitude: {{ location?.coords?.longitude }}</div>
     <div>accuracy: {{ location?.coords?.accuracy }}</div>
-    <pre>{{ itineraryStore.data }}</pre>
+
+    <div>
+      answers: {{ gameStore.answers  }}
+    </div>
+    <div>
+      canFinish: {{ gameStore.canFinish  }}
+    </div>
+    
+    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
+    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
+
+    <div class="activities" v-for="(activity,i) in itineraryStore.data.value.attributes.activities" :key="activity.id">
+      <Activity :activity="activity" :index="i"></Activity>
+    </div>
+<!--     
+    <pre class="mt-2">{{ itineraryStore.data.value }}</pre> -->
+
+
+
   </div>
 </template>
 
@@ -57,6 +83,10 @@ h3 {
 .greetings h1,
 .greetings h3 {
   text-align: center;
+}
+
+.mt-2{
+  margin-top: 2rem;
 }
 
 @media (min-width: 1024px) {
