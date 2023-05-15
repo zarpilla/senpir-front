@@ -6,7 +6,6 @@ import localforage from 'localforage'
 export const useItineraryStore = defineStore('itinerary', () => {
   const data = ref({})
   const slug = ref("")
-  // const doubleCount = computed(() => count.value * 2)
 
   function setItinerary(value) {
     data.value = value
@@ -18,8 +17,8 @@ export const useItineraryStore = defineStore('itinerary', () => {
 
   async function loadItinerary() {
 
-    const itinerary = slug.value // import.meta.env.VITE_ITINERARY
-    const key = `itinerary-${itinerary}`
+    const itinerary = slug.value
+    const key = `itinerary.${itinerary}`
     try {
       console.log('from api', navigator.onLine)
       if (navigator.onLine) {

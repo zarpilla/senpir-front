@@ -1,6 +1,6 @@
 {
-    "name": "Senpir App",
-    "short_name": "senpir-app",
+    "name": "SENPIR",
+    "short_name": "SENPIR",
     "theme_color": "#4DBA87",
     "icons": [
         {
@@ -26,7 +26,7 @@
             "purpose": "maskable"
         }
     ],
-    "start_url": ".",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#000000"
 }
