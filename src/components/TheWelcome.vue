@@ -14,17 +14,15 @@ import SupportIcon from './icons/IconSupport.vue'
     </template>
     <template #heading>SENPIR</template>
 
-    Aquí hauriem de fer la presentació, tb la tècnica explicar que funcionarà online, que activin el gps...
+    Aquí hauriem de fer la presentació, que si QR's, cartells, jocs...
   </WelcomeItem>
 
   <WelcomeItem>
     <template #icon>
       <SupportIcon />
     </template>
-    <template #heading>Support Vue</template>
+    <template #heading>Web App</template>
 
-    As an independent project, Vue relies on community backing for its sustainability. You can help
-    us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
+    També la tècnica: explicar que funcionarà online, que activin el gps, que hi ha pseudo-cookies...
   </WelcomeItem>
 </template>

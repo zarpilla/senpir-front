@@ -22,12 +22,22 @@ const checked = ref(props.activity.options.map(o => false))
 const answers = ref(props.activity.options.map(o => o.option_code || o.id))
 
 const shuffleArray = (array) => {
-  const array2 = [...array]
-  for (let i = array2.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array2[i], array2[j]] = [array2[j], array2[i]];
+  const array0 = [...array]
+  let currentIndex = array.length,  randomIndex;
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
   }
-  return array2
+  if (array.every((val, idx) => val === array0[idx])) {
+    shuffleArray(array)
+  }
+
+  return array;
 }
 
 const unsorted = ref([...shuffleArray([...props.activity.options])])

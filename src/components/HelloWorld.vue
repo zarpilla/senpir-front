@@ -1,20 +1,6 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
-import { watch } from 'vue'
-import { useItineraryStore } from '../stores/itinerary'
-
-const itineraryStore = useItineraryStore()
-const route = useRoute()
-
-const slug = route.query.route
-
-watch(
-      () => route.query.route,
-      async newSlug => {
-        itineraryStore.setSlug(newSlug)
-      }
-    )
-
+import { watch, onMounted } from 'vue'
 defineProps({
   msg: {
     type: String,
@@ -27,7 +13,7 @@ defineProps({
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>    
+    <h1 class="green">{{ msg }}</h1>
   </div>
 </template>
 
@@ -48,6 +34,7 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+
   .greetings h1,
   .greetings h3 {
     text-align: left;

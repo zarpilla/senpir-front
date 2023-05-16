@@ -11,9 +11,15 @@ const itineraryStore = useItineraryStore();
 
 const gameStore = useGameStore();
 
+
 itineraryStore.loadItinerary().then(itinerary => {
-  gameStore.start(itineraryStore.data.value.attributes.activities)
+  console.log('itinerary', itinerary)
+  if (!gameStore.started) {
+    gameStore.start(itineraryStore.slug, itineraryStore.data.value.attributes.activities)
+  }
 })
+
+
 
 const location = ref({})
 
@@ -50,24 +56,24 @@ onMounted(() => {
     <div>accuracy: {{ location?.coords?.accuracy }}</div>
 
     <div>
-      answers: {{ gameStore.answers  }}
+      answers: {{ gameStore.answers }}
     </div>
     <div>
-      canFinish: {{ gameStore.canFinish  }}
+      canFinish: {{ gameStore.canFinish }}
     </div>
-    
+
     <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
     <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
 
-    <div class="activities" v-for="(activity,i) in itineraryStore.data.value.attributes.activities" :key="activity.id">
+    <div class="activities" v-for="(activity, i) in itineraryStore.data.value.attributes.activities" :key="activity.id">
       <ActivitySort v-if="activity.type === 'sort'" :activity="activity" :index="i"></ActivitySort>
-      <Activity v-else :activity="activity" :index="i"></Activity>      
+      <Activity v-else :activity="activity" :index="i"></Activity>
     </div>
     <h2>Final</h2>
     <div class="mt-2">{{ itineraryStore.data.value.attributes.answer_text }}</div>
     <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
 
-<!--     
+    <!--     
     <pre class="mt-2">{{ itineraryStore.data.value }}</pre> -->
 
 
@@ -91,7 +97,7 @@ h3 {
   text-align: center;
 }
 
-.mt-2{
+.mt-2 {
   margin-top: 2rem;
 }
 

@@ -7,9 +7,9 @@ export const useItineraryStore = defineStore('itinerary', () => {
   const data = ref({})
   const slug = ref("")
 
-  function setItinerary(value) {
-    data.value = value
-  }
+  // function setItinerary(value) {
+  //   data.value = value
+  // }
 
   function setSlug(value) {
     slug.value = value
@@ -29,20 +29,24 @@ export const useItineraryStore = defineStore('itinerary', () => {
           this.data.value = data.data[0]
         }
 
-        localforage.setItem(key, JSON.stringify(this.data.value))
+        // localStorage.setItem(key, JSON.stringify(this.data.value))
+
+        return this.data.value
 
       } else {
-        localforage.getItem(key).then(async (value) => {
-          console.log('from idb')
+        const value = localStorage.getItem(key) // .then(async (value) => {
+        console.log('from storage')
 
-          if (value) {
-            this.data.value = JSON.parse(value)
-          }
+        if (value) {
+          this.data.value = JSON.parse(value)
+        }
 
-        }).catch(async (err) => {
-          console.log("err");
-          console.log(err);
-        });
+        return this.data.value
+
+        // }).catch(async (err) => {
+        //   console.log("err");
+        //   console.log(err);
+        // });
       }
     }
     catch (err) {
@@ -53,7 +57,14 @@ export const useItineraryStore = defineStore('itinerary', () => {
 
   }
 
-  return { data, slug, setSlug, setItinerary, loadItinerary }
+  return { data, slug, setSlug, loadItinerary }
+}, {
+  persist: {
+    enabled: true,
+    strategies: [
+      { storage: localStorage },
+    ],
+  }
 })
 
 

@@ -1,16 +1,43 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-
 import HomeView from './views/HomeView.vue'
 import ItineraryView from './views/ItineraryView.vue'
+import { useGameStore } from './stores/game'
+import { useItineraryStore } from './stores/itinerary'
 
+const itineraryStore = useItineraryStore()
+const gameStore = useGameStore()
 
-const currentPage = ref(HomeView)
+const router = useRouter();
+const route = useRoute()
+
+onMounted(async () => {
+  await router.isReady();
+  if (route.query.route !== itineraryStore.slug) {
+    itineraryStore.$reset
+    gameStore.$reset
+    itineraryStore.setSlug(route.query.route)
+    itineraryStore.loadItinerary()
+    changeView(HomeView)
+  }
+  
+});
+
+// console.log('gameStore.started', itineraryStore.slug)
+// console.log('gameStore.started', gameStore.started)
+
+const currentPage = ref(gameStore.started ? ItineraryView : HomeView)
 
 function changeView(page) {
   currentPage.value = page
+}
+
+function reset() {
+  gameStore.reset()
+  currentPage.value = HomeView
 }
 
 </script>
@@ -18,11 +45,12 @@ function changeView(page) {
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="SENPIR v0.1.5" />
+      <HelloWorld msg="SENPIR v0.1.6" />
 
       <nav>
-        <a class="router-link" @click="changeView(HomeView)">Inici</a>
+        <!-- <a class="router-link" @click="changeView(HomeView)">Inici</a> -->
         <a class="router-link" @click="changeView(ItineraryView)">Itinerari</a>
+        <a class="router-link" @click="reset()">Torna a començar</a>
       </nav>
     </div>
   </header>

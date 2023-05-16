@@ -1,8 +1,12 @@
+require('dotenv').config();
+
+const appCache = process.env.VITE_APP_CACHE
+const apiCache = process.env.VITE_API_CACHE
 
 module.exports = {
 	globDirectory: 'dist/',
 	globPatterns: [
-		'**/*.{css,js,svg,ico,jpg,jpeg,png,html,txt,map}'
+		'**/*.{css,js,svg,ico,jpg,jpeg,png,html,txt,map,json}'
 	],
 	swDest: 'dist/service-worker.js',
 	ignoreURLParametersMatching: [
@@ -12,7 +16,7 @@ module.exports = {
 	],
 	runtimeCaching: [
 		{
-			urlPattern: 'https://*.webcoop.cat/*',
+			urlPattern: appCache,
 			handler: 'NetworkFirst',
 			method: 'GET',
 			options: {
@@ -27,7 +31,7 @@ module.exports = {
 			  },
 		},
 		{
-			urlPattern: 'https://senpir-api.webcoop.cat/.*',
+			urlPattern: apiCache,
 			handler: 'CacheFirst',
 			method: 'GET',
 			options: {
