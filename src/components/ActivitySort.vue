@@ -1,5 +1,6 @@
 <script setup>
 import Picture from './Picture.vue'
+import Audio from './Audio.vue'
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 import { VueDraggableNext } from 'vue-draggable-next'
@@ -80,9 +81,10 @@ watch(answerOk, (newValue) => {
       </div> -->
       <VueDraggableNext class="activity-options" v-model="unsorted" :move="onMoveCallback">
         <transition-group>
-          <div v-for="(element, i) in unsorted" :key="unsorted.id">
+          <div v-for="(element, i) in unsorted" :key="element.id">
             <h3>{{ element.name }}</h3>
             <Picture :image="element.image"></Picture>
+            <Audio :audio="element.audio"></Audio>
             <div>{{ element.description }}</div>
           </div>
         </transition-group>
@@ -91,6 +93,7 @@ watch(answerOk, (newValue) => {
     <h2>Resposta</h2>
     <div>{{ activity.answer_text }}</div>
     <Picture :image="activity.answer_image"></Picture>
+    <Audio :audio="activity.answer_audio"></Audio>
     <h2>Codi Resposta</h2>
     <h1>{{ activity.answer_code }}</h1>
 

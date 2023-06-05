@@ -1,5 +1,6 @@
 <script setup>
 import Picture from './Picture.vue'
+import Audio from './Audio.vue'
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 
@@ -41,6 +42,7 @@ watch(answerOk, (newValue) => {
     <h2>{{ activity.name }}</h2>
     <div>{{ activity.description }}</div>
     <Picture :image="activity.image"></Picture>
+    <Audio :audio="activity.audio"></Audio>
     <h2>Opcions</h2>
 
     <div class="activity-options" v-if="checked">
@@ -48,6 +50,7 @@ watch(answerOk, (newValue) => {
         :key="option.id" @click="checkOption(i)">
         <h3>{{ option.name }}</h3>
         <Picture :image="option.image"></Picture>
+        <Audio :audio="option.audio"></Audio>
         <div>{{ option.description }}</div>
         <div class="mt-1">V/F: {{ option.answer }}</div>
         <!-- {{ option }} -->
@@ -56,6 +59,7 @@ watch(answerOk, (newValue) => {
     <h2>Resposta</h2>
     <div>{{ activity.answer_text }}</div>
     <Picture :image="activity.answer_image"></Picture>
+    <Audio :audio="activity.answer_audio"></Audio>
     <h2>Codi Resposta</h2>
     <h1>{{ activity.answer_code }}</h1>
 

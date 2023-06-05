@@ -14,6 +14,8 @@ const gameStore = useGameStore()
 const router = useRouter();
 const route = useRoute()
 
+const routeOk = ref("")
+
 onMounted(async () => {
   await router.isReady();
   if (route.query.route !== itineraryStore.slug) {
@@ -22,6 +24,7 @@ onMounted(async () => {
     itineraryStore.setSlug(route.query.route)
     itineraryStore.loadItinerary()
     changeView(HomeView)
+    routeOk.value = route.query.route
   }
   
 });
@@ -47,11 +50,11 @@ function reset() {
     <div class="wrapper">
       <HelloWorld msg="SENPIR v0.1.6" />
 
-      <nav>
-        <!-- <a class="router-link" @click="changeView(HomeView)">Inici</a> -->
+      <nav v-if="routeOk">
         <a class="router-link" @click="changeView(ItineraryView)">Itinerari</a>
         <a class="router-link" @click="reset()">Torna a començar</a>
       </nav>
+      <nav v-else>Tria una ruta</nav>
     </div>
   </header>
   <component :is="currentPage" />
