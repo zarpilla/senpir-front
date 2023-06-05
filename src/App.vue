@@ -50,11 +50,11 @@ function reset() {
     <div class="wrapper">
       <HelloWorld msg="SENPIR v0.1.7" />
 
-      <nav v-if="routeOk">
+      <nav>
         <a class="router-link" @click="changeView(ItineraryView)">Itinerari</a>
         <a class="router-link" @click="reset()">Torna a començar</a>
       </nav>
-      <nav v-else>Tria una ruta</nav>
+      <!-- <nav v-else>Tria una ruta</nav> -->
     </div>
   </header>
   <component :is="currentPage" />
