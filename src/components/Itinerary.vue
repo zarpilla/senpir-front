@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useItineraryStore } from '../stores/itinerary'
 import { useGameStore } from '../stores/game'
+import { useLocationStore } from '../stores/location'
 
 import Picture from './Picture.vue'
 import Activity from './Activity.vue'
@@ -9,6 +10,7 @@ import Audio from './Audio.vue'
 import ActivitySort from './ActivitySort.vue'
 
 const itineraryStore = useItineraryStore();
+const locationStore = useLocationStore();
 
 const gameStore = useGameStore();
 
@@ -31,6 +33,10 @@ onMounted(() => {
     navigator.geolocation.getCurrentPosition(function (loc) {
 
       location.value = loc
+
+      if (loc.coords.latitude && loc.coords.longitude) {
+        locationStore.setLocation({ latitude: loc.coords.latitude, longitude: loc.coords.longitude })
+      }
       // console.log(loc.coords.latitude);
       // console.log(loc.coords.longitude);
       // console.log(loc.coords.accuracy);
