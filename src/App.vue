@@ -48,7 +48,7 @@ function reset() {
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="SENPIR v0.1.6" />
+      <HelloWorld msg="SENPIR v0.1.7" />
 
       <nav v-if="routeOk">
         <a class="router-link" @click="changeView(ItineraryView)">Itinerari</a>
