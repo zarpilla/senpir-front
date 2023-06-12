@@ -1,9 +1,12 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import service from "@/service/index";
-import localforage from 'localforage'
+import query from '../utils/query'
 
-export const useItineraryStore = defineStore('itinerary', () => {
+const route = query.getParameterByName('route')
+
+
+export const useItineraryStore = defineStore('itinerary.' + route, () => {
   const data = ref({})
   const slug = ref("")
 
@@ -16,13 +19,12 @@ export const useItineraryStore = defineStore('itinerary', () => {
   }
 
   async function loadItinerary() {
-
     const itinerary = slug.value
-    const key = `itinerary.${itinerary}`
+    const key = `itinerary`
     try {
       console.log('from api', navigator.onLine)
       if (navigator.onLine) {
-        const query = `itineraries?filters[slug][$eq]=${itinerary}&populate=image&populate=image_preview&populate=map&populate=audio&populate=answer_image&populate=answer_audio&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio`
+        const query = `itineraries?filters[slug][$eq]=${itinerary}&populate=image&populate=image_preview&populate=character&populate=map&populate=audio&populate=answer_image&populate=answer_audio&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio`
         const { data } = await service({ requiresAuth: false }).get(query)
 
         if (data.data && data.data.length) {

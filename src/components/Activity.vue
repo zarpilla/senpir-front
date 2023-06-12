@@ -2,6 +2,7 @@
 import Picture from './Picture.vue'
 import Audio from './Audio.vue'
 import DistanceCheck from './DistanceCheck.vue'
+import Next from './Next.vue'
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 
@@ -34,6 +35,7 @@ const checkOption = (i) => {
 watch(answerOk, (newValue) => {
   if (newValue) {
     gameStore.answer(props.index, props.activity.answer_code)
+    gameStore.setPoint('result-' + props.activity.id)
   }
 })
 </script>
@@ -41,31 +43,42 @@ watch(answerOk, (newValue) => {
 <template>
   <div class="activity" :class="answerOk ? 'correct' : 'x'">
     <h2>{{ activity.name }}</h2>
-    <div>{{ activity.description }}</div>
-    <div>gps: {{ { latitude: activity.latitude, longitude: activity.longitude }  }}</div>
-    <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
-    
-    <Picture :image="activity.image"></Picture>
-    <Audio :audio="activity.audio"></Audio>
-    <h2>Opcions</h2>
 
-    <div class="activity-options" v-if="checked">
-      <div class="activity-option" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in activity.options"
-        :key="option.id" @click="checkOption(i)">
-        <h3>{{ option.name }}</h3>
-        <Picture :image="option.image"></Picture>
-        <Audio :audio="option.audio"></Audio>
-        <div>{{ option.description }}</div>
-        <div class="mt-1">V/F: {{ option.answer }}</div>
-        <!-- {{ option }} -->
-      </div>      
+    <div class="question" v-if="gameStore.point === 'activity-' + props.activity.id">
+      <div>{{ activity.description }}</div>
+      <div>gps: {{ { latitude: activity.latitude, longitude: activity.longitude }  }}</div>
+      <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+      
+      <Picture :image="activity.image"></Picture>
+      <Audio :audio="activity.audio"></Audio>
+      <h2>Opcions</h2>
+
+      <div class="activity-options" v-if="checked">
+        <div class="activity-option" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in activity.options"
+          :key="option.id" @click="checkOption(i)">
+          <h3>{{ option.name }}</h3>
+          <Picture :image="option.image"></Picture>
+          <Audio :audio="option.audio"></Audio>
+          <div>{{ option.description }}</div>
+          <div class="mt-1">V/F: {{ option.answer }}</div>
+          <!-- {{ option }} -->
+        </div>      
+      </div>
     </div>
-    <h2>Resposta</h2>
-    <div>{{ activity.answer_text }}</div>
-    <Picture :image="activity.answer_image"></Picture>
-    <Audio :audio="activity.answer_audio"></Audio>
-    <h2>Codi Resposta</h2>
-    <h1>{{ activity.answer_code }}</h1>
+    <div v-if="answerOk">
+      <h2>Resposta</h2>
+      <div>{{ activity.answer_text }}</div>
+      <Picture :image="activity.answer_image"></Picture>
+      <Audio :audio="activity.answer_audio"></Audio>
+      <h2>Codi Resposta</h2>
+      <h1>{{ activity.answer_code }}</h1>
+      <Next></Next>
+      <!-- <div @click="gameStore.setPoint(`start`)">
+        <button>
+          SEGUEIX
+        </button>
+      </div> -->
+    </div>
 
     <!-- <pre>{{ activity }}</pre> -->
   </div>

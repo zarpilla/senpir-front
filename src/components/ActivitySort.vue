@@ -1,6 +1,7 @@
 <script setup>
 import Picture from './Picture.vue'
 import Audio from './Audio.vue'
+import Next from './Next.vue'
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 import { VueDraggableNext } from 'vue-draggable-next'
@@ -61,6 +62,7 @@ const onMoveCallback = (evt, originalEvent) => {
 watch(answerOk, (newValue) => {
   if (newValue) {
     gameStore.answer(props.index, props.activity.answer_code)
+    gameStore.setPoint('result-' + props.activity.id)
   }
 })
 </script>
@@ -90,12 +92,20 @@ watch(answerOk, (newValue) => {
         </transition-group>
       </VueDraggableNext>
     </div>
-    <h2>Resposta</h2>
-    <div>{{ activity.answer_text }}</div>
-    <Picture :image="activity.answer_image"></Picture>
-    <Audio :audio="activity.answer_audio"></Audio>
-    <h2>Codi Resposta</h2>
-    <h1>{{ activity.answer_code }}</h1>
+    <div v-if="answerOk">
+      <h2>Resposta</h2>
+      <div>{{ activity.answer_text }}</div>
+      <Picture :image="activity.answer_image"></Picture>
+      <Audio :audio="activity.answer_audio"></Audio>
+      <h2>Codi Resposta</h2>
+      <h1>{{ activity.answer_code }}</h1>
+      <!-- <div @click="gameStore.setPoint(`start`)">
+        <button>
+          SEGUEIX
+        </button>
+      </div> -->
+      <Next></Next>
+    </div>
 
     <!-- <pre>{{ activity }}</pre> -->
   </div>

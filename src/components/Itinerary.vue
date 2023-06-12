@@ -7,7 +7,9 @@ import { useLocationStore } from '../stores/location'
 import Picture from './Picture.vue'
 import Activity from './Activity.vue'
 import Audio from './Audio.vue'
+import Timer from './Timer.vue'
 import ActivitySort from './ActivitySort.vue'
+import ItineraryOffilineLoader from './ItineraryOffilineLoader.vue'
 
 const itineraryStore = useItineraryStore();
 const locationStore = useLocationStore();
@@ -16,9 +18,8 @@ const gameStore = useGameStore();
 
 
 itineraryStore.loadItinerary().then(itinerary => {
-  console.log('itinerary', itinerary)
   if (!gameStore.started) {
-    gameStore.start(itineraryStore.slug, itineraryStore.data.value.attributes.activities)
+    gameStore.start(itineraryStore.slug, itineraryStore.data.value.attributes.activities, itineraryStore.data.value.id)
   }
 })
 
@@ -28,25 +29,54 @@ const location = ref({})
 
 // const itinerary = computed(() => itineraryStore.data && itineraryStore.data.value ? itineraryStore.data.value.attributes : null)
 
+const optionsPosition = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 10000,
+};
+
+const successPosition = (pos) => {
+  
+  // console.log('successPosition', pos)
+  // if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+  //   console.log("Congratulations, you reached the target");
+  //   navigator.geolocation.clearWatch(id);
+  // }
+
+  location.value = pos
+  //
+  if (pos.coords.latitude && pos.coords.longitude) {
+    locationStore.setLocation({ latitude: pos.coords.latitude, longitude: pos.coords.longitude })
+  }    
+}
+
+const errorPosition = (err) => {
+  console.error(`Please enable your GPS position feature. ERROR(${err.code}): ${err.message}`);
+}
+
 onMounted(() => {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (loc) {
 
-      location.value = loc
 
-      if (loc.coords.latitude && loc.coords.longitude) {
-        locationStore.setLocation({ latitude: loc.coords.latitude, longitude: loc.coords.longitude })
-      }
-      // console.log(loc.coords.latitude);
-      // console.log(loc.coords.longitude);
-      // console.log(loc.coords.accuracy);
-      // console.log('loc', loc)
+    setInterval(() => {
 
-    },
-      function error(msg) { alert('Please enable your GPS position feature.'); console.error('err', msg) },
-      { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true });
+      navigator.geolocation.getCurrentPosition(successPosition, errorPosition, optionsPosition);
+
+    }, 3 * 1000)
+
+    // navigator.geolocation.watchPosition(successPosition, errorPosition, optionsPosition);
+
+    // navigator.geolocation.getCurrentPosition(function (loc) {
+
+    //   location.value = loc
+    //   if (loc.coords.latitude && loc.coords.longitude) {
+    //     locationStore.setLocation({ latitude: loc.coords.latitude, longitude: loc.coords.longitude })
+    //   }
+    // },
+    //   function error(msg) { alert('Please enable your GPS position feature.'); console.error('err', msg) },
+    //   { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true });
   } else {
-    alert("Geolocation API is not supported in your browser.");
+    console.warn("Geolocation API is not supported in your browser.");
   }
 
 })
@@ -54,36 +84,75 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="greetings" v-if="itineraryStore.data && itineraryStore.data.value">
+  <div class="greetings" v-if="itineraryStore.data && itineraryStore.data.value">    
     <h1>{{ itineraryStore.data.value.attributes.name }}</h1>
-    <div class="mt-2">{{ itineraryStore.data.value.short_description }}</div>
-    <div class="mt-2">{{ itineraryStore.data.value.description }}</div>
-    <div class="mt-2">latitude: {{ location?.coords?.latitude }}</div>
-    <div>longitude: {{ location?.coords?.longitude }}</div>
-    <div>accuracy: {{ location?.coords?.accuracy }}</div>
 
-    <div>
-      answers: {{ gameStore.answers }}
+    <!-- <itinerary-offiline-loader></itinerary-offiline-loader> -->
+
+    <div class="debug">
+      latitude: {{ location?.coords?.latitude }}<br>
+      longitude: {{ location?.coords?.longitude }}<br>
+      accuracy: {{ location?.coords?.accuracy }}<br>
+      answers: {{ gameStore.answers }}<br>
+      canFinish: {{ gameStore.canFinish }}<br>
     </div>
-    <div>
-      canFinish: {{ gameStore.canFinish }}
+    <div class="is-flex">
+      <div @click="gameStore.setPoint(`start`)">
+        <button :disabled="gameStore.point == 'start'">
+        INICI
+      </button>
+      </div>
+      <div v-for="(a, i) in itineraryStore.data.value.attributes.activities" :key="i" @click="gameStore.setPoint(`activity-${a.id}`)">
+        <button>
+          {{ i + 1 }}
+        </button>
+      </div>
+      <div @click="gameStore.setPoint(`end`)">
+        <button :disabled="!gameStore.canFinish">
+        FINAL
+      </button>
+      </div>
     </div>
 
-    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
-    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
-    <Audio class="mt-2" :audio="itineraryStore.data.value.attributes.audio"></Audio>
+    <Timer :activities="itineraryStore.data.value.attributes.activities"></Timer>
 
-    <!-- <pre>{{ itineraryStore.data.value.attributes.audio }}</pre> -->
+    <div class="step-0" v-show="gameStore.point == 'start'">      
+      
+      <div class="mt-2">{{ itineraryStore.data.value.attributes.short_description }}</div>
+      <div class="mt-2">{{ itineraryStore.data.value.attributes.description }}</div>
+      
+      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
+      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
+      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.character"></Picture>
+      <Audio class="mt-2" :audio="itineraryStore.data.value.attributes.audio"></Audio>
+    </div>
+    
     
 
-    <div class="activities" v-for="(activity, i) in itineraryStore.data.value.attributes.activities" :key="activity.id">
+    <div class="activities" v-for="(activity, i) in itineraryStore.data.value.attributes.activities" :key="activity.id" v-show="gameStore.point == `activity-${activity.id}` || gameStore.point == `result-${activity.id}`">
       <ActivitySort v-if="activity.type === 'sort'" :activity="activity" :index="i"></ActivitySort>
       <Activity v-else :activity="activity" :index="i"></Activity>
     </div>
-    <h2>Final</h2>
-    <div class="mt-2">{{ itineraryStore.data.value.attributes.answer_text }}</div>
-    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
-    <Audio :audio="itineraryStore.data.value.attributes.answer_audio"></Audio>    
+    
+    <div v-show="gameStore.point == 'end' || gameStore.point == `activity-${gameStore.answers.length + 1}`">
+      <h2>Final</h2>
+      <div class="mt-2">{{ itineraryStore.data.value.attributes.answer_text }}</div>
+      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
+      <Audio :audio="itineraryStore.data.value.attributes.answer_audio"></Audio>    
+      <br>
+      <br>
+      <label>EL TEU NOM</label>
+      <input type="text" />
+      <button>ENVIAR</button>
+      <br>
+      <br>
+      <a target="_blank" href="/salo-de-la-fama/">SALÓ DE LA FAMA</a>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+    
 
     <!--     
     <pre class="mt-2">{{ itineraryStore.data.value }}</pre> -->
@@ -112,6 +181,9 @@ h3 {
 .mt-2 {
   margin-top: 2rem;
 }
+.is-flex{
+  display: flex;
+}
 
 @media (min-width: 1024px) {
 
@@ -124,5 +196,9 @@ h3 {
 pre {
   height: 50vh;
   overflow-y: scroll;
+}
+.debug{
+  background: #eee;
+  margin-bottom: 20px;
 }
 </style>

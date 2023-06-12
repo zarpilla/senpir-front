@@ -30,11 +30,11 @@ onMounted(async () => {
 });
 
 // console.log('gameStore.started', itineraryStore.slug)
-// console.log('gameStore.started', gameStore.started)
+console.log('gameStore.started', gameStore.started)
 
 const currentPage = ref(gameStore.started ? ItineraryView : HomeView)
 
-function changeView(page) {
+async function changeView(page) {
   currentPage.value = page
 }
 
@@ -50,14 +50,22 @@ function reset() {
     <div class="wrapper">
       <HelloWorld msg="SENPIR v0.1.7" />
 
-      <nav>
-        <a class="router-link" @click="changeView(ItineraryView)">Itinerari</a>
-        <a class="router-link" @click="reset()">Torna a començar</a>
-      </nav>
+      
       <!-- <nav v-else>Tria una ruta</nav> -->
     </div>
+
+    <nav>
+        <!-- <a class="router-link" @click="changeView(ItineraryView)">Itinerari</a> -->
+        <a v-if="gameStore.started" class="router-link" @click="reset()">Torna a començar</a>
+      </nav>
   </header>
   <component :is="currentPage" />
+
+  <a v-if="route.query.route && !gameStore.started" class="router-link pt-2" @click="changeView(ItineraryView)">Descarregar dades i començar!</a>
+  
+  <div v-if="!route.query.route">
+    Atenció, no hem trobat la ruta.
+  </div>
 
 </template>
 
