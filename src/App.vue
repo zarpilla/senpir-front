@@ -49,7 +49,7 @@ function reset() {
   <header>
     <div class="wrapper">
       <HelloWorld msg="SENPIR" />
-      v.0.1.8
+      v.0.1.9
     </div>
 
     <nav>

@@ -18,9 +18,21 @@ export const useItineraryStore = defineStore('itinerary.' + route, () => {
     slug.value = value
   }
 
+
+  function getFromStorage() {
+    console.log('from storage')
+    const key = `itinerary.${route}`
+    const value = localStorage.getItem(key)        
+    const store = JSON.parse(value)
+    if (store && store.data && store.data.value) {
+      return store.data.value
+    }
+    return 
+  }
+
   async function loadItinerary() {
     const itinerary = slug.value
-    const key = `itinerary`
+    const key = `itinerary.${route}`
     try {
       console.log('from api', navigator.onLine)
       if (navigator.onLine) {
@@ -29,30 +41,21 @@ export const useItineraryStore = defineStore('itinerary.' + route, () => {
 
         if (data.data && data.data.length) {
           this.data.value = data.data[0]
+        } else {
+          this.data.value = getFromStorage()
         }
-
-        // localStorage.setItem(key, JSON.stringify(this.data.value))
 
         return this.data.value
 
       } else {
-        const value = localStorage.getItem(key) // .then(async (value) => {
-        console.log('from storage')
-
-        if (value) {
-          this.data.value = JSON.parse(value)
-        }
-
+        this.data.value = getFromStorage()
         return this.data.value
-
-        // }).catch(async (err) => {
-        //   console.log("err");
-        //   console.log(err);
-        // });
       }
     }
     catch (err) {
-      console.error('err', err)
+      console.warn('err', err)
+      this.data.value = getFromStorage()
+      return this.data.value
     }
 
 
