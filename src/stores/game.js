@@ -40,14 +40,9 @@ export const useGameStore = defineStore('game.' + route, () => {
   }
   async function start(slug, itineraryId) {
     try {
-      console.log('id, slug, activities', {itineraryId, slug})
       started.value = true
       itinerary.value = slug
-      
-      // if (!started.value) {
-      // answers.value = activities.map(a => "") 
-      // }
-      
+            
       const uidKey = 'uid'      
       var uid = localStorage.getItem(uidKey)
       if (!uid) {
