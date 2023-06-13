@@ -35,24 +35,36 @@ export const useGameStore = defineStore('game.' + route, () => {
     point.value = "start"
   }
 
-  async function start(slug, activities, id) {
+  async function startActivities(activities) {
+    answers.value = activities.map(a => "") 
+  }
+  async function start(slug, itineraryId) {
     try {
-      console.log('id, slug, activities', {id, slug, activities})
+      console.log('id, slug, activities', {itineraryId, slug})
       started.value = true
       itinerary.value = slug
-      const key = `game.answers.${slug}`
-
-      answers.value = activities.map(a => "") 
-
-      let dt = new Date()      
-      const uidKey = 'uid.' + slug + '.' + dt.toISOString().split('T')[0]      
+      
+      // if (!started.value) {
+      // answers.value = activities.map(a => "") 
+      // }
+      
+      const uidKey = 'uid'      
       var uid = localStorage.getItem(uidKey)
       if (!uid) {
         uid = uuidv4()
         localStorage.setItem(uidKey, uid)
-        const { data } = await service({ requiresAuth: false }).post(`plays`, { data: { start: new Date(), user: uid, itinerary: id } })
-        console.log('data', data)
-        var uid = localStorage.setItem('play.' + slug, data.data.id)
+      }
+
+      let dt = new Date()
+      const uidDateKey = 'uid.' + route + '.' + dt.toISOString().split('T')[0]      
+      var uidDate = localStorage.getItem(uidDateKey)
+
+      if (!uidDate) {        
+        const { data } = await service({ requiresAuth: false }).post(`plays`, { data: { start: new Date(), user: uid, itinerary: itineraryId } })
+        
+        localStorage.setItem(uidDateKey, dt.toISOString())
+
+        localStorage.setItem('play.' + slug, data.data.id)
       }
 
     } catch (err) {
@@ -60,7 +72,14 @@ export const useGameStore = defineStore('game.' + route, () => {
     }
   }
 
-  return { answers, started, canFinish, point, answer, start, reset, setPoint }
+  async function finish(username) {
+    const key = 'play.' + route
+    const playId = localStorage.getItem(key)
+    const { data } = await service({ requiresAuth: false }).put(`plays/${playId}`, { data: { end: new Date(), username: username } })
+
+  }
+
+  return { answers, started, canFinish, point, answer, start, startActivities, reset, setPoint, finish }
 }, {
   persist: {
     enabled: true,

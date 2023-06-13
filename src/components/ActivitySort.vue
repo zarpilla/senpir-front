@@ -5,6 +5,7 @@ import Next from './Next.vue'
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 import { VueDraggableNext } from 'vue-draggable-next'
+import DistanceCheck from './DistanceCheck.vue'
 
 const props = defineProps({
   activity: {
@@ -71,6 +72,10 @@ watch(answerOk, (newValue) => {
   <div class="activity" :class="answerOk ? 'correct' : 'x'">
     <h2>{{ activity.name }}</h2>
     <div>{{ activity.description }}</div>
+
+    <div>gps: {{ { latitude: activity.latitude, longitude: activity.longitude }  }}</div>
+    <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+
     <Picture :image="activity.image"></Picture>
     <h2>Opcions</h2>
 

@@ -30,8 +30,10 @@ watch(() => gameStore.point, (newValue) => {
   if (newValue && newValue.startsWith('activity-')) {
     const id = newValue.split('-')[1]
     activity.value = props.activities.find(a => a.id.toString() === id.toString())
-    if (activity.value.timer) {
-      console.log('start timer!')      
+    const index = props.activities.findIndex(a => a.id.toString() === id.toString())
+    console.log('index', index)
+    if (activity.value.timer && gameStore.answers[index] === "") {
+      console.log('start timer!', activity.value.timer)      
       counting.value = false
 
       setTimeout(() => {
@@ -40,6 +42,8 @@ watch(() => gameStore.point, (newValue) => {
       }, 500)
       
       
+    } else {
+      counting.value = false
     }
   } else {
     activity.value = null
@@ -54,7 +58,7 @@ watch(() => gameStore.point, (newValue) => {
 
 <template>
   <div class="timer" v-if="activity && activity.timer">
-    <vue-countdown v-if="counting" :time="timeLeft * 1000 / 100" @end="onCountdownEnd" v-slot="{ days, hours, minutes, seconds }">
+    <vue-countdown v-if="counting" :time="timeLeft * 1000" @end="onCountdownEnd" v-slot="{ days, hours, minutes, seconds }">
       Queden： {{ minutes }} minuts, {{ seconds }} segons.
     </vue-countdown>
   </div>

@@ -10,6 +10,7 @@ import Audio from './Audio.vue'
 import Timer from './Timer.vue'
 import ActivitySort from './ActivitySort.vue'
 import ItineraryOffilineLoader from './ItineraryOffilineLoader.vue'
+import NameForm from './NameForm.vue'
 
 const itineraryStore = useItineraryStore();
 const locationStore = useLocationStore();
@@ -18,9 +19,12 @@ const gameStore = useGameStore();
 
 
 itineraryStore.loadItinerary().then(itinerary => {
-  if (!gameStore.started) {
-    gameStore.start(itineraryStore.slug, itineraryStore.data.value.attributes.activities, itineraryStore.data.value.id)
+  if (!gameStore.started) {    
+    gameStore.start(itineraryStore.slug, itineraryStore.data.value.id)  
+    gameStore.startActivities(itineraryStore.data.value.attributes.activities)        
   }
+  
+  
 })
 
 
@@ -53,6 +57,8 @@ const successPosition = (pos) => {
 const errorPosition = (err) => {
   console.error(`Please enable your GPS position feature. ERROR(${err.code}): ${err.message}`);
 }
+
+const canFinish = computed(() => gameStore.canFinish || gameStore.answers[gameStore.answers.length - 1] !== '')
 
 onMounted(() => {
   if (navigator.geolocation) {
@@ -87,14 +93,14 @@ onMounted(() => {
   <div class="greetings" v-if="itineraryStore.data && itineraryStore.data.value">    
     <h1>{{ itineraryStore.data.value.attributes.name }}</h1>
 
-    <!-- <itinerary-offiline-loader></itinerary-offiline-loader> -->
+    <itinerary-offiline-loader></itinerary-offiline-loader>
 
     <div class="debug">
       latitude: {{ location?.coords?.latitude }}<br>
       longitude: {{ location?.coords?.longitude }}<br>
       accuracy: {{ location?.coords?.accuracy }}<br>
       answers: {{ gameStore.answers }}<br>
-      canFinish: {{ gameStore.canFinish }}<br>
+      canFinish: {{ canFinish }}<br>
     </div>
     <div class="is-flex">
       <div @click="gameStore.setPoint(`start`)">
@@ -108,8 +114,8 @@ onMounted(() => {
         </button>
       </div>
       <div @click="gameStore.setPoint(`end`)">
-        <button :disabled="!gameStore.canFinish">
-        FINAL
+        <button :disabled="!canFinish">
+        ACABA
       </button>
       </div>
     </div>
@@ -134,23 +140,14 @@ onMounted(() => {
       <Activity v-else :activity="activity" :index="i"></Activity>
     </div>
     
-    <div v-show="gameStore.point == 'end' || gameStore.point == `activity-${gameStore.answers.length + 1}`">
+    <div v-show="gameStore.point == 'end'">
       <h2>Final</h2>
       <div class="mt-2">{{ itineraryStore.data.value.attributes.answer_text }}</div>
       <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
       <Audio :audio="itineraryStore.data.value.attributes.answer_audio"></Audio>    
-      <br>
-      <br>
-      <label>EL TEU NOM</label>
-      <input type="text" />
-      <button>ENVIAR</button>
-      <br>
-      <br>
-      <a target="_blank" href="/salo-de-la-fama/">SALÓ DE LA FAMA</a>
-      <br>
-      <br>
-      <br>
-      <br>
+
+      <NameForm></NameForm>
+
     </div>
     
 

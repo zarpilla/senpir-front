@@ -5,6 +5,7 @@
   "scripts": {
     "build": "vite build",
     "build.pwa": "vite build && npm run pwa",
+    "run.pwa": "http-server-spa dist/ index.html",
     "pwa": "workbox generateSW workbox-config.js",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "dev": "vite",
