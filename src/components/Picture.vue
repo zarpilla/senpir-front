@@ -16,10 +16,20 @@ const apiBase = import.meta.env.VITE_API_BASE;
 </script>
 
 <template>
-  <div class="picture-wrapper" :class="class" v-if="image && image.data && image.data.attributes">
-    <img :alt="image.data.attributes.alternativeText" :src="apiBase + image.data.attributes.url" />    
+  <div class="picture-wrapper" :class="class" v-if="image && image.data && Array.isArray(image.data)">    
+    <template v-for="img in image.data">
+      <img v-if="img.attributes.formats.small.url" :alt="img.attributes.alternativeText" :src="apiBase + img.attributes.formats.small.url" />    
+      <img v-else :alt="img.attributes.alternativeText" :src="apiBase + img.attributes.url" />    
+    </template>
+    
+  </div>
+
+  <div class="picture-wrapper" :class="class" v-if="image && image.data && !Array.isArray(image.data) && image.data.attributes">
+    <img v-if="image.data.attributes.formats && image.data.attributes.formats.small && image.data.attributes.formats.small.url" :alt="image.data.attributes.alternativeText" :src="apiBase + image.data.attributes.formats.small.url" />    
+    <img v-else :alt="image.data.attributes.alternativeText" :src="apiBase + image.data.attributes.url" />    
   </div>
 </template>
 
 <style scoped>
+img {max-width: 100%;}
 </style>

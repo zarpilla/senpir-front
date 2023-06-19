@@ -25,8 +25,14 @@ const itineraryStore = useItineraryStore();
     </div>
     
     <div class="activities" v-for="(activity, i) in itineraryStore.data.value.attributes.activities" :key="activity.id">
-      <ActivitySort v-if="activity.type === 'sort'" :activity="activity" :index="i"></ActivitySort>
-      <Activity v-else :activity="activity" :index="i"></Activity>
+      <Picture :image="activity.image"></Picture>
+      <Audio :audio="activity.audio"></Audio>
+      <template v-for="(option, i) in activity.options">
+        <Picture :image="option.image"></Picture>
+        <Audio :audio="option.audio"></Audio>
+      </template>
+      <Picture :image="activity.answer_image"></Picture>
+      <Audio :audio="activity.answer_audio"></Audio>
     </div>
     
     <div>      

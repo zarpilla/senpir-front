@@ -92,7 +92,10 @@ onMounted(() => {
 <template>
   <div class="greetings" v-if="itineraryStore.data && itineraryStore.data.value">    
     <h1>{{ itineraryStore.data.value.attributes.name }}</h1>
-
+    <div>{{ itineraryStore.data.value.attributes.place }}</div>
+    <div class="mb-2">{{ itineraryStore.data.value.attributes.city }}</div>
+    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
+    
     <itinerary-offiline-loader></itinerary-offiline-loader>
 
     <div class="debug">
@@ -127,7 +130,7 @@ onMounted(() => {
       <div class="mt-2">{{ itineraryStore.data.value.attributes.short_description }}</div>
       <div class="mt-2">{{ itineraryStore.data.value.attributes.description }}</div>
       
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
+      
       <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
       <Picture class="mt-2" :image="itineraryStore.data.value.attributes.character"></Picture>
       <Audio class="mt-2" :audio="itineraryStore.data.value.attributes.audio"></Audio>
@@ -177,6 +180,9 @@ h3 {
 
 .mt-2 {
   margin-top: 2rem;
+}
+.mb-2{
+  margin-bottom: 2rem;
 }
 .is-flex{
   display: flex;

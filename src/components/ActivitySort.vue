@@ -70,11 +70,13 @@ watch(answerOk, (newValue) => {
 
 <template>
   <div class="activity" :class="answerOk ? 'correct' : 'x'">
-    <h2>{{ activity.name }}</h2>
-    <div>{{ activity.description }}</div>
-
+    <h2>{{index+1}}. {{ activity.name }}</h2>
     <div>gps: {{ { latitude: activity.latitude, longitude: activity.longitude }  }}</div>
     <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+
+    <div>{{ activity.description }}</div>
+    
+    
 
     <Picture :image="activity.image"></Picture>
     <h2>Opcions</h2>
@@ -102,7 +104,7 @@ watch(answerOk, (newValue) => {
       <div>{{ activity.answer_text }}</div>
       <Picture :image="activity.answer_image"></Picture>
       <Audio :audio="activity.answer_audio"></Audio>
-      <h2>Codi Resposta</h2>
+      <h2 v-if="activity.answer_code">Clau per l'enigma final:</h2>
       <h1>{{ activity.answer_code }}</h1>
       <!-- <div @click="gameStore.setPoint(`start`)">
         <button>
