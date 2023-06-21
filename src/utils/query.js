@@ -7,7 +7,18 @@ function getParameterByName(name, url = window.location.href) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+function getSlugFromHash() {
+    if (window.location.hash) {
+        var slug = window.location.hash.substring(2)
+        var index = slug.indexOf('/')
+        if (index > 0) {
+            slug = slug.substring(0, index)
+        }
+        return slug
+    }
+    return '';
+}
+
 
     
-export default { getParameterByName }
-    
+export default { getParameterByName, getSlugFromHash }

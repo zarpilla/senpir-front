@@ -1,9 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-// import ItineraryView from '../views/ItineraryView.vue'
+import ItineraryView from '../views/ItineraryView.vue'
+import ItineraryPointView from '../views/ItineraryPointView.vue'
+
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -12,8 +14,30 @@ const router = createRouter({
     },
     {
       path: '/:slug',
-      name: 'itinerary',
+      name: 'home-slug',
       component: HomeView
+    },
+    {
+      path: '/:slug/inici',
+      name: 'itinerary',
+      component: ItineraryView
+    },
+    {
+      path: '/:slug/mid',
+      name: 'itinerary-mid',
+      component: ItineraryView,
+      props: { mid: true }
+    },
+    {
+      path: '/:slug/final',
+      name: 'itinerary-final',
+      component: ItineraryView,
+      props: { end: true }
+    },
+    {
+      path: '/:slug/p/:num',
+      name: 'point',
+      component: ItineraryPointView
     }
   ]
 })

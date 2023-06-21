@@ -5,6 +5,8 @@ import DistanceCheck from './DistanceCheck.vue'
 import Next from './Next.vue'
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
+import Markdown from 'vue3-markdown-it';
+
 
 const props = defineProps({
   activity: {
@@ -29,13 +31,19 @@ const checkOption = (i) => {
   if (answerOk.value === false) {
     checked.value[i] = !checked.value[i]
   }
-
 }
 
 watch(answerOk, (newValue) => {
   if (newValue) {
-    gameStore.answer(props.index, props.activity.answer_code)
+    gameStore.answer(props.index, props.activity.answer_code || "-")
     gameStore.setPoint('result-' + props.activity.id)
+  }
+})
+
+watch(() => props.activity.id, (newValue) => {
+  if (newValue) {
+    checked.value = props.activity.options.map(o => false)
+    answers.value = props.activity.options.map(o => o.answer)
   }
 })
 </script>
@@ -44,19 +52,18 @@ watch(answerOk, (newValue) => {
   <div class="activity" :class="answerOk ? 'correct' : 'x'">
     <h2>{{index+1}}. {{ activity.name }}</h2>
 
-    <div class="question" v-if="gameStore.point === 'activity-' + props.activity.id">
-      <div>gps: {{ { latitude: activity.latitude, longitude: activity.longitude }  }}</div>
+    <div class="question">
            
       <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
-      <div>{{ activity.description }}</div>
+      <Markdown v-if="activity.description" :source="activity.description" />
       
       <Picture :image="activity.image"></Picture>
       <Audio :audio="activity.audio"></Audio>
-      <h2>Opcions</h2>
-      <div class="nota">Troba les opcions correctes.</div>
+      
+      <!-- <h2 class="nota">Troba les opcions correctes.</h2> -->
 
-      <div class="activity-options" v-if="checked">
+      <div class="activity-options mt-2 mb-2" v-if="checked">
         <div class="activity-option" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in activity.options"
           :key="option.id" @click="checkOption(i)">
           <h3>{{ option.name }}</h3>
@@ -70,17 +77,14 @@ watch(answerOk, (newValue) => {
     </div>
     <div v-if="answerOk">
       <h2>Resposta</h2>
-      <div>{{ activity.answer_text }}</div>
+      
+      <Markdown v-if="activity.answer_text" :source="activity.answer_text" />
+
       <Picture :image="activity.answer_image"></Picture>
       <Audio :audio="activity.answer_audio"></Audio>
       <h2 v-if="activity.answer_code">Clau per l'enigma final:</h2>
       <h1>{{ activity.answer_code }}</h1>
       <Next></Next>
-      <!-- <div @click="gameStore.setPoint(`start`)">
-        <button>
-          SEGUEIX
-        </button>
-      </div> -->
     </div>
 
     <!-- <pre>{{ activity }}</pre> -->

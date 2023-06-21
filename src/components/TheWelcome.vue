@@ -1,10 +1,8 @@
 <script setup>
-// import WelcomeItem from './WelcomeItem.vue'
-// import DocumentationIcon from './icons/IconDocumentation.vue'
-// import ToolingIcon from './icons/IconTooling.vue'
-// import EcosystemIcon from './icons/IconEcosystem.vue'
-// import CommunityIcon from './icons/IconCommunity.vue'
-// import SupportIcon from './icons/IconSupport.vue'
+import { useItineraryStore } from '../stores/itinerary'
+
+const itineraryStore = useItineraryStore()
+
 </script>
 
 <template>
@@ -18,6 +16,11 @@
     </div>
 
     Som-hi?
+    <br />
+    <br />
+    
+    <RouterLink :to="`/${itineraryStore.slug}/inici`">Descarregar dades i començar!</RouterLink>
+
   </div>
 
 </template>

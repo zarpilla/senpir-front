@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 import service from "@/service/index";
 import query from '../utils/query'
 
-const route = query.getParameterByName('route')
+// const route = query.getParameterByName('route')
+const route = query.getSlugFromHash()
 
 
 export const useItineraryStore = defineStore('itinerary.' + route, () => {
@@ -31,12 +32,11 @@ export const useItineraryStore = defineStore('itinerary.' + route, () => {
   }
 
   async function loadItinerary() {
-    const itinerary = slug.value
     const key = `itinerary.${route}`
     try {
       console.log('from api', navigator.onLine)
       if (navigator.onLine) {
-        const query = `itineraries?filters[slug][$eq]=${itinerary}&populate=image&populate=image_preview&populate=character&populate=map&populate=audio&populate=answer_image&populate=answer_audio&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio`
+        const query = `itineraries?filters[slug][$eq]=${route}&populate=image&populate=image_preview&populate=character&populate=map&populate=audio&populate=answer_image&populate=answer_audio&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio`
         const { data } = await service({ requiresAuth: false }).get(query)
 
         if (data.data && data.data.length) {
@@ -45,6 +45,7 @@ export const useItineraryStore = defineStore('itinerary.' + route, () => {
           this.data.value = getFromStorage()
         }
 
+        console.log('this.data.value', this.data.value)
         return this.data.value
 
       } else {

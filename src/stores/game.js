@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import service from "@/service/index";
 import query from '../utils/query'
 
-const route = query.getParameterByName('route')
+const route = query.getSlugFromHash()
 
 export const useGameStore = defineStore('game.' + route, () => {
   const answers = ref([])
@@ -19,6 +19,7 @@ export const useGameStore = defineStore('game.' + route, () => {
 
   function setPoint(value) {
     point.value = value
+    //window.location.hash = value;
   }
 
   function uuidv4() {

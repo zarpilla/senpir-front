@@ -6,6 +6,7 @@ import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 import { VueDraggableNext } from 'vue-draggable-next'
 import DistanceCheck from './DistanceCheck.vue'
+import Markdown from 'vue3-markdown-it';
 
 const props = defineProps({
   activity: {
@@ -66,16 +67,22 @@ watch(answerOk, (newValue) => {
     gameStore.setPoint('result-' + props.activity.id)
   }
 })
+
+watch(() => props.activity.id, (newValue) => {
+  if (newValue) {
+    checked.value = props.activity.options.map(o => false)
+    answers.value = props.activity.options.map(o => o.answer)
+  }
+})
 </script>
 
 <template>
   <div class="activity" :class="answerOk ? 'correct' : 'x'">
     <h2>{{index+1}}. {{ activity.name }}</h2>
-    <div>gps: {{ { latitude: activity.latitude, longitude: activity.longitude }  }}</div>
+    
     <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
-    <div>{{ activity.description }}</div>
-    
+    <Markdown v-if="activity.description" :source="activity.description" />
     
 
     <Picture :image="activity.image"></Picture>
@@ -101,16 +108,13 @@ watch(answerOk, (newValue) => {
     </div>
     <div v-if="answerOk">
       <h2>Resposta</h2>
-      <div>{{ activity.answer_text }}</div>
+      
+      <Markdown v-if="activity.answer_text" :source="activity.answer_text" />
+
       <Picture :image="activity.answer_image"></Picture>
       <Audio :audio="activity.answer_audio"></Audio>
       <h2 v-if="activity.answer_code">Clau per l'enigma final:</h2>
       <h1>{{ activity.answer_code }}</h1>
-      <!-- <div @click="gameStore.setPoint(`start`)">
-        <button>
-          SEGUEIX
-        </button>
-      </div> -->
       <Next></Next>
     </div>
 

@@ -5,25 +5,8 @@ import { useGameStore } from '../stores/game'
 import { useLocationStore } from '../stores/location'
 
 import Picture from './Picture.vue'
-import Activity from './Activity.vue'
-import Audio from './Audio.vue'
-import Timer from './Timer.vue'
-import ActivitySort from './ActivitySort.vue'
 import ItineraryOffilineLoader from './ItineraryOffilineLoader.vue'
-import NameForm from './NameForm.vue'
-import Markdown from 'vue3-markdown-it';
 
-
-const props = defineProps({
-  mid: {
-    type: Boolean,
-    required: false
-  },
-  end: {
-    type: Boolean,
-    required: false
-  }
-})
 
 const itineraryStore = useItineraryStore();
 const locationStore = useLocationStore();
@@ -31,14 +14,15 @@ const locationStore = useLocationStore();
 const gameStore = useGameStore();
 
 
-// itineraryStore.loadItinerary().then(itinerary => {
-//   if (!gameStore.started) {    
-//     gameStore.start(itineraryStore.slug, itineraryStore.data.value.id)  
-//     gameStore.startActivities(itineraryStore.data.value.attributes.activities)        
-//   }
+itineraryStore.loadItinerary().then(itinerary => {
+  console.log('itinerary', itinerary)
+  if (!gameStore.started) {    
+    gameStore.start(itineraryStore.slug, itineraryStore.data.value.id)  
+    gameStore.startActivities(itineraryStore.data.value.attributes.activities)        
+  }
   
   
-// })
+})
 
 
 
@@ -90,34 +74,22 @@ onMounted(() => {
 
 <template>
   <div class="greetings" v-if="itineraryStore.data && itineraryStore.data.value">    
+    <h1>{{ itineraryStore.data.value.attributes.name }}</h1>
+    <div>{{ itineraryStore.data.value.attributes.place }}</div>
+    <div class="mb-2">{{ itineraryStore.data.value.attributes.city }}</div>
+    <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
     
-    <Timer :activities="itineraryStore.data.value.attributes.activities"></Timer>
+    <itinerary-offiline-loader></itinerary-offiline-loader>
 
-    <div class="step-0" v-show="!props.end">      
-      
-      <Markdown v-if="itineraryStore.data.value.attributes.description" :source="itineraryStore.data.value.attributes.description" />
-      
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.character"></Picture>
-      <Audio class="mt-2" :audio="itineraryStore.data.value.attributes.audio"></Audio>
-    </div>
-
-    
-    <div v-show="props.end">
-      <h2>Final</h2>
-      <div class="mt-2">{{ itineraryStore.data.value.attributes.answer_text }}</div>
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
-      <Audio :audio="itineraryStore.data.value.attributes.answer_audio"></Audio>    
-
-      <NameForm></NameForm>
-
+    <div class="debug">
+      latitude: {{ location?.coords?.latitude }}<br>
+      longitude: {{ location?.coords?.longitude }}<br>
+      accuracy: {{ location?.coords?.accuracy }}<br>
+      answers: {{ gameStore.answers }}<br>
+      canFinish: {{ canFinish }}<br>
+      point: {{ gameStore.point }}
     </div>
     
-
-    <!--     
-    <pre class="mt-2">{{ itineraryStore.data.value }}</pre> -->
-
-
 
   </div>
 </template>

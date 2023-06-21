@@ -6,7 +6,7 @@ const apiCache = process.env.VITE_API_CACHE
 module.exports = {
 	globDirectory: 'dist/',
 	globPatterns: [
-		'**/*.{css,js,svg,ico,jpg,jpeg,png,html,txt,map,json,mp3,ogg,wav,ttf,otf}'
+		'**/*.{css,js,svg,ico,jpg,jpeg,png,html,txt,map,json,mp3,ogg,wav,ttf,otf,gpx}'
 	],
 	swDest: 'dist/service-worker.js',
 	ignoreURLParametersMatching: [

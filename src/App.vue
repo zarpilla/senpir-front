@@ -18,14 +18,14 @@ const routeOk = ref("")
 
 onMounted(async () => {
   await router.isReady();
-  if (route.query.route !== itineraryStore.slug) {
+  if (route.params.slug !== itineraryStore.slug) {
     itineraryStore.$reset
     gameStore.$reset
-    itineraryStore.setSlug(route.query.route)
+    itineraryStore.setSlug(route.params.slug)
     itineraryStore.loadItinerary()
-    changeView(HomeView)
-    routeOk.value = route.query.route
+    changeView(HomeView)    
   }
+  routeOk.value = route.params.slug
   
 });
 
@@ -40,7 +40,7 @@ async function changeView(page) {
 
 function reset() {
   gameStore.reset()
-  currentPage.value = HomeView
+  router.push('/' + routeOk.value)
 }
 
 </script>
@@ -56,11 +56,9 @@ function reset() {
         <a v-if="gameStore.started" class="router-link" @click="reset()">Torna a començar</a>
       </nav>
   </header>
-  <component :is="currentPage" />
+  <RouterView />
 
-  <a v-if="route.query.route && !gameStore.started" class="router-link pt-2" @click="changeView(ItineraryView)">Descarregar dades i començar!</a>
-  
-  <div v-if="!route.query.route">
+  <div v-if="!routeOk">
     Atenció, no hem trobat la ruta.
   </div>
 
