@@ -30,7 +30,7 @@ const props = defineProps({
     </div>
     <div v-if="option.name && option.image && option.name.length >= 2"
       class="option-with-name-large text-center pt-4 pb-4" :class="`bg-color-${index}`">
-      <h3 class="mb-0 pb-0" v-if="option.name">{{ option.name }}</h3>
+      <h3 class="mb-0 zpb-0" v-if="option.name">{{ option.name }}</h3>
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />

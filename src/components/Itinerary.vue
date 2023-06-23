@@ -22,26 +22,10 @@ const props = defineProps({
   }
 })
 
-// const itineraryStore = useItineraryStore();
 const locationStore = useLocationStore();
-
-const gameStore = useGameStore();
-
-
-// itineraryStore.loadItinerary().then(itinerary => {
-//   if (!gameStore.started) {    
-//     gameStore.start(itineraryStore.slug, itinerary.id)  
-//     gameStore.startActivities(itinerary.attributes.activities)        
-//   }
-
-
-// })
-
-
 
 const location = ref({})
 
-// const itinerary = computed(() => itineraryStore.data && itinerary ? itinerary.attributes : null)
 
 const optionsPosition = {
   enableHighAccuracy: true,
@@ -50,12 +34,6 @@ const optionsPosition = {
 };
 
 const successPosition = (pos) => {
-
-  // console.log('successPosition', pos)
-  // if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-  //   console.log("Congratulations, you reached the target");
-  //   navigator.geolocation.clearWatch(id);
-  // }
 
   location.value = pos
   //
@@ -67,8 +45,6 @@ const successPosition = (pos) => {
 const errorPosition = (err) => {
   console.error(`Please enable your GPS position feature. ERROR(${err.code}): ${err.message}`);
 }
-
-// const canFinish = computed(() => gameStore.canFinish || gameStore.answers[gameStore.answers.length - 1] !== '')
 
 onMounted(() => {
   if (navigator.geolocation) {
@@ -94,26 +70,32 @@ onMounted(() => {
 
       <div class="container mb-5">
 
-        <Picture class="mt-4 mb-4" :image="itinerary.attributes.character"></Picture>
+        <div class="row">
+          <div class="col col-md-6 pt-md-5">
 
-        <div class="text-center">
-          <Audio class="mt-4 mb-4" :audio="itinerary.attributes.audio"></Audio>
+            <Picture class="mt-4 mb-4" :image="itinerary.attributes.character"></Picture>
+
+            <div class="text-center">
+              <Audio class="mt-4 mb-4" :audio="itinerary.attributes.audio"></Audio>
+            </div>
+          </div>
+          <div class="col col-md-6 pt-md-5">
+
+            <Markdown v-if="itinerary.attributes.description" :source="itinerary.attributes.description" />
+            <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture>
+            <Markdown v-if="itinerary.attributes.description_more" :source="itinerary.attributes.description_more" />
+
+            <div class="text">
+              Resoleu els reptes que trobareu a cada fita. Cada prova encertada rebreu una pista i amb aquesta hareu de
+              resoldre
+              l’enigma final.
+              <br />
+              <b>Som-hi!!!
+              </b>
+            </div>
+          </div>
         </div>
 
-        <Markdown v-if="itinerary.attributes.description"
-          :source="itinerary.attributes.description" />
-        <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture>
-        <Markdown v-if="itinerary.attributes.description_more"
-          :source="itinerary.attributes.description_more" />
-        <div class="text">
-          Resoleu els reptes que trobareu a cada fita. Cada prova encertada rebreu una pista i amb aquesta hareu de
-          resoldre
-          l’enigma final.
-          <br />
-          <b>Som-hi!!!
-          </b>
-        </div>
-        
       </div>
 
     </div>

@@ -53,9 +53,6 @@ padding-bottom: 4px;
 .br-white {
   border-left: 1px solid #fff;
 }
-/* .col0, .col1{
-  width: 50%;
-} */
 .col1 {
   max-width: 140px;
 }

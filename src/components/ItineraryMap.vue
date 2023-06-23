@@ -37,7 +37,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="itinerary-map-info" v-if="itinerary">
+  <div class="itinerary-map-info w-25-md mx-auto" v-if="itinerary">
 
     <!-- <Timer :activities="itinerary.attributes.activities"></Timer> -->
 
@@ -124,5 +124,12 @@ b {
   border-top: 1px solid #003842;
   border-bottom: 1px solid #003842;
   font-size: 14px;
+}
+
+
+@media (min-width: 1024px) {
+.w-25-md {
+  width: 25%;
+}
 }
 </style>
