@@ -70,8 +70,9 @@ const onMoveCallback = (evt, originalEvent) => {
   }
 }
 
-const findOrderColor = (answerId) => {
-  return answers.value.findIndex(v => v === answerId)
+const findOrderColor = (answerId, i) => {
+  const idx = answers.value.findIndex(v => v === answerId)
+  return idx >= 0 ? idx : i
 }
 
 watch(answerOk, (newValue) => {
@@ -95,7 +96,7 @@ watch(() => props.activity.options, (newValue) => {
     <div class="text-center" v-if="last && !answerOk">
         <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />  
       </div>
-      
+
     <ActivityTitle v-if="!answerOk" :last="last" :activity="activity" :index="index"></ActivityTitle>
 
     <ItineraryMap :itinerary="itinerary" v-if="!answerOk && !last" :num="index + 1"></ItineraryMap>
@@ -137,11 +138,10 @@ watch(() => props.activity.options, (newValue) => {
         </div>
 
         <div class="activity-options mt-2 zmb-2" :class="!last ? 'mb-2' : 'mb-6'" v-if="checked">
-
           <VueDraggableNext class="activity-options" v-model="unsorted" :move="onMoveCallback">
             <transition-group>
               <div v-for="(element, i) in unsorted" :key="element.id" class="activity-option mb-3">
-                <ActivityOption :last="last" :index="!last ? i : findOrderColor(element.id)" :option="element"></ActivityOption>
+                <ActivityOption :last="last" :index="findOrderColor(element.option_code || element.id, i)" :option="element"></ActivityOption>
               </div>
             </transition-group>
           </VueDraggableNext>
