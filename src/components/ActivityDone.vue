@@ -164,6 +164,7 @@ const props = defineProps({
 .answer-code {
   border-radius: 15px;
   padding: 1.5rem 0;
+  margin-bottom: 6rem;
 }
 
 .circle {
@@ -204,7 +205,6 @@ const props = defineProps({
 }
 
 .answer-done {
-  min-height: calc(100vh - 100px);
-  margin-bottom: 200px;
+  margin-bottom: 40px;
 }
 </style>

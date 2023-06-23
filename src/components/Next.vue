@@ -42,11 +42,7 @@ const canFinish = computed(() => game.value.answers.every((val, idx) => val !== 
 </template>
 
 <style scoped>
-.next {
+.next {  
   background: #E0F0E5;
-  /* padding-bottom: 6rem !important; */
-  position: fixed;
-width: 100%;
-bottom: 44px;
 }
 </style>

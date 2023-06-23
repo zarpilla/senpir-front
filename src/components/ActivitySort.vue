@@ -82,7 +82,7 @@ watch(() => props.activity.options, (newValue) => {
 </script>
 
 <template>
-  <div>
+  <div class="activity-outter">
     <ItineraryMap :itinerary="itinerary" v-if="!answerOk && index < itinerary.attributes.activities.length - 1" :num="index + 1"></ItineraryMap>
 
     <div class="activity container" :class="!answerOk ? 'pb-activity' : 'z'">

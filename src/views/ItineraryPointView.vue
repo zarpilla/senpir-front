@@ -13,35 +13,59 @@ const itineraryStore = useItineraryStore();
 const gameStore = useGameStore();
 
 
-const itinerary = ref(null)
-
 const num = ref(1)
 num.value = parseInt(route.params.num)
 
-const game = ref({})
 
-
+const itinerary = ref(null)
+const game = ref(null)
 const activity = ref(null)
 
-itineraryStore.loadItinerary(route.params.slug).then(it => {
-  itinerary.value = it
+const load = () => {
+  itineraryStore.loadItinerary(route.params.slug).then(it => {
+    itinerary.value = it
+    gameStore.start(it).then(() => {
+      game.value = gameStore.getGame(route.params.slug)
 
-  gameStore.start(it)
-  game.value = gameStore.getGame(route.params.slug)
+      activity.value = itinerary.value.attributes.activities[num.value - 1]
 
-  activity.value = itinerary.value.attributes.activities[num.value - 1]
+    })    
+  })
+}
 
-  // if (!gameStore.started) {    
-  //   gameStore.start(route.params.slug, itinerary.value.id)
-  //   gameStore.startActivities(route.params.slug, itinerary.value.attributes.activities)
-  // }
-  // else {
-  //   activity.value = itinerary.value.attributes.activities[num.value - 1]
-  // }
+load()
 
 
+
+
+
+// itineraryStore.loadItinerary(route.params.slug).then(it => {
+//   itinerary.value = it
+
+//   gameStore.start(it)
+//   game.value = gameStore.getGame(route.params.slug)
+
+//   activity.value = itinerary.value.attributes.activities[num.value - 1]
+
+//   // if (!gameStore.started) {    
+//   //   gameStore.start(route.params.slug, itinerary.value.id)
+//   //   gameStore.startActivities(route.params.slug, itinerary.value.attributes.activities)
+//   // }
+//   // else {
+//   //   activity.value = itinerary.value.attributes.activities[num.value - 1]
+//   // }
+
+
+// })
+
+
+
+
+watch(() => route.params.slug, (newValue) => {
+  if (newValue) {
+    load()
+  }
 })
-
 
 
 // if (gameStore.started) {
