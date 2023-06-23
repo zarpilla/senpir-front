@@ -27,7 +27,7 @@ const props = defineProps({
 
 <template>
   <div>
-    <div class="answer-done mb-5" v-if="!last">
+    <div class="answer-done zmb-5" v-if="!last">
 
       <div class="text-center mt-5">
         <img src="@/assets/images/ok.svg" class="ok" alt="" />
@@ -45,7 +45,7 @@ const props = defineProps({
         <h2 v-if="activity.answer_code">Clau per al<br>repte final:</h2>
       </div>
       <div class="answer-code mt-4" :class="`bg-color-${index}`">
-        <div class="circle mr-auto ml-auto">
+        <div class="zcircle mr-auto ml-auto text-center" :class="activity.answer_code.length > 1 ? 'circle-bg': 'circle'">
           {{ activity.answer_code }}
         </div>
       </div>
@@ -182,6 +182,14 @@ const props = defineProps({
   text-transform: uppercase;
 }
 
+.circle-bg {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 50px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
 .option-with-name-large {
   background-color: #E0F0E5;
   padding: 16px;
@@ -197,5 +205,6 @@ const props = defineProps({
 
 .answer-done {
   min-height: calc(100vh - 100px);
+  margin-bottom: 200px;
 }
 </style>

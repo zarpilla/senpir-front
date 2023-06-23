@@ -22,9 +22,7 @@ if (props.audio && props.audio.data && props.audio.data.attributes) {
   const url = `${apiBase}${audioInfo.value.url}`
   // offline.get(url).then(() => { console.log('offline', url)})
   const audio = new Audio(url);
-  console.log('audio', audio)
-
-  
+  // console.log('audio', audio)
 }
 
 </script>

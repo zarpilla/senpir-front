@@ -19,24 +19,24 @@ const props = defineProps({
 
 <template>
   <div>
-    <div v-if="option.name && option.image && option.name.length < 5" class="option-with-name text-center pt-4 pb-4"
+    <div v-if="option.name && option.image && option.name.length < 2" class="option-with-name text-center pt-4 pb-4"
       :class="`bg-color-${index}`">
       <div class="circle ml-auto mr-auto">
         {{ option.name }}
       </div>
-      <Picture class="w-100-img rounded" :image="option.image"></Picture>
+      <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>
-    <div v-if="option.name && option.image && option.name.length >= 5"
-      class="option-with-name-large text-center pt-4 pb-4">
-      <h3 v-if="option.name">{{ option.name }}</h3>
-      <Picture class="w-100-img rounded" :image="option.image"></Picture>
+    <div v-if="option.name && option.image && option.name.length >= 2"
+      class="option-with-name-large text-center pt-4 pb-4" :class="`bg-color-${index}`">
+      <h3 class="mb-0 pb-0" v-if="option.name">{{ option.name }}</h3>
+      <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>
     <div v-if="!option.name && option.image" class="'option-without-name'">
-      <Picture class="w-100-img rounded" :image="option.image"></Picture>
+      <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>

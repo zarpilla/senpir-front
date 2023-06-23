@@ -70,15 +70,12 @@ watch(answerOk, (newValue) => {
   if (newValue) {
     gameStore.answer(props.itinerary.attributes.slug, props.index, props.activity.answer_code || "-")
     window.scrollTo(0, 0);
-    // gameStore.setPoint('result-' + props.activity.id)
   }
 })
 
 watch(() => props.activity.options, (newValue) => {
   if (newValue) {
-    console.log('newValue', newValue, props.activity.options)
     unsorted.value = [...shuffleArray([...props.activity.options])]
-    // checked.value = props.activity.options.map(o => false)
     answers.value = props.activity.options.map(o => o.option_code || o.id)
   }
 })
@@ -110,8 +107,6 @@ watch(() => props.activity.options, (newValue) => {
         </div>
 
         <Markdown v-if="activity.description" :source="activity.description" />
-
-
 
         <div class="text-center">
           <div class="text-center squirel">
