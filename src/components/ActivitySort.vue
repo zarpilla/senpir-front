@@ -83,6 +83,9 @@ watch(() => props.activity.options, (newValue) => {
 
 <template>
   <div class="activity-outter">
+
+    <ActivityTitle v-if="!answerOk" :last="index === itinerary.attributes.activities.length - 1" :activity="activity" :index="index"></ActivityTitle>
+
     <ItineraryMap :itinerary="itinerary" v-if="!answerOk && index < itinerary.attributes.activities.length - 1" :num="index + 1"></ItineraryMap>
 
     <div class="activity container" :class="!answerOk ? 'pb-activity' : 'z'">
@@ -90,8 +93,6 @@ watch(() => props.activity.options, (newValue) => {
       <div class="text-center" v-if="index === itinerary.attributes.activities.length - 1 && !answerOk">
         <img v-if="index === itinerary.attributes.activities.length - 1" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />  
       </div>
-
-      <ActivityTitle v-if="!answerOk" :last="index === itinerary.attributes.activities.length - 1" :activity="activity" :index="index"></ActivityTitle>
 
       <Picture class="mt-5 mb-5" v-if="index === itinerary.attributes.activities.length - 1 && !answerOk" :image="itinerary.attributes.character"></Picture>
       

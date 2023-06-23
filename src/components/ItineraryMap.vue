@@ -43,11 +43,11 @@ const props = defineProps({
 
     <Picture class="itinerary-map" :image="itinerary.attributes.map"></Picture>
 
-    <div class="map-info">
+    <div class="map-info pb-5">
       <div class="map-info-card p-3 text-center">
-        <img src="@/assets/images/boot.svg" class="boot mt-3 mb-2" alt="" />
+        <img v-if="start" src="@/assets/images/boot.svg" class="boot mt-3 mb-2" alt="" />
 
-        <h1>
+        <h1 class="pt-2">
           <RouterLink class="lnk" :to="`/${itinerary.attributes.slug}/inici`">
             {{ itinerary.attributes.name }}
           </RouterLink>
@@ -107,7 +107,6 @@ h1 {
 }
 .map-info {
   background: #E0F0E5;
-  padding-bottom: 60px;
 }
 
 .map-info-card {

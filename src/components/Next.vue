@@ -29,7 +29,7 @@ const canFinish = computed(() => game.value.answers.every((val, idx) => val !== 
 </script>
 
 <template>
-  <div class="next mt-4 pt-5 pb-5 mb-2 text-center">
+  <div class="next mt-4 pt-5 zpb-5 mb-2 text-center">
 
     <RouterLink class="btn"
       :to="`/${itinerary.attributes.slug}/p/${props.index + 2}`">
@@ -44,5 +44,6 @@ const canFinish = computed(() => game.value.answers.every((val, idx) => val !== 
 <style scoped>
 .next {  
   background: #E0F0E5;
+  padding-bottom: 94px;
 }
 </style>

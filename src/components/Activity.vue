@@ -61,11 +61,14 @@ watch(() => props.activity.id, (newValue) => {
 
 <template>
   <div class="activity-outter">
+    
+
+    <ActivityTitle v-if="!answerOk" :activity="activity" :index="index"></ActivityTitle>
+
     <ItineraryMap v-if="!answerOk" :itinerary="itinerary" :num="index + 1"></ItineraryMap>
 
     <div class="activity container" :class="!answerOk ? 'pb-activity' : 'z'">
-
-      <ActivityTitle v-if="!answerOk" :activity="activity" :index="index"></ActivityTitle>
+      
 
       <div class="question mb-5 pb-2" v-if="!answerOk">
 
