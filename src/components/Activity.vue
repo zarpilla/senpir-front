@@ -67,15 +67,15 @@ watch(() => props.activity.id, (newValue) => {
 
     <ItineraryMap v-if="!answerOk" :itinerary="itinerary" :num="index + 1"></ItineraryMap>
 
-    <div class="activity container" :class="!answerOk ? 'pb-activity' : 'z'">
+    <div class="activity container pt-3 pb-3" :class="!answerOk ? 'pb-activity' : 'z'">
       
 
-      <div class="question mb-5 pb-2" v-if="!answerOk">
+      <div class="question zmb-5 zpb-2" v-if="!answerOk">
 
         <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
         <div class="text-center">
-          <Audio :audio="activity.audio"></Audio>
+          <Audio class="pb-4" :audio="activity.audio"></Audio>
         </div>
 
         <Picture class="mb-3 rounded" :image="activity.image"></Picture>
@@ -90,7 +90,7 @@ watch(() => props.activity.id, (newValue) => {
             JOC DE PISTES
           </div>
           <div class="text-center help-text mb-3 w-75 mr-auto ml-auto" v-if="activity.help_text">
-            {{ activity.help_text }}
+            <Markdown v-if="activity.help_text" :source="activity.help_text" />
           </div>
           <div class="text-center help-text mb-3 w-75 mr-auto ml-auto" v-else>
             <span v-if="answerOkCount === 1">Troba la opció correcta</span>
@@ -100,8 +100,8 @@ watch(() => props.activity.id, (newValue) => {
           <img src="@/assets/images/arrow-green.svg" class="mt-1 mb-3" alt="" />
         </div>
 
-        <div class="activity-options mt-2 mb-2" v-if="checked">
-          <div class="activity-option mb-4" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in activity.options"
+        <div class="activity-options mt-2 mb-4" v-if="checked">
+          <div class="activity-option mb-3" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in activity.options"
             :key="option.id" @click="checkOption(i)">
             <div class="overlay-true" v-if="checked[i] && option.answer">
               <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />
@@ -122,7 +122,7 @@ watch(() => props.activity.id, (newValue) => {
 
     </div>
 
-    <Next v-if="answerOk" :itinerary="itinerary" :index="index"></Next>
+    <Next :itinerary="itinerary" :index="index"></Next>
 
     <ItineraryClue :itinerary="itinerary"></ItineraryClue>
 
@@ -251,7 +251,7 @@ font-weight: 600;
 line-height: 20px;
 padding-bottom: 10px;
 }
-.pb-activity{
+/* .pb-activity{
   padding-bottom: 6rem!important;
-}
+} */
 </style>

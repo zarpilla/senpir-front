@@ -60,10 +60,18 @@ const unsortedAnswers = computed(() => (unsorted.value.map(o => o.option_code ||
 
 const answerOk = computed(() => answers.value.every((val, idx) => val === unsortedAnswers.value[idx]))
 
+
+const last = computed(() => props.index === props.itinerary.attributes.activities.length - 1)
+
+
 const onMoveCallback = (evt, originalEvent) => {
   if (answerOk.value) {
     return false
   }
+}
+
+const findOrderColor = (answerId) => {
+  return answers.value.findIndex(v => v === answerId)
 }
 
 watch(answerOk, (newValue) => {
@@ -84,40 +92,43 @@ watch(() => props.activity.options, (newValue) => {
 <template>
   <div class="activity-outter">
 
-    <ActivityTitle v-if="!answerOk" :last="index === itinerary.attributes.activities.length - 1" :activity="activity" :index="index"></ActivityTitle>
-
-    <ItineraryMap :itinerary="itinerary" v-if="!answerOk && index < itinerary.attributes.activities.length - 1" :num="index + 1"></ItineraryMap>
-
-    <div class="activity container" :class="!answerOk ? 'pb-activity' : 'z'">
-
-      <div class="text-center" v-if="index === itinerary.attributes.activities.length - 1 && !answerOk">
-        <img v-if="index === itinerary.attributes.activities.length - 1" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />  
+    <div class="text-center" v-if="last && !answerOk">
+        <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />  
       </div>
+      
+    <ActivityTitle v-if="!answerOk" :last="last" :activity="activity" :index="index"></ActivityTitle>
 
-      <Picture class="mt-5 mb-5" v-if="index === itinerary.attributes.activities.length - 1 && !answerOk" :image="itinerary.attributes.character"></Picture>
+    <ItineraryMap :itinerary="itinerary" v-if="!answerOk && !last" :num="index + 1"></ItineraryMap>
+
+    <div class="activity container pt-3 pb-3" :class="!answerOk ? 'pb-activity' : 'z'">
+
       
 
-      <div class="question mb-5 pb-2" v-if="!answerOk">
+      <Picture class="mt-5 mb-5" v-if="last && !answerOk" :image="itinerary.attributes.character"></Picture>
+      
+
+      <div class="question" v-if="!answerOk">
 
         <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
-        <Picture class="rounded mb-3" :image="activity.image"></Picture>
-
         <div class="text-center">
-          <Audio class="mt-3 mb-3" :audio="activity.audio"></Audio>
+          <Audio class="pb-4" :audio="activity.audio"></Audio>
         </div>
+
+        <Picture class="mb-3 rounded" :image="activity.image"></Picture>
 
         <Markdown v-if="activity.description" :source="activity.description" />
 
+        
         <div class="text-center">
           <div class="text-center squirel">
             <img src="@/assets/images/squirel.svg" class="mt-4 mb-3" alt="" />
           </div>
-          <div class="text-center squirel-text mb-3" v-if="index !== itinerary.attributes.activities.length - 1">
+          <div class="text-center squirel-text mb-3" v-if="!last">
             JOC DE PISTES
           </div>
           <div class="text-center help-text mb-3 w-75 mr-auto ml-auto" v-if="activity.help_text">
-            {{ activity.help_text }}
+            <Markdown v-if="activity.help_text" :source="activity.help_text" />
           </div>
           <div class="text-center help-text mb-3 w-75 mr-auto ml-auto" v-else>
             Cliqueu i arrossegueu per ordenar-les
@@ -125,13 +136,12 @@ watch(() => props.activity.options, (newValue) => {
           <img src="@/assets/images/arrow-green.svg" class="mt-1 mb-3" alt="" />
         </div>
 
-        <div class="activity-options mt-2 mb-2" v-if="checked">
+        <div class="activity-options mt-2 zmb-2" :class="!last ? 'mb-2' : 'mb-6'" v-if="checked">
 
           <VueDraggableNext class="activity-options" v-model="unsorted" :move="onMoveCallback">
             <transition-group>
-              <div v-for="(element, i) in unsorted" :key="element.id" class="activity-option mb-4">
-
-                <ActivityOption :index="i" :option="element"></ActivityOption>
+              <div v-for="(element, i) in unsorted" :key="element.id" class="activity-option mb-3">
+                <ActivityOption :last="last" :index="!last ? i : findOrderColor(element.id)" :option="element"></ActivityOption>
               </div>
             </transition-group>
           </VueDraggableNext>
@@ -141,16 +151,16 @@ watch(() => props.activity.options, (newValue) => {
       </div>
 
       <div v-if="answerOk" class="answer-ok">
-        <ActivityDone :itinerary="itinerary" :last="index === itinerary.attributes.activities.length - 1" :index="index" :activity="activity"></ActivityDone>
+        <ActivityDone :itinerary="itinerary" :last="last" :index="index" :activity="activity"></ActivityDone>
       </div>
 
     </div>
 
-    <NameForm v-if="answerOk && index === itinerary.attributes.activities.length - 1"></NameForm>
+    <NameForm v-if="answerOk && last"></NameForm>
 
-    <Next v-if="answerOk && !(index === itinerary.attributes.activities.length - 1)" :itinerary="itinerary" :index="index"></Next>
+    <Next v-if="!last" :itinerary="itinerary" :index="index"></Next>
 
-    <ItineraryClue v-if="index < itinerary.attributes.activities.length - 1 || (index === itinerary.attributes.activities.length - 1 && !answerOk)" :itinerary="itinerary"></ItineraryClue>
+    <ItineraryClue v-if="!last || (last && !answerOk)" :itinerary="itinerary"></ItineraryClue>
 
   </div>
 </template>
@@ -274,7 +284,10 @@ watch(() => props.activity.options, (newValue) => {
   line-height: 20px;
   padding-bottom: 10px;
 }
-.pb-activity{
+/* .pb-activity{
   padding-bottom: 6rem!important;
+} */
+.mb-6{
+  margin-bottom: 5rem !important;
 }
 </style>

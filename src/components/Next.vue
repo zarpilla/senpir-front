@@ -46,4 +46,8 @@ const canFinish = computed(() => game.value.answers.every((val, idx) => val !== 
   background: #E0F0E5;
   padding-bottom: 94px;
 }
+
+a {
+  letter-spacing: 1.5px;
+}
 </style>

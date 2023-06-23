@@ -12,6 +12,10 @@ const props = defineProps({
   index: {
     type: Number,
     required: true
+  },
+  last: {
+    type: Boolean,
+    required: false
   }
 })
 
@@ -30,7 +34,7 @@ const props = defineProps({
     </div>
     <div v-if="option.name && option.image && option.name.length >= 2"
       class="option-with-name-large text-center pt-4 pb-4" :class="option.image_bg   ? `bg-color-${index}`: 'z'">
-      <h3 class="mb-0 zpb-0" v-if="option.name">{{ option.name }}</h3>
+      <h3 class="mb-0 zpb-0" :class="last ? 'pb-0 last-h3' : 'z'" v-if="option.name">{{ option.name }}</h3>
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
@@ -165,5 +169,12 @@ const props = defineProps({
   font-weight: 600;
   line-height: 20px;
   padding-bottom: 10px;
+}
+.option-with-name-large h3.last-h3{
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 50px;
+  letter-spacing: 1.5px;
+  padding-bottom: 5px;
 }
 </style>

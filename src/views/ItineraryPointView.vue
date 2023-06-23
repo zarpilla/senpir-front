@@ -97,4 +97,10 @@ watch(() => gameStore.started, (newValue) => {
   </div>
 </template>
 
-<style></style>
+<style>
+
+.help-text ol li{
+  text-align: left;
+}
+
+</style>
