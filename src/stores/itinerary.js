@@ -37,8 +37,8 @@ export const useItineraryStore = defineStore('itinerary', () => {
     const key = `itineraries`
     const value = localStorage.getItem(key)        
     const store = JSON.parse(value)
-    if (store && store.data && store.data.value) {
-      return store.data.value
+    if (store && store.length) {
+      return store
     }
     return 
   }
