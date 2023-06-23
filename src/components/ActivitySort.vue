@@ -104,6 +104,10 @@ watch(() => props.activity.options, (newValue) => {
 
         <Picture :image="activity.image"></Picture>
 
+        <div class="text-center">
+          <Audio class="mt-3 mb-3" :audio="activity.audio"></Audio>
+        </div>
+
         <Markdown v-if="activity.description" :source="activity.description" />
 
 

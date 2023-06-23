@@ -70,7 +70,9 @@ watch(() => props.activity.id, (newValue) => {
 
         <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
-        <Audio :audio="activity.audio"></Audio>
+        <div class="text-center">
+          <Audio :audio="activity.audio"></Audio>
+        </div>
 
         <Picture :image="activity.image"></Picture>
 

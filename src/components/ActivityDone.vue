@@ -27,7 +27,7 @@ const props = defineProps({
 
 <template>
   <div>
-    <div class="answer-ok" v-if="!last">
+    <div class="answer-done mb-5" v-if="!last">
 
       <div class="text-center mt-5">
         <img src="@/assets/images/ok.svg" class="ok" alt="" />
@@ -193,5 +193,9 @@ const props = defineProps({
   font-weight: 600;
   line-height: 20px;
   padding-bottom: 10px;
+}
+
+.answer-done {
+  min-height: calc(100vh - 120px);
 }
 </style>
