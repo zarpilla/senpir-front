@@ -48,7 +48,7 @@ function reset() {
 <template>
   <header>
     <div class="header">
-      <HelloWorld msg="CONSERVACIÓ I LLEURE ALS PIRINEUS (v.0.9)" />
+      <HelloWorld msg="CONSERVACIÓ I LLEURE ALS PIRINEUS (v.0.91)" />
     </div>
 
   </header>
