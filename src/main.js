@@ -6,7 +6,9 @@ import router from './router'
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import Markdown from 'vue3-markdown-it';
 
+import './assets/scss/custom.scss'
 import './assets/main.css'
+
 // import './registerServiceWorker'
 
 const pinia = createPinia()

@@ -49,7 +49,7 @@ watch(() => locationStore.longitude, (newValue) => {
 
 <template>
   <div class="distance-wrapper">
-    distance: {{ distance.toFixed(0) }} m
+    <!-- distance: {{ distance.toFixed(0) }} m -->
   </div>
 </template>
 

@@ -1,26 +1,52 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useGameStore } from '../stores/game'
 import { useItineraryStore } from '../stores/itinerary'
 import { RouterLink } from 'vue-router'
 
+const props = defineProps({
+  itinerary: {
+    type: Object,
+    required: true
+  },
+  index: {
+    type: Number,
+    required: true
+  }
+})
+
+
 const gameStore = useGameStore();
-const itineraryStore = useItineraryStore();
+// const itineraryStore = useItineraryStore();
 
+const game = ref({})
+game.value = gameStore.getGame(props.itinerary.attributes.slug)
 
+// const canFinish = computed(() => game.value.answers[game.value.answers.length - 1] !== '')
 
-const canFinish = computed(() => gameStore.canFinish || gameStore.answers[gameStore.answers.length - 1] !== '')
+const canFinish = computed(() => game.value.answers.every((val, idx) => val !== ""))
+
 </script>
 
 <template>
-  <div class="next">
+  <div class="next mt-4 pt-5 pb-5 mb-2 text-center">
 
-    <RouterLink :to="canFinish ? `/${itineraryStore.slug}/final` : `/${itineraryStore.slug}/mid`">
-      {{ canFinish ? 'ACABA' : 'SEGUEIX' }}
+    <RouterLink class="btn"
+      :to="`/${itinerary.attributes.slug}/p/${props.index + 2}`">
+      {{ 'CONTINUAR' }}
+      <img src="@/assets/images/button.svg" class="button-img" alt="" />
     </RouterLink>
+
 
   </div>
 </template>
 
 <style scoped>
+.next {
+  background: #E0F0E5;
+  /* padding-bottom: 6rem !important; */
+  position: fixed;
+width: 100%;
+bottom: 44px;
+}
 </style>

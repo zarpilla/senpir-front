@@ -1,20 +1,17 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { useItineraryStore } from '../stores/itinerary'
 import { useGameStore } from '../stores/game'
 import { useLocationStore } from '../stores/location'
-
 import Picture from './Picture.vue'
-import Activity from './Activity.vue'
 import Audio from './Audio.vue'
-import Timer from './Timer.vue'
-import ActivitySort from './ActivitySort.vue'
-import ItineraryOffilineLoader from './ItineraryOffilineLoader.vue'
-import NameForm from './NameForm.vue'
 import Markdown from 'vue3-markdown-it';
 
 
 const props = defineProps({
+  itinerary: {
+    type: Object,
+    required: true
+  },
   mid: {
     type: Boolean,
     required: false
@@ -25,7 +22,7 @@ const props = defineProps({
   }
 })
 
-const itineraryStore = useItineraryStore();
+// const itineraryStore = useItineraryStore();
 const locationStore = useLocationStore();
 
 const gameStore = useGameStore();
@@ -33,18 +30,18 @@ const gameStore = useGameStore();
 
 // itineraryStore.loadItinerary().then(itinerary => {
 //   if (!gameStore.started) {    
-//     gameStore.start(itineraryStore.slug, itineraryStore.data.value.id)  
-//     gameStore.startActivities(itineraryStore.data.value.attributes.activities)        
+//     gameStore.start(itineraryStore.slug, itinerary.id)  
+//     gameStore.startActivities(itinerary.attributes.activities)        
 //   }
-  
-  
+
+
 // })
 
 
 
 const location = ref({})
 
-// const itinerary = computed(() => itineraryStore.data && itineraryStore.data.value ? itineraryStore.data.value.attributes : null)
+// const itinerary = computed(() => itineraryStore.data && itinerary ? itinerary.attributes : null)
 
 const optionsPosition = {
   enableHighAccuracy: true,
@@ -53,7 +50,7 @@ const optionsPosition = {
 };
 
 const successPosition = (pos) => {
-  
+
   // console.log('successPosition', pos)
   // if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
   //   console.log("Congratulations, you reached the target");
@@ -64,14 +61,14 @@ const successPosition = (pos) => {
   //
   if (pos.coords.latitude && pos.coords.longitude) {
     locationStore.setLocation({ latitude: pos.coords.latitude, longitude: pos.coords.longitude })
-  }    
+  }
 }
 
 const errorPosition = (err) => {
   console.error(`Please enable your GPS position feature. ERROR(${err.code}): ${err.message}`);
 }
 
-const canFinish = computed(() => gameStore.canFinish || gameStore.answers[gameStore.answers.length - 1] !== '')
+// const canFinish = computed(() => gameStore.canFinish || gameStore.answers[gameStore.answers.length - 1] !== '')
 
 onMounted(() => {
   if (navigator.geolocation) {
@@ -89,34 +86,37 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="greetings" v-if="itineraryStore.data && itineraryStore.data.value">    
-    
-    <Timer :activities="itineraryStore.data.value.attributes.activities"></Timer>
+  <div v-if="itinerary">
 
-    <div class="step-0" v-show="!props.end">      
-      
-      <Markdown v-if="itineraryStore.data.value.attributes.description" :source="itineraryStore.data.value.attributes.description" />
-      
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.character"></Picture>
-      <Audio class="mt-2" :audio="itineraryStore.data.value.attributes.audio"></Audio>
+    <!-- <Timer :activities="itinerary.attributes.activities"></Timer> -->
+
+    <div class="step-0" v-show="!props.end">
+
+      <div class="container mb-5">
+
+        <Picture class="mt-4 mb-4" :image="itinerary.attributes.character"></Picture>
+
+        <div class="text-center">
+          <Audio class="mt-4 mb-4" :audio="itinerary.attributes.audio"></Audio>
+        </div>
+
+        <Markdown v-if="itinerary.attributes.description"
+          :source="itinerary.attributes.description" />
+        <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture>
+        <Markdown v-if="itinerary.attributes.description_more"
+          :source="itinerary.attributes.description_more" />
+        <div class="text">
+          Resoleu els reptes que trobareu a cada fita. Cada prova encertada rebreu una pista i amb aquesta hareu de
+          resoldre
+          l’enigma final.
+          <br />
+          <b>Som-hi!!!
+          </b>
+        </div>
+        
+      </div>
+
     </div>
-
-    
-    <div v-show="props.end">
-      <h2>Final</h2>
-      <div class="mt-2">{{ itineraryStore.data.value.attributes.answer_text }}</div>
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
-      <Audio :audio="itineraryStore.data.value.attributes.answer_audio"></Audio>    
-
-      <NameForm></NameForm>
-
-    </div>
-    
-
-    <!--     
-    <pre class="mt-2">{{ itineraryStore.data.value }}</pre> -->
-
 
 
   </div>
@@ -141,10 +141,12 @@ h3 {
 .mt-2 {
   margin-top: 2rem;
 }
-.mb-2{
+
+.mb-2 {
   margin-bottom: 2rem;
 }
-.is-flex{
+
+.is-flex {
   display: flex;
 }
 
@@ -160,7 +162,8 @@ pre {
   height: 50vh;
   overflow-y: scroll;
 }
-.debug{
+
+.debug {
   background: #eee;
   margin-bottom: 20px;
 }

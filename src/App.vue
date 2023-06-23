@@ -16,18 +16,18 @@ const route = useRoute()
 
 const routeOk = ref("")
 
-onMounted(async () => {
-  await router.isReady();
-  if (route.params.slug !== itineraryStore.slug) {
-    itineraryStore.$reset
-    gameStore.$reset
-    itineraryStore.setSlug(route.params.slug)
-    itineraryStore.loadItinerary()
-    changeView(HomeView)    
-  }
-  routeOk.value = route.params.slug
+// onMounted(async () => {
+//   await router.isReady();
+//   if (route.params.slug !== itineraryStore.slug) {
+//     itineraryStore.$reset
+//     gameStore.$reset
+//     itineraryStore.setSlug(route.params.slug)
+//     itineraryStore.loadItinerary()
+//     changeView(HomeView)    
+//   }
+//   routeOk.value = route.params.slug
   
-});
+// });
 
 
 gameStore.setPoint(`start`)
@@ -47,20 +47,20 @@ function reset() {
 
 <template>
   <header>
-    <div class="wrapper">
-      <HelloWorld msg="SENPIR" />
-      v.0.1.9
+    <div class="header">
+      <HelloWorld msg="CONSERVACIÓ I LLEURE ALS PIRINEUS" />
     </div>
 
-    <nav>
-        <a v-if="gameStore.started" class="router-link" @click="reset()">Torna a començar</a>
-      </nav>
   </header>
   <RouterView />
 
-  <div v-if="!routeOk">
+  <nav>
+        <a v-if="gameStore.started" class="router-link" @click="reset()">Torna a començar</a>
+      </nav>
+      
+  <!-- <div v-if="!routeOk">
     Atenció, no hem trobat la ruta.
-  </div>
+  </div> -->
 
 
 </template>

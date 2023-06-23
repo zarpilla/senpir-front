@@ -16,11 +16,12 @@ const apiBase = import.meta.env.VITE_API_BASE;
 
 <template>
   <div class="picture-wrapper" :class="class" v-if="image && image.data && Array.isArray(image.data)">    
-    <template v-for="img in image.data">
-      <img v-if="img.attributes.formats.small.url" :alt="img.attributes.alternativeText" :src="apiBase + img.attributes.formats.small.url" />    
-      <img v-else :alt="img.attributes.alternativeText" :src="apiBase + img.attributes.url" />    
-    </template>
-    
+    <!-- <template v-for="img in image.data">
+      <img v-if="image.data[0].attributes.formats.small.url" :alt="image.data[0].attributes.alternativeText" :src="apiBase + image.data[0].attributes.formats.small.url" />    
+      <img v-else :alt="image.data[0].attributes.alternativeText" :src="apiBase + image.data[0].attributes.url" />    
+    </template> -->
+    <img v-if="image.data[0].attributes.formats.small.url" :alt="image.data[0].attributes.alternativeText" :src="apiBase + image.data[0].attributes.formats.small.url" />    
+    <img v-else :alt="image.data[0].attributes.alternativeText" :src="apiBase + image.data[0].attributes.url" />
   </div>
 
   <div class="picture-wrapper" :class="class" v-if="image && image.data && !Array.isArray(image.data) && image.data.attributes">
@@ -31,4 +32,11 @@ const apiBase = import.meta.env.VITE_API_BASE;
 
 <style scoped>
 img {max-width: 100%;}
+
+.rounded img{
+  border-radius: 15px;
+}
+.w-100-img img {
+  width: 100%;
+}
 </style>
