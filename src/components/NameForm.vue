@@ -93,6 +93,8 @@ button {
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 16px 26px;
-
+}
+button:hover{
+  background: #003842;
 }
 </style>
