@@ -51,11 +51,11 @@ const props = defineProps({
       </div>
     </div>
     <div v-else>
-      <div class="text-center mt-5 mb-3">
+      <div class="text-center mt-3 mb-3">
         <img src="@/assets/images/perfect.svg" class="ok" alt="" />
       </div>
       <h1 class="text-center mb-4">
-        Perfecte, {{ activity.answer_code }}
+        Perfecte,<br><span class="text-uppercase">{{ activity.answer_code }}</span>
       </h1>      
       <div class="zanswer-content pb-4">
         <Markdown class="answer-text" v-if="activity.answer_text" :source="activity.answer_text" />
