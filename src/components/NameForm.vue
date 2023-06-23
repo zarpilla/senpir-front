@@ -46,14 +46,15 @@ const send = () => {
         Escriu el teu nom i així apareixeràs al “saló de la fama”. Podràs veure els teus itineraris acabats o veure altres
         rutes que et falten!
       </div>
-      <div v-if="!onLine || true">
-        Atenció, no tens cobertura!
-        Només podràs accedir al saló de la fama quan tinguis dades
-      </div>
 
       <input class="mt-3 mb-3 w-100" type="text" placeholder="NOM" v-model="username" />
+      <div v-if="!onLine" class="mt-1 mb-3">
+        Atenció, no tens cobertura!
+        Només podràs accedir al saló de la fama quan tinguis dades.
+      </div>
       <button class="w-100 mb-5" :disabled="!onLine || !username" @click="send">ENVIAR DADES I VEURE<br>SALÓ DE LA
         FAMA</button>
+
 
     </div>
 
@@ -94,7 +95,8 @@ button {
   text-transform: uppercase;
   padding: 16px 26px;
 }
-button:hover{
+
+button:hover {
   background: #003842;
 }
 </style>
