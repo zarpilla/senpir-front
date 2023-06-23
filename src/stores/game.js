@@ -25,11 +25,8 @@ export const useGameStore = defineStore('game', () => {
 
     game.answers[index] = value
 
-    console.log('games.value 0', games.value)
-
     localStorage.setItem('games', JSON.stringify(games.value))
     games.value[gameIndex] = game
-    console.log('games.value 1', games.value)
     
     
   }
@@ -84,7 +81,6 @@ export const useGameStore = defineStore('game', () => {
         playId = data.data.id
       }
 
-      console.log('games.value', games.value)
       const game = games.value.find(g => g.slug === itinerary.attributes.slug)
 
       if (!game) {

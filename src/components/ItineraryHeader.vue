@@ -92,7 +92,7 @@ onMounted(() => {
     <div class="place">{{ itinerary.attributes.place }}</div>
     <div class="mb-2">{{ itinerary.attributes.city }}</div>
     
-    <itinerary-offiline-loader></itinerary-offiline-loader>
+    <itinerary-offiline-loader :itinerary="itinerary"></itinerary-offiline-loader>
 
     <!-- <div class="debug">
       latitude: {{ location?.coords?.latitude }}<br>

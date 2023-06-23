@@ -1,30 +1,31 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useItineraryStore } from '../stores/itinerary'
-import { useGameStore } from '../stores/game'
-import { useLocationStore } from '../stores/location'
 
 import Picture from './Picture.vue'
-import Activity from './Activity.vue'
 import Audio from './Audio.vue'
-import ActivitySort from './ActivitySort.vue'
 
 
-const itineraryStore = useItineraryStore();
+const props = defineProps({
+  itinerary: {
+    type: Object,
+    required: true
+  }
+})
+
+console.log('offline loader')
 
 </script>
 
 <template>
-  <div class="itinerary-loader" v-if="itineraryStore.data && itineraryStore.data.value">    
+  <div class="itinerary-loader" v-if="itinerary">    
     
     <div>
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.image"></Picture>
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.map"></Picture>
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.character"></Picture>
-      <Audio class="mt-2" :audio="itineraryStore.data.value.attributes.audio"></Audio>
+      <Picture class="mt-2" :image="itinerary.attributes.image"></Picture>
+      <Picture class="mt-2" :image="itinerary.attributes.map"></Picture>
+      <Picture class="mt-2" :image="itinerary.attributes.character"></Picture>
+      <Audio class="mt-2" :audio="itinerary.attributes.audio"></Audio>
     </div>
     
-    <div class="activities" v-for="(activity, i) in itineraryStore.data.value.attributes.activities" :key="activity.id">
+    <div class="activities" v-for="(activity, i) in itinerary.attributes.activities" :key="activity.id">
       <Picture :image="activity.image"></Picture>
       <Audio :audio="activity.audio"></Audio>
       <template v-for="(option, i) in activity.options">
@@ -36,9 +37,24 @@ const itineraryStore = useItineraryStore();
     </div>
     
     <div>      
-      <Picture class="mt-2" :image="itineraryStore.data.value.attributes.answer_image"></Picture>
-      <Audio :audio="itineraryStore.data.value.attributes.answer_audio"></Audio>          
+      <Picture class="mt-2" :image="itinerary.attributes.answer_image"></Picture>
+      <Audio :audio="itinerary.attributes.answer_audio"></Audio>          
     </div>
+    
+    <img src="@/assets/images/agla-enigma.svg" class="h0" alt="" />
+    <img src="@/assets/images/agla-group.svg" class="h0" alt="" />
+    <img src="@/assets/images/agla.svg" class="h0" alt="" />    
+    <img src="@/assets/images/arrow-down.svg" class="h0" alt="" />
+    <img src="@/assets/images/arrow-green.svg" class="h0" alt="" />
+    <img src="@/assets/images/arrow.svg" class="h0" alt="" />
+    <img src="@/assets/images/boot.svg" class="h0" alt="" />
+    <img src="@/assets/images/button.svg" class="h0" alt="" />
+    <img src="@/assets/images/ok.svg" class="h0" alt="" />
+    <img src="@/assets/images/perfect.svg" class="h0" alt="" />
+    <img src="@/assets/images/squirel.svg" class="h0" alt="" />
+    <img src="@/assets/images/tryagain.svg" class="h0" alt="" />
+    <img src="@/assets/images/walking.svg" class="h0" alt="" />
+    
     
   </div>
 </template>

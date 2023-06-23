@@ -32,15 +32,11 @@ const itinerary = ref(null)
 const game = ref(null)
 
 const load = () => {
-  console.log('load')
   itineraryStore.loadItinerary(route.params.slug).then(it => {
-    console.log('load it', it)
     itinerary.value = it
     gameStore.start(it).then(() => {
       game.value = gameStore.getGame(route.params.slug)
-      console.log('load game', game.value)
-    })
-    
+    })    
   })
 }
 

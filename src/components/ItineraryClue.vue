@@ -1,11 +1,8 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
-import { useItineraryStore } from '../stores/itinerary'
 import { useGameStore } from '../stores/game'
-import { useLocationStore } from '../stores/location'
 import { RouterLink } from 'vue-router'
-import Picture from './Picture.vue'
-import ItineraryOffilineLoader from './ItineraryOffilineLoader.vue'
+
 
 
 const props = defineProps({
