@@ -47,13 +47,16 @@ const props = defineProps({
       <div class="map-info-card p-3 text-center">
         <img src="@/assets/images/boot.svg" class="boot mt-3 mb-2" alt="" />
 
-
         <h1>
-          {{ itinerary.attributes.name }}
+          <RouterLink class="lnk" :to="`/${itinerary.attributes.slug}/inici`">
+            {{ itinerary.attributes.name }}
+          </RouterLink>
         </h1>
         
+        <div v-if="!start" class="bordered-bottom pt-2 pb-2 mb-4">
+        </div>
 
-        <div class="container text-center bordered mt-4 pt-3 mb-4 pb-3">
+        <div v-if="start" class="container text-center bordered mt-4 pt-3 mb-4 pb-3">
           <div class="row align-items-start">
             <div class="col">
               <b>Distància</b>
@@ -74,7 +77,7 @@ const props = defineProps({
 
       </div>
 
-      <div class="text-center mt-5 mb-3" v-if="start">
+      <div class="text-center mt-5 mb-5" v-if="start">
         <RouterLink class="btn" :to="`/${itinerary.attributes.slug}/p/1`">
           Començar
           <img src="@/assets/images/button.svg" class="button-img" alt="" />
@@ -95,9 +98,13 @@ const props = defineProps({
 h1 a {
   color: #003842;
   text-decoration: none;
+  font-weight: 600;
 }
 </style>
 <style scoped>
+h1 {
+  font-weight: 600;
+}
 .map-info {
   background: #E0F0E5;
   padding-bottom: 60px;
@@ -124,6 +131,9 @@ b {
   border-top: 1px solid #003842;
   border-bottom: 1px solid #003842;
   font-size: 14px;
+}
+.bordered-bottom{
+  border-bottom: 1px solid #003842;
 }
 
 
