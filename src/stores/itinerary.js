@@ -61,13 +61,13 @@ export const useItineraryStore = defineStore('itinerary', () => {
 
       } else {
         itineraries.value = getAllFromStorage()
-        return this.itineraries.value
+        return itineraries.value
       }
     }
     catch (err) {
       console.warn('err', err)
       itineraries.value = getAllFromStorage()
-      return this.data.value
+      return itineraries.value
     }
   }
 

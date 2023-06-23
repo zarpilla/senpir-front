@@ -196,6 +196,6 @@ const props = defineProps({
 }
 
 .answer-done {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 50px);
 }
 </style>
