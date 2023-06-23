@@ -47,6 +47,7 @@ const checkOption = (i) => {
 watch(answerOk, (newValue) => {
   if (newValue) {
     gameStore.answer(props.itinerary.attributes.slug, props.index, props.activity.answer_code || "-")
+    window.scrollTo(0, 0);
   }
 })
 
