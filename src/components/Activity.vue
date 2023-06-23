@@ -75,7 +75,7 @@ watch(() => props.activity.id, (newValue) => {
           <Audio :audio="activity.audio"></Audio>
         </div>
 
-        <Picture :image="activity.image"></Picture>
+        <Picture class="mb-3 rounded" :image="activity.image"></Picture>
 
         <Markdown v-if="activity.description" :source="activity.description" />
 
