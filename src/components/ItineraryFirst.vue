@@ -5,16 +5,12 @@ import { useLocationStore } from '../stores/location'
 import Picture from './Picture.vue'
 import Audio from './Audio.vue'
 import Markdown from 'vue3-markdown-it';
-import Next from './Next.vue'
+
 
 const props = defineProps({
   itinerary: {
     type: Object,
     required: true
-  },
-  start: {
-    type: Boolean,
-    required: false
   },
   mid: {
     type: Boolean,
@@ -86,18 +82,24 @@ onMounted(() => {
           <div class="col-12 col-md-6 pt-md-5">
 
             <Markdown v-if="itinerary.attributes.description" :source="itinerary.attributes.description" />
-            <!-- <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture> -->
+            <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture>
             <Markdown v-if="itinerary.attributes.description_more" :source="itinerary.attributes.description_more" />
 
+            <div class="text">
+              Resoleu els reptes que trobareu a cada fita. Cada prova encertada rebreu una pista i amb aquesta hareu de
+              resoldre
+              l’enigma final.
+              <br />
+              <b>Som-hi!!!
+              </b>
+            </div>
           </div>
-
         </div>
 
       </div>
 
     </div>
 
-    <Next :itinerary="itinerary" :index="-1"></Next>
 
   </div>
 </template>

@@ -2,8 +2,10 @@
 import { ref, watch } from 'vue'
 import { useGameStore } from '../stores/game';
 import query from '../utils/query'
+import { useRouter, useRoute } from 'vue-router'
 
 const route = query.getSlugFromHash()
+const router = useRouter();
 
 const gameStore = useGameStore()
 
@@ -27,8 +29,9 @@ window.addEventListener('online', setOnline)
 window.addEventListener('offline', setOffline)
 
 
-const send = () => {
-  gameStore.finish(route, username.value)
+const send = async () => {
+  await gameStore.finish(route, username.value)
+  router.push('/' + route + '/galeria')
 }
 
 
@@ -43,7 +46,7 @@ const send = () => {
   <div class="name-form container pt-5">
     <div>
       <div>
-        Escriu el teu nom i així apareixeràs al “saló de la fama”. Podràs veure els teus itineraris acabats o veure altres
+        Escriu el teu nom i així apareixeràs a la “Galeria dels Pirineus”. Podràs veure els teus itineraris acabats o veure altres
         rutes que et falten!
       </div>
 

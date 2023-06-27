@@ -46,7 +46,7 @@ export const useItineraryStore = defineStore('itinerary', () => {
   async function loadItineraries() {
     try {
       if (navigator.onLine) {
-        const query = `itineraries?populate=image&populate=image_preview&populate=character&populate=map&populate=audio&populate=answer_image&populate=answer_audio&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio`
+        const query = `itineraries?populate=image&populate=image_preview&populate=character&populate=map&populate=gpx&populate=audio&populate=answer_image&populate=answer_audio&populate=activities&populate=activities.image&populate=activities.audio&populate=activities.answer_image&populate=activities.answer_audio&populate=activities.options&populate=activities.options.image&populate=activities.options.audio&sort=order`
         const { data } = await service({ requiresAuth: false }).get(query)
 
         if (data.data && data.data.length) {

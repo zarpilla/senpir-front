@@ -9,6 +9,7 @@ import DistanceCheck from './DistanceCheck.vue'
 import Markdown from 'vue3-markdown-it';
 import ActivityTitle from './ActivityTitle.vue'
 import ItineraryMap from './ItineraryMap.vue'
+import ItineraryNav from './ItineraryNav.vue'
 import ActivityDone from './ActivityDone.vue'
 import ActivityOption from './ActivityOption.vue'
 import NameForm from './NameForm.vue'
@@ -94,23 +95,27 @@ watch(() => props.activity.options, (newValue) => {
   <div class="activity-outter">
 
     <div class="text-center" v-if="last && !answerOk">
-        <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />  
-      </div>
+      <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />
+    </div>
+
+    <ItineraryNav v-if="!answerOk && !last" :itinerary="itinerary" :num="index + 1"></ItineraryNav>
 
     <ActivityTitle v-if="!answerOk" :last="last" :activity="activity" :index="index"></ActivityTitle>
 
-    <ItineraryMap :itinerary="itinerary" v-if="!answerOk && !last" :num="index + 1"></ItineraryMap>
+    <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+
+    <Picture class="mt-5 mb-3 w-100-img" v-if="!answerOk && !last" :image="itinerary.attributes.map"></Picture>
 
     <div class="activity container pt-3 pb-3" :class="!answerOk ? 'pb-activity' : 'z'">
 
-      
+
 
       <Picture class="mt-5 mb-5" v-if="last && !answerOk" :image="itinerary.attributes.character"></Picture>
-      
+
 
       <div class="question" v-if="!answerOk">
 
-        <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+        
 
         <div class="text-center">
           <Audio class="pb-4" :audio="activity.audio"></Audio>
@@ -120,7 +125,7 @@ watch(() => props.activity.options, (newValue) => {
 
         <Markdown v-if="activity.description" :source="activity.description" />
 
-        
+
         <div class="text-center">
           <div class="text-center squirel">
             <img src="@/assets/images/squirel.svg" class="mt-4 mb-3" alt="" />
@@ -141,7 +146,8 @@ watch(() => props.activity.options, (newValue) => {
           <VueDraggableNext class="activity-options" v-model="unsorted" :move="onMoveCallback">
             <transition-group>
               <div v-for="(element, i) in unsorted" :key="element.id" class="activity-option mb-3">
-                <ActivityOption :last="last" :index="findOrderColor(element.option_code || element.id, i)" :option="element"></ActivityOption>
+                <ActivityOption :last="last" :index="findOrderColor(element.option_code || element.id, i)"
+                  :option="element"></ActivityOption>
               </div>
             </transition-group>
           </VueDraggableNext>
@@ -284,10 +290,11 @@ watch(() => props.activity.options, (newValue) => {
   line-height: 20px;
   padding-bottom: 10px;
 }
+
 /* .pb-activity{
   padding-bottom: 6rem!important;
 } */
-.mb-6{
+.mb-6 {
   margin-bottom: 5rem !important;
 }
 </style>

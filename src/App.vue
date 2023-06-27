@@ -26,7 +26,7 @@ const routeOk = ref("")
 //     changeView(HomeView)    
 //   }
 //   routeOk.value = route.params.slug
-  
+
 // });
 
 
@@ -54,15 +54,13 @@ function reset() {
   </header>
   <RouterView />
 
-  <nav>
-        <a v-if="gameStore.started" class="router-link" @click="reset()">Torna a començar</a>
-      </nav>
-      
+  <!-- <nav>
+    <a v-if="gameStore.started" class="router-link" @click="reset()">Torna a començar</a>
+  </nav> -->
+
   <!-- <div v-if="!routeOk">
     Atenció, no hem trobat la ruta.
   </div> -->
-
-
 </template>
 
 <style scoped>

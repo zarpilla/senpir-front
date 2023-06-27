@@ -9,6 +9,8 @@ import Picture from './Picture.vue'
 import ItineraryNav from '../components/ItineraryNav.vue'
 
 
+const apiBase = import.meta.env.VITE_API_BASE;
+
 const props = defineProps({
   itinerary: {
     type: Object,
@@ -29,8 +31,11 @@ const props = defineProps({
   num: {
     type: Number,
     required: false
-  }
-  
+  },
+  view: {
+    type: Number,
+    required: false
+  }  
 })
 
 
@@ -45,16 +50,25 @@ const props = defineProps({
 
     <div class="map-info pb-5">
       <div class="map-info-card p-3 text-center">
-        <img v-if="start" src="@/assets/images/boot.svg" class="boot mt-3 mb-2" alt="" />
+        <!-- <img v-if="start" src="@/assets/images/boot.svg" class="boot mt-3 mb-2" alt="" /> -->
 
-        <h1 class="pt-2">
+        <!-- <h1 class="pt-2">
           <RouterLink class="lnk" :to="`/${itinerary.attributes.slug}/inici`">
             {{ itinerary.attributes.name }}
           </RouterLink>
-        </h1>
+        </h1> -->
         
         <div v-if="!start" class="bordered-bottom pt-2 pb-2 mb-4">
         </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="fites-row"></div>
+          <div class="fites zpb-3 mb-3">FITES</div>
+          <div class="fites-row"></div>
+        </div>
+        
+
+        <ItineraryNav :view="view" :itinerary="itinerary" :num="num"></ItineraryNav>
 
         <div v-if="start" class="container text-center bordered mt-4 pt-3 mb-4 pb-3">
           <div class="row align-items-start">
@@ -72,16 +86,30 @@ const props = defineProps({
             </div>
           </div>
         </div>
+        <div v-if="start && itinerary.attributes.gpx && itinerary.attributes.gpx.data && itinerary.attributes.gpx.data.attributes && itinerary.attributes.gpx.data.attributes.url" class="container text-center">
+          <a class="track" target="_blank" :href="`${apiBase}${itinerary.attributes.gpx.data.attributes.url}`">
+            DESCARREGAR TRACK
+          </a>
+          <img src="@/assets/images/download.svg" class="zh0" alt="" />
 
-        <ItineraryNav :itinerary="itinerary" :num="num"></ItineraryNav>
+        
+        </div>
 
       </div>
 
       <div class="text-center mt-5 mb-5" v-if="start">
-        <RouterLink class="btn" :to="`/${itinerary.attributes.slug}/p/1`">
-          Començar
-          <img src="@/assets/images/button.svg" class="button-img" alt="" />
+        <RouterLink class="btn btn-start" :to="`/${itinerary.attributes.slug}/inici`" v-if="!view">
+          VOLEM COMENÇAR!
+          <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
         </RouterLink>
+
+        <span class="btn btn-start btn-start-disabled" v-if="view">
+          COMENÇAR!
+          <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
+        </span>
+        <div class="help mt-3 container" v-if="view">
+          Atenció, no pots començar l'itinerari per què no has entrat des del codi QR
+        </div>
       </div>
 
 
@@ -134,7 +162,35 @@ b {
 .bordered-bottom{
   border-bottom: 1px solid #003842;
 }
+.btn-start-disabled {
+  opacity: 0.5;
 
+}
+
+.fites{
+  font-size: 14px;
+font-weight: 600;
+line-height: 17px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+padding: 0 16px;
+}
+.fites-row{
+  background: #003842;
+  width: 100%;
+  height: 1px;
+  margin-top: 8px;
+}
+
+.track {
+  font-size: 14px;
+font-weight: 600;
+line-height: 17px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+text-decoration: underline;
+color: #003842
+}
 
 @media (min-width: 1024px) {
 .w-25-md {

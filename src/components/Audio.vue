@@ -26,7 +26,7 @@ const audioToBase64 = async (audioFile) => {
     let reader = new FileReader();
     reader.onerror = reject;
     reader.onload = (e) => { 
-      console.log('e.target.result', e.target.result)
+      // console.log('e.target.result', e.target.result)
       resolve(e.target.result)
     };
     reader.readAsDataURL(audioFile);
@@ -62,7 +62,12 @@ if (props.audio && props.audio.data && props.audio.data.attributes) {
 </script>
 
 <template>
-  <div class="audio-wrapper" :class="class" v-if="audio && audio.data && audio.data.attributes && loaded">    
+  <div class="audio-wrapper mb-4" :class="class" v-if="audio && audio.data && audio.data.attributes && loaded">        
+    <div class="d-flex text-center justify-content-center sound-wrapper">
+      <img src="@/assets/images/sound.svg" class="sound" alt="" />
+      <img src="@/assets/images/ear.svg" class="sound ear" alt="" />
+      <span class="txt">ESCOLTAR EL TEXT</span>
+    </div>
     <audio controls>
       <source :src="base64Audio" :type="audio.data.attributes.mime">
       El teu navegador no permet escoltar audio
@@ -72,4 +77,30 @@ if (props.audio && props.audio.data && props.audio.data.attributes) {
 </template>
 
 <style scoped>
+.audio-wrapper {
+  border-radius: 15px;
+  background: var(--senpir-verd-clar, #E0F0E5);
+  padding: 16px 10px;
+}
+.sound-wrapper{
+  margin: 6px auto 16px;
+}
+.sound{
+  margin-right: 4px;
+}
+.ear {
+  margin-right: 8px;
+}
+.txt {
+
+/* Botó/Medium */
+font-size: 14px;
+font-weight: 600;
+line-height: 17px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+}
+audio {
+  border-radius: 20px;
+}
 </style>

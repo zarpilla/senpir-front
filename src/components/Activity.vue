@@ -3,6 +3,7 @@ import Picture from './Picture.vue'
 import Audio from './Audio.vue'
 import DistanceCheck from './DistanceCheck.vue'
 import ItineraryMap from './ItineraryMap.vue'
+import ItineraryNav from './ItineraryNav.vue'
 
 import Next from './Next.vue'
 import { computed, ref, watch } from 'vue'
@@ -63,16 +64,20 @@ watch(() => props.activity.id, (newValue) => {
   <div class="activity-outter">
     
 
+    <ItineraryNav v-if="!answerOk" :itinerary="itinerary" :num="index + 1"></ItineraryNav>
+
     <ActivityTitle v-if="!answerOk" :activity="activity" :index="index"></ActivityTitle>
 
-    <ItineraryMap v-if="!answerOk" :itinerary="itinerary" :num="index + 1"></ItineraryMap>
+    <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+    
+    <Picture class="mt-5 mb-3 w-100-img" v-if="!answerOk" :image="itinerary.attributes.map"></Picture>
 
     <div class="activity container pt-3 pb-3" :class="!answerOk ? 'pb-activity' : 'z'">
       
 
       <div class="question zmb-5 zpb-2" v-if="!answerOk">
 
-        <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+        
 
         <div class="text-center">
           <Audio class="pb-4" :audio="activity.audio"></Audio>

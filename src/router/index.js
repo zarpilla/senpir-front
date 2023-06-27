@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import HomeView from '../views/HomeView.vue'
 import ItineraryView from '../views/ItineraryView.vue'
 import ItineraryPointView from '../views/ItineraryPointView.vue'
+import FirstView from '../views/FirstView.vue'
+import GaleriaView from '../views/GaleriaView.vue'
 
 
 const router = createRouter({
@@ -15,12 +17,19 @@ const router = createRouter({
     {
       path: '/:slug',
       name: 'home-slug',
-      component: HomeView
+      component: FirstView
     },
     {
       path: '/:slug/inici',
       name: 'itinerary',
-      component: ItineraryView
+      component: ItineraryView,
+      props: { start: true }
+    },
+    {
+      path: '/:slug/view',
+      name: 'itinerary-view',
+      component: FirstView,
+      props: { view: true }
     },
     {
       path: '/:slug/mid',
@@ -38,6 +47,11 @@ const router = createRouter({
       path: '/:slug/p/:num',
       name: 'point',
       component: ItineraryPointView
+    },
+    {
+      path: '/:slug/galeria',
+      name: 'galeriapoint',
+      component: GaleriaView
     }
   ],
   scrollBehavior(to, from, savedPosition) {

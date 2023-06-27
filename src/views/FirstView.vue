@@ -3,12 +3,13 @@ import Itinerary from '../components/Itinerary.vue'
 import ItineraryClue from '../components/ItineraryClue.vue'
 import ItineraryMap from '../components/ItineraryMap.vue'
 import ItineraryHeader from '../components/ItineraryHeader.vue'
-import ItineraryHeaderStart from '../components/ItineraryHeaderStart.vue'
-
 import { watch, ref, onMounted } from 'vue'
 import { useGameStore } from '@/stores/game'
 import { useItineraryStore } from '@/stores/itinerary'
 import { useRouter, useRoute } from 'vue-router'
+import ItineraryStart from '../components/ItineraryStart.vue'
+import ItineraryOffilineLoader from '../components/ItineraryOffilineLoader.vue'
+
 const router = useRouter();
 const route = useRoute()
 
@@ -16,15 +17,15 @@ const itineraryStore = useItineraryStore()
 const gameStore = useGameStore()
 
 const props = defineProps({
-  start: {
-    type: Boolean,
-    required: false
-  },
   mid: {
     type: Boolean,
     required: false
   },
   end: {
+    type: Boolean,
+    required: false
+  },
+  view: {
     type: Boolean,
     required: false
   }
@@ -58,9 +59,11 @@ watch(() => route.params.slug, (newValue) => {
 </script>
 <template>
   <div v-if="itinerary && game">
-    <ItineraryHeader v-if="!start" :itinerary="itinerary"></ItineraryHeader>
-    <ItineraryHeaderStart v-if="start" :itinerary="itinerary"></ItineraryHeaderStart>
-    <Itinerary :itinerary="itinerary" :mid="mid" :end="end"></Itinerary>
+    <itinerary-offiline-loader :itinerary="itinerary"></itinerary-offiline-loader>
+
+    <ItineraryHeader :itinerary="itinerary"></ItineraryHeader>
+    <ItineraryStart :itinerary="itinerary" :mid="mid" :end="end"></ItineraryStart>
+    <ItineraryMap :view="view" :itinerary="itinerary" :start="true"></ItineraryMap>
     <ItineraryClue :itinerary="itinerary"></ItineraryClue>
   </div>
 </template>

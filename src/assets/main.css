@@ -38,37 +38,42 @@ h2 {
   background: #F3C857 !important;
 }
 
-svg.fill-color-0  path{
+svg.fill-color-0 path {
   fill: #F3C857 !important;
 }
 
 .bg-color-1 {
   background: #E0A166 !important;
 }
-svg.fill-color-1  path{
+
+svg.fill-color-1 path {
   fill: #E0A166 !important;
 }
 
 .bg-color-2 {
   background: #DC5D7B !important;
 }
-svg.fill-color-2  path{
+
+svg.fill-color-2 path {
   fill: #DC5D7B !important;
 }
 
 .bg-color-3 {
   background: #ABD398 !important;
 }
-svg.fill-color-3  path{
+
+svg.fill-color-3 path {
   fill: #ABD398 !important;
 }
 
 .bg-color-4 {
   background: #65B1AD !important;
 }
-svg.fill-color-4  path{
+
+svg.fill-color-4 path {
   fill: #65B1AD !important;
 }
+
 .btn {
   border-radius: 25px;
   background: var(--blanc, #FFF);
@@ -83,4 +88,13 @@ svg.fill-color-4  path{
   text-transform: uppercase;
   color: #003842;
   text-decoration: none;
+}
+
+.btn-start {
+  background: var(--senpir-verd-fosc, linear-gradient(0deg, #003842 0%, #003842 100%), url(<path-to-image>), lightgray 50% / cover no-repeat);
+  color: #fff;
+  padding: 14px 30px;
+}
+.button-img{
+  margin-left: 6px;
 }

@@ -16,10 +16,11 @@ defineProps({
 
     <div class="d-flex flex-row p-3 pt-2 pb-2">
       <div class="col0 zp-2">
-        <RouterLink to="/">
+        <!-- <RouterLink to="/">
           <img src="@/assets/Logo_SENPIR_blanc.png" class="logo" alt="senpir" />
-        </RouterLink>
-      
+        </RouterLink> -->
+        <img src="@/assets/Logo_SENPIR_blanc.png" class="logo" alt="senpir" />
+        
     </div>    
     <div class="col1 zp-2">
       <h1 class="text-left br-white pr-2">{{ msg }}</h1>

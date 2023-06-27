@@ -23,6 +23,7 @@ console.log('offline loader')
       <Picture class="mt-2" :image="itinerary.attributes.map"></Picture>
       <Picture class="mt-2" :image="itinerary.attributes.character"></Picture>
       <Audio class="mt-2" :audio="itinerary.attributes.audio"></Audio>
+      <Picture class="mt-2" :image="itinerary.attributes.gpx"></Picture>
     </div>
     
     <div class="activities" v-for="(activity, i) in itinerary.attributes.activities" :key="activity.id">
@@ -55,6 +56,12 @@ console.log('offline loader')
     <img src="@/assets/images/squirel.svg" class="h0" alt="" />
     <img src="@/assets/images/tryagain.svg" class="h0" alt="" />
     <img src="@/assets/images/walking.svg" class="h0" alt="" />
+    <img src="@/assets/images/brujula.svg" class="h0" alt="" />
+    <img src="@/assets/images/flor.svg" class="h0" alt="" />
+    <img src="@/assets/images/download.svg" class="h0" alt="" />
+    <img src="@/assets/images/sound.svg" class="h0" alt="" />
+    <img src="@/assets/images/ear.svg" class="h0" alt="" />
+    <img src="@/assets/images/distance.svg" class="h0" alt="" />
     
     
   </div>

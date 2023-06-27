@@ -57,8 +57,8 @@ export const useGameStore = defineStore('game', () => {
     try {
       if (localStorage.getItem('games')) {
         games.value = JSON.parse(localStorage.getItem('games'))
-      }      
-
+      }
+      
       const uidKey = 'uid'      
       var uid = localStorage.getItem(uidKey)
       if (!uid) {
@@ -76,7 +76,7 @@ export const useGameStore = defineStore('game', () => {
         
         localStorage.setItem(uidDateKey, dt.toISOString())
 
-        localStorage.setItem('play.' + itinerary.attributes.slug, data.data.id)
+        // localStorage.setItem('play.' + itinerary.attributes.slug, data.data.id)
 
         playId = data.data.id
       }
@@ -87,12 +87,11 @@ export const useGameStore = defineStore('game', () => {
         const answers = itinerary.attributes.activities.map(a => "") 
         games.value.push({ slug: itinerary.attributes.slug, answers, started: true, playId: playId })
       } else {
-        game.playId = playId
+        // game.playId = playId
       }
 
-      
       localStorage.setItem('games', JSON.stringify(games.value))
-
+      
       return games.value
       
 
@@ -105,11 +104,37 @@ export const useGameStore = defineStore('game', () => {
 
     if (localStorage.getItem('games')) {
       games.value = JSON.parse(localStorage.getItem('games'))
+
+      const game = games.value.find(g => g.slug === slug)
+
+      console.log('games!', games.value)
+      console.log('game!', game.playId)
+      console.log('slug!', slug)
+
+      const { data } = await service({ requiresAuth: false }).put(`plays/${game.playId}`, { data: { end: new Date(), username: username } })
+    
     }
-    const game = games.value.find(g => g.slug === slug)
+    
 
-    const { data } = await service({ requiresAuth: false }).put(`plays/${game.playId}`, { data: { end: new Date(), username: username } })
+  }
 
+
+  async function loadGallery(userId) {
+    try {
+      if (navigator.onLine) {
+
+        var uid = localStorage.getItem('uid')
+
+        const query = `plays?filters[user][$eq]=${uid}&filters[end][$notNull]=true&populate=itinerary&populate=itinerary.character&sort=itinerary.order`
+        const { data } = await service({ requiresAuth: false }).get(query)
+
+        return data.data
+      }
+    }
+    catch (err) {
+      console.warn('err', err)
+      return []
+    }
   }
 
   function getGame(slug) {
@@ -121,7 +146,7 @@ export const useGameStore = defineStore('game', () => {
 
   }
 
-  return { games, answer, start, reset, setPoint, finish, getGame }
+  return { games, answer, start, reset, setPoint, finish, getGame, loadGallery }
 }, {
   persist: {
     enabled: false,

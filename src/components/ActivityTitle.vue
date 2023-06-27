@@ -18,9 +18,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="activity-title text-center">
-    <div v-if="!last" class="circle" :class="`bg-color-${index}`">{{index+1}}</div>    
-    <h1 class="pt-2 pb-4">{{ activity.name }}</h1>
+  <div class="activity-title container text-center">
+    <!-- <div v-if="!last" class="circle" :class="`bg-color-${index}`">{{index+1}}</div>     -->
+    <h1 class="mt-4 pt-2 pb-4">{{ activity.name }}</h1>
   </div>
 </template>
 
