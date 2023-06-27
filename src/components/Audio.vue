@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
+import localforage from 'localforage'
+
 import offline from '../offline/index'
 
 const props = defineProps({
@@ -16,21 +19,52 @@ const props = defineProps({
 const apiBase = import.meta.env.VITE_API_BASE;
 
 const audioInfo = ref("")
+const loaded = ref(false)
+
+const audioToBase64 = async (audioFile) => {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (e) => { 
+      console.log('e.target.result', e.target.result)
+      resolve(e.target.result)
+    };
+    reader.readAsDataURL(audioFile);
+  });
+}
+
+
+const saveToIDB = async (url) => {
+  const item = await localforage.getItem(url)
+  if (!item) {
+    const config = { responseType: 'blob' };
+    const response = await axios.get(url, config)
+    const base64 = await audioToBase64(response.data)
+    await localforage.setItem(url, base64)    
+  }  
+  const stored = await localforage.getItem(url)
+  return stored
+  
+}
+
+
+const base64Audio = ref("")
 
 if (props.audio && props.audio.data && props.audio.data.attributes) {
   audioInfo.value = props.audio.data.attributes
   const url = `${apiBase}${audioInfo.value.url}`
-  // offline.get(url).then(() => { console.log('offline', url)})
-  const audio = new Audio(url);
-  // console.log('audio', audio)
+  saveToIDB(url).then((base64) => {
+    base64Audio.value = base64;
+    loaded.value = true
+  })
 }
 
 </script>
 
 <template>
-  <div class="audio-wrapper" :class="class" v-if="audio && audio.data && audio.data.attributes">    
+  <div class="audio-wrapper" :class="class" v-if="audio && audio.data && audio.data.attributes && loaded">    
     <audio controls>
-      <source :src="`${apiBase}${audio.data.attributes.url}`" :type="audio.data.attributes.mime">
+      <source :src="base64Audio" :type="audio.data.attributes.mime">
       El teu navegador no permet escoltar audio
     </audio> 
   </div>
