@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import distanceSvc from '../utils/distance'
 import { useLocationStore } from '../stores/location'
-import * as utmLatlng from 'utm-latlng'
+import utmLatlng from 'utm-latlng'
 
 const props = defineProps({
   coords1: {
@@ -14,8 +14,11 @@ const props = defineProps({
 const distance = ref(0)
 const locationStore = useLocationStore();
 
-const utm = new utmLatlng()
+var utm = new utmLatlng()
+
 const lngLat = ref({})
+
+// utmLatlng.
 
 lngLat.value = utm.convertUtmToLatLng(props.coords1.latitude, props.coords1.longitude, '31', 'T')
 
