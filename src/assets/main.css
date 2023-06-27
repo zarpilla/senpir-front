@@ -91,7 +91,7 @@ svg.fill-color-4 path {
 }
 
 .btn-start {
-  background: var(--senpir-verd-fosc, linear-gradient(0deg, #003842 0%, #003842 100%), url(<path-to-image>), lightgray 50% / cover no-repeat);
+  background: var(--senpir-verd-fosc, #003842);
   color: #fff;
   padding: 14px 30px;
 }

@@ -11,7 +11,7 @@ const props = defineProps({
   }
 })
 
-const distance = ref(99999)
+const distance = ref(0)
 const locationStore = useLocationStore();
 
 const utm = new utmLatlng()
@@ -52,7 +52,7 @@ watch(() => locationStore.longitude, (newValue) => {
     <div class="separa mt-0 mb-3"></div>
     <div class="d-flex justify-content-center">
       <img src="@/assets/images/distance.svg" class="mx-2" alt="" />
-      <b class="mx-1">Distància fins la fita</b> {{ distance < 99999 ? distance.toFixed(0) : '???' }}m
+      <b class="mx-1">Distància fins la fita</b> {{ distance < 999999 ? distance.toFixed(0) : '???' }}m
     </div>
   </div>
 </template>

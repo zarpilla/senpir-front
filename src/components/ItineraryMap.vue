@@ -33,7 +33,7 @@ const props = defineProps({
     required: false
   },
   view: {
-    type: Number,
+    type: Boolean,
     required: false
   }  
 })
