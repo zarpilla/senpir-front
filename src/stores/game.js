@@ -53,7 +53,7 @@ export const useGameStore = defineStore('game', () => {
   // async function startActivities(slug, activities) {
   //   answers.value = activities.map(a => "") 
   // }
-  async function start(itinerary) {
+  async function start(itinerary, play) {
     try {
       if (localStorage.getItem('games')) {
         games.value = JSON.parse(localStorage.getItem('games'))
@@ -70,24 +70,17 @@ export const useGameStore = defineStore('game', () => {
       const uidDateKey = 'uid.' + itinerary.attributes.slug + '.' + dt.toISOString().split('T')[0]      
       var uidDate = localStorage.getItem(uidDateKey)
 
-      var playId = 0
-      if (!uidDate) {        
+      if (!uidDate && play) {
         const { data } = await service({ requiresAuth: false }).post(`plays`, { data: { start: new Date(), user: uid, itinerary: itinerary.id } })
         
         localStorage.setItem(uidDateKey, dt.toISOString())
-
-        // localStorage.setItem('play.' + itinerary.attributes.slug, data.data.id)
-
-        playId = data.data.id
       }
 
       const game = games.value.find(g => g.slug === itinerary.attributes.slug)
 
       if (!game) {
         const answers = itinerary.attributes.activities.map(a => "") 
-        games.value.push({ slug: itinerary.attributes.slug, answers, started: true, playId: playId })
-      } else {
-        // game.playId = playId
+        games.value.push({ slug: itinerary.attributes.slug, answers, started: true })
       }
 
       localStorage.setItem('games', JSON.stringify(games.value))
@@ -100,22 +93,25 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  async function finish(slug, username) {
+  async function finish(itineraryId, slug, username) {
 
-    if (localStorage.getItem('games')) {
-      games.value = JSON.parse(localStorage.getItem('games'))
+    const uidKey = 'uid'      
+    var uid = localStorage.getItem(uidKey)
+    if (!uid) {
+      uid = uuidv4()
+      localStorage.setItem(uidKey, uid)
+    }
 
-      const game = games.value.find(g => g.slug === slug)
+    let dt = new Date()
+    const uidDateKey = 'uid.finish.' + slug + '.' + dt.toISOString().split('T')[0]      
+    var uidDate = localStorage.getItem(uidDateKey)
 
-      console.log('games!', games.value)
-      console.log('game!', game.playId)
-      console.log('slug!', slug)
-
-      const { data } = await service({ requiresAuth: false }).put(`plays/${game.playId}`, { data: { end: new Date(), username: username } })
-    
+    if (!uidDate) {        
+      const { data } = await service({ requiresAuth: false }).post(`plays`, { data: { end: new Date(), user: uid, itinerary: itineraryId, username: username } })
+      
+      localStorage.setItem(uidDateKey, dt.toISOString())
     }
     
-
   }
 
 

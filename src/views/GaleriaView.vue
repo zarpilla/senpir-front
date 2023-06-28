@@ -72,7 +72,7 @@ watch(() => route.params.slug, (newValue) => {
 
       <div class="itineraries">
         <div class="character character-bb text-start mb-4" v-for="item in itineraryStore.itineraries">
-          <RouterLink class="to" :to="`/${item.attributes.slug}/view`">
+          <RouterLink class="to" :to="`/${route.params.slug}/view/${item.attributes.slug}`">
           <div class="d-flex head">
             <div class="circle number">
               {{ item.attributes.order }}

@@ -1,8 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useItineraryStore } from '../stores/itinerary'
-import { useGameStore } from '../stores/game'
-import { useLocationStore } from '../stores/location'
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import Picture from './Picture.vue'
@@ -127,7 +124,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
           <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
         </span>
         <div class="help mt-3 container" v-if="view">
-          Atenció, no pots començar l'itinerari per què no has entrat des del codi QR
+          Atenció, no pots començar aquest itinerari per què no has entrat des del codi QR
         </div>
       </div>
 

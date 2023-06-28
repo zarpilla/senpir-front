@@ -1,12 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { useGameStore } from '../stores/game'
 import { useLocationStore } from '../stores/location'
-import Picture from './Picture.vue'
-import Audio from './Audio.vue'
-import Markdown from 'vue3-markdown-it';
-import Next from './Next.vue'
-
 
 const locationStore = useLocationStore();
 
@@ -22,13 +16,14 @@ const optionsPosition = {
 const successPosition = (pos) => {
 
   location.value = pos
-  // console.log('gps', pos)
   if (pos.coords.latitude && pos.coords.longitude) {
+    locationStore.setEnabled(true)
     locationStore.setLocation({ latitude: pos.coords.latitude, longitude: pos.coords.longitude })
   }
 }
 
 const errorPosition = (err) => {
+  locationStore.setEnabled(false)
   console.error(`Please enable your GPS position feature. ERROR(${err.code}): ${err.message}`);
 }
 
@@ -41,6 +36,7 @@ onMounted(() => {
 
   } else {
     console.warn("Geolocation API is not supported in your browser.");
+    locationStore.setEnabled(false)
   }
 
 })

@@ -40,11 +40,13 @@ const itinerary = ref(null)
 const game = ref(null)
 
 const load = () => {
-  itineraryStore.loadItinerary(route.params.slug).then(it => {
+  const slug = route.params.slug2 ? route.params.slug2 : route.params.slug
+
+  itineraryStore.loadItinerary(slug).then(it => {
     itinerary.value = it
-    gameStore.start(it).then(() => {
-      game.value = gameStore.getGame(route.params.slug)
-    })    
+    gameStore.start(it, !props.view).then(() => {
+      game.value = gameStore.getGame(slug)
+    })
   })
 }
 
@@ -55,6 +57,10 @@ watch(() => route.params.slug, (newValue) => {
   if (newValue) {
     load()
   }
+})
+
+watch(() => route.params.slug2, (newValue) => {
+  load()
 })
 
 </script>

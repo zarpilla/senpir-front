@@ -1,10 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useGameStore } from '../stores/game'
-import { useLocationStore } from '../stores/location'
 import Picture from './Picture.vue'
-import Audio from './Audio.vue'
-import Markdown from 'vue3-markdown-it';
 
 
 const props = defineProps({

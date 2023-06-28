@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, reactive } from 'vue'
 import { useGameStore } from '../stores/game';
 import query from '../utils/query'
 import { useRouter, useRoute } from 'vue-router'
@@ -13,7 +13,16 @@ const onLine = ref(navigator.onLine)
 
 const username = ref("")
 
+const form = reactive({
+  username: ""
+});
 
+const props = defineProps({
+  itineraryId: {
+    type: Number,
+    required: true
+  }
+})
 
 const setOnline = () => {
   console.log('navigator.onLine true')
@@ -30,7 +39,7 @@ window.addEventListener('offline', setOffline)
 
 
 const send = async () => {
-  await gameStore.finish(route, username.value)
+  await gameStore.finish(props.itineraryId, route, form.username)
   router.push('/' + route + '/galeria')
 }
 
@@ -50,12 +59,12 @@ const send = async () => {
         rutes que et falten!
       </div>
 
-      <input class="mt-3 mb-3 w-100" type="text" placeholder="NOM" v-model="username" />
+      <input class="mt-3 mb-3 w-100" type="text" placeholder="NOM" v-model="form.username" />
       <div v-if="!onLine" class="mt-1 mb-3">
         Atenció, no tens cobertura!
         Només podràs accedir al saló de la fama quan tinguis dades.
       </div>
-      <button class="w-100 mb-5" :disabled="!onLine || !username" @click="send">ENVIAR DADES I VEURE<br>SALÓ DE LA
+      <button class="w-100 mb-5" :disabled="!onLine || !form.username" @click="send">ENVIAR DADES I VEURE<br>SALÓ DE LA
         FAMA</button>
 
 

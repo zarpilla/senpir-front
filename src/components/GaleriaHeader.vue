@@ -1,12 +1,4 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useItineraryStore } from '../stores/itinerary'
-import { useGameStore } from '../stores/game'
-import { useLocationStore } from '../stores/location'
-import ItineraryOffilineLoader from './ItineraryOffilineLoader.vue'
-import query from '../utils/query'
-
-
 const props = defineProps({
 })
 

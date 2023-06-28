@@ -26,7 +26,7 @@ const router = createRouter({
       props: { start: true }
     },
     {
-      path: '/:slug/view',
+      path: '/:slug/view/:slug2',
       name: 'itinerary-view',
       component: FirstView,
       props: { view: true }

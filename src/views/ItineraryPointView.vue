@@ -25,7 +25,7 @@ const activity = ref(null)
 const load = () => {
   itineraryStore.loadItinerary(route.params.slug).then(it => {
     itinerary.value = it
-    gameStore.start(it).then(() => {
+    gameStore.start(it, true).then(() => {
       game.value = gameStore.getGame(route.params.slug)
 
       activity.value = itinerary.value.attributes.activities[num.value - 1]

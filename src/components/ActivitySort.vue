@@ -176,7 +176,7 @@ watch(() => props.activity.options, (newValue) => {
 
     </div>
 
-    <NameForm v-if="answerOk && last"></NameForm>
+    <NameForm :itinerary-id="itinerary.id" v-if="answerOk && last"></NameForm>
 
     <Next v-if="!last" :itinerary="itinerary" :index="index"></Next>
 
