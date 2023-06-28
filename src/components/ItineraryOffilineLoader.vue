@@ -42,7 +42,7 @@ console.log('offline loader')
       <Audio :audio="itinerary.attributes.answer_audio"></Audio>          
     </div>
     
-    <img src="/favicon.ico" class="h0" alt="" />
+    <img src="/favicon.png" class="h0" alt="" />
     <img src="@/assets/images/agla-enigma.svg" class="h0" alt="" />
     <img src="@/assets/images/agla-group.svg" class="h0" alt="" />
     <img src="@/assets/images/agla.svg" class="h0" alt="" />    
@@ -62,6 +62,9 @@ console.log('offline loader')
     <img src="@/assets/images/sound.svg" class="h0" alt="" />
     <img src="@/assets/images/ear.svg" class="h0" alt="" />
     <img src="@/assets/images/distance.svg" class="h0" alt="" />
+    <img src="@/assets/images/flag.svg" class="h0" alt="" />
+    <img src="@/assets/images/arrow-right.svg" class="h0" alt="" />
+    <img src="@/assets/images/mapa-pirineus.png" class="h0" alt="" />
     
     
   </div>

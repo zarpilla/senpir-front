@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter, useRoute, RouterLink } from 'vue-router'
 import { watch, onMounted } from 'vue'
+import query from '../utils/query'
 defineProps({
   msg: {
     type: String,
@@ -9,6 +10,10 @@ defineProps({
 
   // $route.params.id
 })
+
+
+const route = query.getSlugFromHash()
+
 </script>
 
 <template>
@@ -16,10 +21,10 @@ defineProps({
 
     <div class="d-flex flex-row p-3 pt-2 pb-2">
       <div class="col0 zp-2">
-        <!-- <RouterLink to="/">
+        <img v-if="!route" src="@/assets/Logo_SENPIR_blanc.png" class="logo" alt="senpir" />
+        <RouterLink v-else :to="`/${route}`">
           <img src="@/assets/Logo_SENPIR_blanc.png" class="logo" alt="senpir" />
-        </RouterLink> -->
-        <img src="@/assets/Logo_SENPIR_blanc.png" class="logo" alt="senpir" />
+        </RouterLink>
         
     </div>    
     <div class="col1 zp-2">

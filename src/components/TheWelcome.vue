@@ -28,7 +28,7 @@ itineraryStore.loadItineraries().then(its => {
     <br />
 
     <div class="row it-cont pt-3" v-for="itinerary in itineraries">
-      <div class="col col-md-4">
+      <div class="col col-md-12">
       <RouterLink class="it-link" :to="`/${itinerary.attributes.slug}`">
         {{ itinerary.attributes.name }}
         <Picture :cover="true" class="w-100-img mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture>

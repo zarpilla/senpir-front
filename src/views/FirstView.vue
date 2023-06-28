@@ -1,6 +1,7 @@
 <script setup>
 import Itinerary from '../components/Itinerary.vue'
 import ItineraryClue from '../components/ItineraryClue.vue'
+import ItineraryAll from '../components/ItineraryAll.vue'
 import ItineraryMap from '../components/ItineraryMap.vue'
 import ItineraryHeader from '../components/ItineraryHeader.vue'
 import { watch, ref, onMounted } from 'vue'
@@ -64,7 +65,7 @@ watch(() => route.params.slug, (newValue) => {
     <ItineraryHeader :itinerary="itinerary"></ItineraryHeader>
     <ItineraryStart :itinerary="itinerary" :mid="mid" :end="end"></ItineraryStart>
     <ItineraryMap :view="view" :itinerary="itinerary" :start="true"></ItineraryMap>
-    <ItineraryClue :itinerary="itinerary"></ItineraryClue>
+    <ItineraryAll :back="false" :slug="route.params.slug"></ItineraryAll>
   </div>
 </template>
 

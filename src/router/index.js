@@ -4,7 +4,7 @@ import ItineraryView from '../views/ItineraryView.vue'
 import ItineraryPointView from '../views/ItineraryPointView.vue'
 import FirstView from '../views/FirstView.vue'
 import GaleriaView from '../views/GaleriaView.vue'
-
+import RoutesView from '../views/RoutesView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -50,8 +50,13 @@ const router = createRouter({
     },
     {
       path: '/:slug/galeria',
-      name: 'galeriapoint',
+      name: 'galeria',
       component: GaleriaView
+    },
+    {
+      path: '/:slug/routes',
+      name: 'view-all-routes',
+      component: RoutesView
     }
   ],
   scrollBehavior(to, from, savedPosition) {
