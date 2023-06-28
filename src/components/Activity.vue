@@ -35,7 +35,7 @@ const checked = ref(props.activity.options.map(o => false))
 
 const answers = ref(props.activity.options.map(o => o.answer))
 
-const answerOk = ref(false) // computed(() => answers.value.every((val, idx) => val === checked.value[idx]))
+const answerOk = computed(() => answers.value.every((val, idx) => val === checked.value[idx]))
 
 const answerOkCount = computed(() => props.activity.options.filter(o => o.answer).length)
 
@@ -44,9 +44,9 @@ const checkOption = (i) => {
     checked.value[i] = !checked.value[i]
   }
 
-  setTimeout(() => {
-    answerOk.value = answers.value.every((val, idx) => val === checked.value[idx])
-  }, 1000)
+  // setTimeout(() => {
+  //   answerOk.value = answers.value.every((val, idx) => val === checked.value[idx])
+  // }, 1000)
   
 }
 
@@ -58,7 +58,7 @@ watch(answerOk, (newValue) => {
 })
 
 watch(() => props.activity.id, (newValue) => {
-  answerOk.value = false
+  // answerOk.value = false
   if (newValue) {
     checked.value = props.activity.options.map(o => false)
     answers.value = props.activity.options.map(o => o.answer)
