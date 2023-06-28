@@ -33,12 +33,12 @@ const activities = props.itinerary.attributes.activities.filter((a, i) => i < pr
 <template>
   <div class="greetings" v-if="props.itinerary">
 
-    <div class="d-flex mt-5 zmb-2 justify-content-center">
+    <div class="d-flex mt-3 zmb-2 justify-content-center">
 
       <!-- <RouterLink class="pr-1" :disabled="gameStore.point == 'start'" :to="`/${itineraryStore.slug}/inici`">INICI</RouterLink> -->
 
       <div class="ball-outter" v-for="(a, i) in activities" :key="i">
-        <RouterLink class="ball p-2" :class="i + 1 <= props.num || props.num === undefined ? `bg-color-${i}` : 'bg-disabled'" :to="view ? '' : `/${props.itinerary.attributes.slug}/p/${i + 1}`">{{ i + 1 }}
+        <RouterLink class="ball px-2" :class="i + 1 <= props.num || props.num === undefined ? `bg-color-${i}` : 'bg-disabled'" :to="view ? '' : `/${props.itinerary.attributes.slug}/p/${i + 1}`">{{ i + 1 }}
         </RouterLink>
         <div v-if="i < activities.length - 1" class="ball-row"></div>
       </div>
@@ -70,13 +70,13 @@ h3 {
   background: #F3C857;
   display: block;
   margin: 0 8px;
-
   font-weight: 600;
   font-size: 20px;
-  line-height: 17px;
+  line-height: 30px;
   color: #003842;
   text-decoration: none;
   z-index: 10;
+  text-align: center;
 }
 
 .ball-outter {

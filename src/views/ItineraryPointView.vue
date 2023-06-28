@@ -5,6 +5,7 @@ import { useGameStore } from '../stores/game'
 import { computed, ref, watch } from 'vue'
 import Activity from '../components/Activity.vue'
 import ActivitySort from '../components/ActivitySort.vue'
+import ItineraryGPS from '../components/ItineraryGPS.vue'
 
 const router = useRouter();
 const route = useRoute()
@@ -88,6 +89,7 @@ watch(() => gameStore.started, (newValue) => {
 </script>
 <template>
   <div v-if="itinerary && game">
+    <ItineraryGPS></ItineraryGPS>
     <ActivitySort :itinerary="itinerary" v-if="game.started && activity && activity.id && activity.type === 'sort'"
       :activity="activity" :index="num - 1"></ActivitySort>
     <Activity :itinerary="itinerary" v-if="game.started && activity && activity.id && activity.type !== 'sort'"

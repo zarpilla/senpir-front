@@ -35,7 +35,7 @@ const checked = ref(props.activity.options.map(o => false))
 
 const answers = ref(props.activity.options.map(o => o.answer))
 
-const answerOk = computed(() => answers.value.every((val, idx) => val === checked.value[idx]))
+const answerOk = ref(false) // computed(() => answers.value.every((val, idx) => val === checked.value[idx]))
 
 const answerOkCount = computed(() => props.activity.options.filter(o => o.answer).length)
 
@@ -43,6 +43,11 @@ const checkOption = (i) => {
   if (answerOk.value === false) {
     checked.value[i] = !checked.value[i]
   }
+
+  setTimeout(() => {
+    answerOk.value = answers.value.every((val, idx) => val === checked.value[idx])
+  }, 1000)
+  
 }
 
 watch(answerOk, (newValue) => {
@@ -53,6 +58,7 @@ watch(answerOk, (newValue) => {
 })
 
 watch(() => props.activity.id, (newValue) => {
+  answerOk.value = false
   if (newValue) {
     checked.value = props.activity.options.map(o => false)
     answers.value = props.activity.options.map(o => o.answer)
@@ -61,14 +67,14 @@ watch(() => props.activity.id, (newValue) => {
 </script>
 
 <template>
-  <div class="activity-outter">
+  <div class="activity-outter mt-4 pt-2">
     
 
     <ItineraryNav v-if="!answerOk" :itinerary="itinerary" :num="index + 1"></ItineraryNav>
 
     <ActivityTitle v-if="!answerOk" :activity="activity" :index="index"></ActivityTitle>
 
-    <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+    <DistanceCheck v-if="!answerOk" :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
     
     <Picture class="mt-5 mb-3 w-100-img" v-if="!answerOk" :image="itinerary.attributes.map"></Picture>
 

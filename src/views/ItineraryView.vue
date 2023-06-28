@@ -1,7 +1,7 @@
 <script setup>
 import Itinerary from '../components/Itinerary.vue'
 import ItineraryClue from '../components/ItineraryClue.vue'
-import ItineraryMap from '../components/ItineraryMap.vue'
+import ItineraryGPS from '../components/ItineraryGPS.vue'
 import ItineraryHeader from '../components/ItineraryHeader.vue'
 import ItineraryHeaderStart from '../components/ItineraryHeaderStart.vue'
 
@@ -58,6 +58,7 @@ watch(() => route.params.slug, (newValue) => {
 </script>
 <template>
   <div v-if="itinerary && game">
+    <ItineraryGPS></ItineraryGPS>
     <ItineraryHeader v-if="!start" :itinerary="itinerary"></ItineraryHeader>
     <ItineraryHeaderStart v-if="start" :itinerary="itinerary"></ItineraryHeaderStart>
     <Itinerary :itinerary="itinerary" :mid="mid" :end="end"></Itinerary>

@@ -26,9 +26,9 @@ const props = defineProps({
       <div class="container mb-5">
 
         <div class="row">
-          <div class="col-12 col-md-6 pt-md-5">
+          <div class="col-12 col-md-12 pt-md-5">
 
-            <div class="col-12 col-md-6 pt-md-5">
+            <div class="col-12 col-md-12 pt-md-5">
 
               <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture>
 

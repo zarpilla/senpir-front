@@ -29,7 +29,7 @@ const props = defineProps({
   <div>
     <div class="answer-done zmb-5" v-if="!last">
 
-      <div class="text-center mt-5">
+      <div class="text-center mt-2">
         <img src="@/assets/images/ok.svg" class="ok" alt="" />
       </div>
 

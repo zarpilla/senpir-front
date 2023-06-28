@@ -51,12 +51,19 @@ watch(() => locationStore.longitude, (newValue) => {
 </script>
 
 <template>
-  <div class="container distance-wrapper">
+  <div class="container distance-wrapper ms-auto me-auto">
+    <div class="text-center">
     <div class="separa mt-0 mb-3"></div>
     <div class="d-flex justify-content-center">
       <img src="@/assets/images/distance.svg" class="mx-2" alt="" />
-      <b class="mx-1">Distància fins la fita</b> {{ distance.toFixed(0) }}m
-    </div>
+      <b class="mx-1">Distància fins la fita</b> {{ distance.toFixed(0) > 1000 ? (distance / 1000).toFixed(2) : distance.toFixed(0) }}{{ distance.toFixed(0) > 1000 ? 'km' : 'm' }}
+    </div>  
+    <!-- <div class="z">
+      <div v-if="coords1">coords1: {{ coords1.latitude }}, {{ coords1.longitude }}</div>
+      <div v-if="lngLat">lngLat: {{ lngLat.lat }}, {{ lngLat.lng }}</div>
+      <div v-if="locationStore">position: {{ locationStore.latitude }}, {{ locationStore.longitude }}</div>
+    </div> -->
+  </div>
   </div>
 </template>
 

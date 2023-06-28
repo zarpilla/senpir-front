@@ -61,9 +61,9 @@ const props = defineProps({
         <div v-if="!start" class="bordered-bottom pt-2 pb-2 mb-4">
         </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mt-3">
           <div class="fites-row"></div>
-          <div class="fites zpb-3 mb-3">FITES</div>
+          <div class="fites">FITES</div>
           <div class="fites-row"></div>
         </div>
         

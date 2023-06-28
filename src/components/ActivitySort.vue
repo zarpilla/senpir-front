@@ -61,11 +61,15 @@ const unsortedAnswers = computed(() => (unsorted.value.map(o => o.option_code ||
 
 const answerOk = computed(() => answers.value.every((val, idx) => val === unsortedAnswers.value[idx]))
 
+// const answerOk = ref(false)
 
 const last = computed(() => props.index === props.itinerary.attributes.activities.length - 1)
 
 
 const onMoveCallback = (evt, originalEvent) => {
+
+  // answerOk.value = answers.value.every((val, idx) => val === unsortedAnswers.value[idx])
+
   if (answerOk.value) {
     return false
   }
@@ -85,14 +89,24 @@ watch(answerOk, (newValue) => {
 
 watch(() => props.activity.options, (newValue) => {
   if (newValue) {
+    // answerOk.value = false
     unsorted.value = [...shuffleArray([...props.activity.options])]
     answers.value = props.activity.options.map(o => o.option_code || o.id)
   }
 })
+
+// watch(() => props.activity.id, (newValue) => {
+//   answerOk.value = false
+//   if (newValue) {
+//     checked.value = props.activity.options.map(o => false)
+//     answers.value = props.activity.options.map(o => o.answer)
+//   }
+// })
+
 </script>
 
 <template>
-  <div class="activity-outter">
+  <div class="activity-outter mt-4 pt-2">
 
     <div class="text-center" v-if="last && !answerOk">
       <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />
@@ -102,7 +116,7 @@ watch(() => props.activity.options, (newValue) => {
 
     <ActivityTitle v-if="!answerOk" :last="last" :activity="activity" :index="index"></ActivityTitle>
 
-    <DistanceCheck :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+    <DistanceCheck v-if="!answerOk" :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
     <Picture class="mt-5 mb-3 w-100-img" v-if="!answerOk && !last" :image="itinerary.attributes.map"></Picture>
 
