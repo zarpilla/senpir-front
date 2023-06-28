@@ -7,6 +7,7 @@ import { RouterLink } from 'vue-router'
 
 import Picture from './Picture.vue'
 import ItineraryNav from '../components/ItineraryNav.vue'
+import gps from '../utils/gps'
 
 
 const apiBase = import.meta.env.VITE_API_BASE;
@@ -39,6 +40,9 @@ const props = defineProps({
 })
 
 
+const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude: props.itinerary.attributes.latitude, longitude: props.itinerary.attributes.longitude }) : {}) 
+
+
 </script>
 
 <template>
@@ -61,16 +65,9 @@ const props = defineProps({
         <div v-if="!start" class="bordered-bottom pt-2 pb-2 mb-4">
         </div>
 
-        <div class="d-flex justify-content-between mt-3">
-          <div class="fites-row"></div>
-          <div class="fites">FITES</div>
-          <div class="fites-row"></div>
-        </div>
         
-
-        <ItineraryNav :view="view" :itinerary="itinerary" :num="num"></ItineraryNav>
-
-        <div v-if="start" class="container text-center bordered mt-4 pt-3 mb-4 pb-3">
+        
+        <div v-if="start" class="container text-center bordered mt-2 zpt-3 mb-2 pb-2">
           <div class="row align-items-start">
             <div class="col">
               <b>Distància</b>
@@ -86,10 +83,32 @@ const props = defineProps({
             </div>
           </div>
         </div>
+
+        <div class="d-flex justify-content-between mt-2">
+          <div class="fites-row"></div>
+          <div class="fites">FITES</div>
+          <div class="fites-row"></div>
+        </div>
+
+        <ItineraryNav :view="view" :itinerary="itinerary" :num="num"></ItineraryNav>
+
+        <div v-if="start && itinerary.attributes.latitude && itinerary.attributes.longitude" class="bordered-bottom pt-3 pb-2 mb-4">
+        </div>
+
+        <div v-if="start && itinerary.attributes.latitude && itinerary.attributes.longitude" class="container text-center">
+          <div class="d-flex justify-content-center">
+            <img src="@/assets/images/location.svg" class="location me-2" alt="" />
+            <div class="text-start coords">
+              {{ latLng.lat }},<br>{{ latLng.lng }}
+            </div>
+          </div>          
+        </div>
+
+        <div v-if="start" class="bordered-bottom pt-3 pb-2 mb-4">
+        </div>
+        
         <div v-if="start && itinerary.attributes.gpx && itinerary.attributes.gpx.data && itinerary.attributes.gpx.data.attributes && itinerary.attributes.gpx.data.attributes.url" class="container text-center">
-          <a class="track" target="_blank" :href="`${apiBase}${itinerary.attributes.gpx.data.attributes.url}`">
-            DESCARREGAR TRACK
-          </a>
+          <a class="track pe-1" target="_blank" :href="`${apiBase}${itinerary.attributes.gpx.data.attributes.url}`">DESCARREGAR TRACK</a>
           <img src="@/assets/images/download.svg" class="zh0" alt="" />
 
         
@@ -155,8 +174,8 @@ b {
 }
 
 .bordered {
-  border-top: 1px solid #003842;
-  border-bottom: 1px solid #003842;
+  /* border-top: 1px solid #003842;
+  border-bottom: 1px solid #003842; */
   font-size: 14px;
 }
 .bordered-bottom{
@@ -190,6 +209,13 @@ letter-spacing: 1.5px;
 text-transform: uppercase;
 text-decoration: underline;
 color: #003842
+}
+
+.coords {
+  
+/* Text/Small */
+font-size: 14px;
+line-height: 17px;
 }
 
 @media (min-width: 1024px) {

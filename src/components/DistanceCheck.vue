@@ -53,17 +53,31 @@ watch(() => locationStore.longitude, (newValue) => {
 <template>
   <div class="container distance-wrapper ms-auto me-auto">
     <div class="text-center">
-    <div class="separa mt-0 mb-3"></div>
-    <div class="d-flex justify-content-center">
-      <img src="@/assets/images/distance.svg" class="mx-2" alt="" />
-      <b class="mx-1">Distància fins la fita</b> {{ distance.toFixed(0) > 1000 ? (distance / 1000).toFixed(2) : distance.toFixed(0) }}{{ distance.toFixed(0) > 1000 ? 'km' : 'm' }}
-    </div>  
-    <!-- <div class="z">
+
+      <div v-if="lngLat && lngLat.lat" class="container text-center mt-0 mb-4">
+        <div class="d-flex justify-content-center">
+          <img src="@/assets/images/location.svg" class="location me-2" alt="" />
+          <div class="text-start coords">
+            {{ lngLat.lat }},<br>{{ lngLat.lng }}
+          </div>
+        </div>
+      </div>
+
+      <div class="separa mt-0 mb-3" v-if="lngLat && lngLat.lat"></div>
+      <div class="d-flex justify-content-center" v-if="lngLat && lngLat.lat">
+        <img src="@/assets/images/distance.svg" class="mx-2" alt="" />
+        <b class="mx-1">Distància fins la fita</b> {{ distance.toFixed(0) > 1000 ? (distance / 1000).toFixed(2) :
+          distance.toFixed(0) }}{{ distance.toFixed(0) > 1000 ? 'km' : 'm' }}
+      </div>
+
+
+
+      <!-- <div class="z">
       <div v-if="coords1">coords1: {{ coords1.latitude }}, {{ coords1.longitude }}</div>
       <div v-if="lngLat">lngLat: {{ lngLat.lat }}, {{ lngLat.lng }}</div>
       <div v-if="locationStore">position: {{ locationStore.latitude }}, {{ locationStore.longitude }}</div>
     </div> -->
-  </div>
+    </div>
   </div>
 </template>
 
@@ -74,6 +88,7 @@ watch(() => locationStore.longitude, (newValue) => {
   font-weight: 600;
   line-height: 17px;
 }
+
 .separa {
   width: 12vw;
   height: 0px;
@@ -82,6 +97,13 @@ watch(() => locationStore.longitude, (newValue) => {
   margin: auto;
 }
 
+.coords {
+  /* Text/Small */
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: normal;
+
+}
 </style>
 
 
