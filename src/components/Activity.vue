@@ -67,7 +67,7 @@ watch(() => props.activity.id, (newValue) => {
 </script>
 
 <template>
-  <div class="activity-outter mt-4 pt-2">
+  <div class="activity-outter" :class="!answerOk ? 'mt-4 pt-2' : 'pt-2'">
     
 
     <ItineraryNav v-if="!answerOk" :itinerary="itinerary" :num="index + 1"></ItineraryNav>

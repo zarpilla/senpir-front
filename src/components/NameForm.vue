@@ -64,8 +64,7 @@ const send = async () => {
         Atenció, no tens cobertura!
         Només podràs accedir al saló de la fama quan tinguis dades.
       </div>
-      <button class="w-100 mb-5" :disabled="!onLine || !form.username" @click="send">ENVIAR DADES I VEURE<br>SALÓ DE LA
-        FAMA</button>
+      <button class="w-100 mb-5" :disabled="!onLine || !form.username" @click="send">ENVIAR DADES I VEURE LA<br>GALERIA DELS PIRINEUS</button>
 
 
     </div>

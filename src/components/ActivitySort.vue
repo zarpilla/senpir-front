@@ -8,7 +8,7 @@ import { VueDraggableNext } from 'vue-draggable-next'
 import DistanceCheck from './DistanceCheck.vue'
 import Markdown from 'vue3-markdown-it';
 import ActivityTitle from './ActivityTitle.vue'
-import ItineraryMap from './ItineraryMap.vue'
+import ItineraryAll from './ItineraryAll.vue'
 import ItineraryNav from './ItineraryNav.vue'
 import ActivityDone from './ActivityDone.vue'
 import ActivityOption from './ActivityOption.vue'
@@ -106,7 +106,7 @@ watch(() => props.activity.options, (newValue) => {
 </script>
 
 <template>
-  <div class="activity-outter mt-4 pt-2">
+  <div class="activity-outter" :class="!answerOk ? 'mt-4 pt-2' : 'pt-2'">
 
     <div class="text-center" v-if="last && !answerOk">
       <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />
@@ -181,6 +181,11 @@ watch(() => props.activity.options, (newValue) => {
     <Next v-if="!last" :itinerary="itinerary" :index="index"></Next>
 
     <ItineraryClue v-if="!last || (last && !answerOk)" :itinerary="itinerary"></ItineraryClue>
+
+    <!-- <div class="mt-5" v-if="last && answerOk">
+      <ItineraryAll v-if="last && answerOk"></ItineraryAll>
+    </div> -->
+    
 
   </div>
 </template>

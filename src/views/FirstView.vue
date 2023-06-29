@@ -1,6 +1,4 @@
 <script setup>
-import Itinerary from '../components/Itinerary.vue'
-import ItineraryClue from '../components/ItineraryClue.vue'
 import ItineraryAll from '../components/ItineraryAll.vue'
 import ItineraryMap from '../components/ItineraryMap.vue'
 import ItineraryHeader from '../components/ItineraryHeader.vue'

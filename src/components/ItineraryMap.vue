@@ -113,7 +113,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
 
       </div>
 
-      <div class="text-center mt-5 mb-5" v-if="start">
+      <div class="container text-center mt-5 mb-5" v-if="start">
         <RouterLink class="btn btn-start" :to="`/${itinerary.attributes.slug}/inici`" v-if="!view">
           VOLEM COMENÇAR!
           <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
@@ -122,11 +122,11 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
         <span class="btn btn-start btn-start-disabled" v-if="view">
           COMENÇAR!
           <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
-        </span>
-        <div class="help mt-3 container" v-if="view">
+        </span>        
+      </div>
+      <div class="help mt-1 mb-5 container" v-if="start && view">
           Atenció, no pots començar aquest itinerari per què no has entrat des del codi QR
         </div>
-      </div>
 
 
     </div>

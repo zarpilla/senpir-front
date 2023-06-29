@@ -33,7 +33,7 @@ const props = defineProps({
         <img src="@/assets/images/ok.svg" class="ok" alt="" />
       </div>
 
-      <h1 class="text-center mb-4">Enhorabona!</h1>
+      <h1 class="text-center mb-5 mt-2">Enhorabona!</h1>
 
       <div class="activity-options mt-2 mb-4">
         <div class="activity-option mb-3" :class="'active'" v-for="(option, i) in activity.options" :key="option.id">
@@ -194,7 +194,7 @@ const props = defineProps({
 .answer-code {
   border-radius: 15px;
   padding: 1.5rem 0;
-  margin-bottom: 6rem;
+  margin-bottom: 0rem;
 }
 
 .circle {
@@ -235,6 +235,6 @@ const props = defineProps({
 }
 
 .answer-done {
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 </style>
