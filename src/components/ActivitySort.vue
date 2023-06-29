@@ -223,6 +223,7 @@ watch(() => props.activity.options, (newValue) => {
   width: 100%;
   height: 100%;
   position: absolute;
+  z-index: 2;
 }
 
 .overlay-false {
@@ -231,7 +232,7 @@ watch(() => props.activity.options, (newValue) => {
   width: 100%;
   height: 100%;
   position: absolute;
-
+  z-index: 2;
 }
 
 .activity-option {

@@ -2,7 +2,7 @@
 import Picture from './Picture.vue'
 import Audio from './Audio.vue'
 import Markdown from 'vue3-markdown-it';
-
+import ActivityOption from './ActivityOption.vue'
 
 const props = defineProps({
   activity: {
@@ -20,7 +20,7 @@ const props = defineProps({
   itinerary: {
     type: Object,
     required: true
-  },
+  }
 })
 
 </script>
@@ -35,6 +35,20 @@ const props = defineProps({
 
       <h1 class="text-center mb-4">Enhorabona!</h1>
 
+      <div class="activity-options mt-2 mb-4">
+        <div class="activity-option mb-3" :class="'active'" v-for="(option, i) in activity.options" :key="option.id">
+          <div class="overlay-true" v-if="option.answer && activity.type !== 'sort'">
+            <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />
+          </div>
+          <div class="overlay-false text-center" v-if="!option.answer && activity.type !== 'sort'">
+            <img src="@/assets/images/tryagain.svg" class="tryagain" alt="" />
+          </div>
+
+          <ActivityOption :index="i" :option="option"></ActivityOption>
+
+        </div>
+      </div>
+
       <div class="answer-content pb-4">
         <Markdown class="answer-text" v-if="activity.answer_text" :source="activity.answer_text" />
         <Audio :audio="activity.answer_audio"></Audio>
@@ -45,7 +59,7 @@ const props = defineProps({
         <h2 v-if="activity.answer_code">Clau per al<br>repte final:</h2>
       </div>
       <div class="answer-code mt-4" :class="`bg-color-${index}`">
-        <div class="zcircle mr-auto ml-auto text-center" :class="activity.answer_code.length > 1 ? 'circle-bg': 'circle'">
+        <div class="zcircle mr-auto ml-auto text-center" :class="activity.answer_code.length > 1 ? 'circle-bg' : 'circle'">
           {{ activity.answer_code }}
         </div>
       </div>
@@ -56,18 +70,33 @@ const props = defineProps({
       </div>
       <h1 class="text-center mb-4">
         Perfecte,<br><span class="text-uppercase">{{ activity.answer_code }}</span>
-      </h1>      
+      </h1>
+
+      <div class="activity-options mt-2 mb-4">
+        <div class="activity-option mb-3" :class="'active'" v-for="(option, i) in activity.options" :key="option.id">
+          <!-- <div class="overlay-true" v-if="option.answer || activity.type === 'sort'">
+            <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />
+          </div>
+          <div class="overlay-false text-center" v-else>
+            <img src="@/assets/images/tryagain.svg" class="tryagain" alt="" />
+          </div> -->
+
+          <ActivityOption :index="i" :option="option"></ActivityOption>
+
+        </div>
+      </div>
+
       <div class="zanswer-content pb-4">
         <Markdown class="answer-text" v-if="activity.answer_text" :source="activity.answer_text" />
         <Audio :audio="activity.answer_audio"></Audio>
         <Picture class="rounded mt-3" :image="activity.answer_image"></Picture>
-      </div>      
+      </div>
       <div v-if="itinerary" class="zanswer-content pb-4">
         <Picture class="rounded mt-3" :image="itinerary.attributes.answer_image"></Picture>
         <Audio :audio="itinerary.attributes.answer_audio"></Audio>
         <Markdown class="answer-text" v-if="itinerary.attributes.answer_text" :source="itinerary.answer_text" />
-      </div>      
-    </div>    
+      </div>
+    </div>
   </div>
 </template>
 
@@ -109,10 +138,11 @@ const props = defineProps({
 
 .overlay-true {
   background: #E0F0E5;
-  opacity: 0.9;
+  opacity: 0.7;
   width: 100%;
   height: 100%;
   position: absolute;
+  z-index: 2;
 }
 
 .overlay-false {
@@ -121,7 +151,7 @@ const props = defineProps({
   width: 100%;
   height: 100%;
   position: absolute;
-
+  z-index: 2;
 }
 
 .activity-option {

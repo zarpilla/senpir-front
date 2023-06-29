@@ -81,6 +81,7 @@ if (props.audio && props.audio.data && props.audio.data.attributes) {
   border-radius: 15px;
   background: var(--senpir-verd-clar, #E0F0E5);
   padding: 16px 10px;
+  text-align: center;
 }
 .sound-wrapper{
   margin: 6px auto 16px;

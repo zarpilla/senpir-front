@@ -83,8 +83,6 @@ watch(() => props.activity.id, (newValue) => {
 
       <div class="question zmb-5 zpb-2" v-if="!answerOk">
 
-        
-
         <div class="text-center">
           <Audio class="pb-4" :audio="activity.audio"></Audio>
         </div>
@@ -182,6 +180,7 @@ watch(() => props.activity.id, (newValue) => {
   width: 100%;
   height: 100%;
   position: absolute;
+  z-index: 2;
 }
 
 .overlay-false {
