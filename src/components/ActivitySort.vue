@@ -116,7 +116,7 @@ watch(() => props.activity.options, (newValue) => {
 
     <ActivityTitle v-if="!answerOk" :last="last" :activity="activity" :index="index"></ActivityTitle>
 
-    <DistanceCheck v-if="!answerOk" :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
+    <DistanceCheck v-if="!answerOk && !last" :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
     <Picture class="mt-5 mb-3 w-100-img" v-if="!answerOk && !last" :image="itinerary.attributes.map"></Picture>
 
