@@ -182,9 +182,9 @@ watch(() => props.activity.options, (newValue) => {
 
     <ItineraryClue v-if="!last || (last && !answerOk)" :itinerary="itinerary"></ItineraryClue>
 
-    <!-- <div class="mt-5" v-if="last && answerOk">
+    <div class="mt-5" v-if="last && answerOk">
       <ItineraryAll v-if="last && answerOk"></ItineraryAll>
-    </div> -->
+    </div>
     
 
   </div>

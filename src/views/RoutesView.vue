@@ -7,6 +7,14 @@ import { useRouter, useRoute } from 'vue-router'
 import { RouterLink } from 'vue-router'
 
 
+const props = defineProps({
+  showBack: {
+    type: Boolean,
+    required: false,
+    default: true
+  }
+})
+
 const itineraryStore = useItineraryStore()
 
 const itineraries = ref([])
@@ -30,10 +38,13 @@ watch(() => route.params.slug, (newValue) => {
 <template>
   <div v-if="itineraries" class="bg">
 
+    <img src="@/assets/images/image007-2.jpg" class="capsalera" alt="" />
+
+    <img src="@/assets/images/mapa-pirineus.png" class="mapa mt-4" alt="" />
 
     <div class="container pb-5 text-center">
 
-      <img src="@/assets/images/mapa-pirineus.png" class="mapa mt-4" alt="" />
+
 
       <h1 class="mt-4 text-start">Us proposem uns itineraris per a tota la família que, a través de jocs i reptes, ens
         ajudaran a conèixer i cuidar la biodiversitat dels Pirineus.</h1>
@@ -47,7 +58,7 @@ watch(() => route.params.slug, (newValue) => {
           <img src="@/assets/images/walking.svg" class="walking mt-2 mb-2" alt="" />
           <h2 class="mb-4 mt-2">Itineraris<br>SENPIR</h2>
           <div class="separa mb-4"></div>
-          
+
           <div class="character character-bb text-start mb-4" v-for="item in itineraries">
             <RouterLink class="to" :to="`/${route.params.slug}/view/${item.attributes.slug}`">
               <div class="d-flex head">
@@ -55,7 +66,7 @@ watch(() => route.params.slug, (newValue) => {
                   {{ item.attributes.order }}
                 </div>
                 <div class="name">
-                  <h3 class="mb-1">{{ item.attributes.name }}</h3>                  
+                  <h3 class="mb-1">{{ item.attributes.name }}</h3>
                   <div class="place city">
                     {{ item.attributes.city }}
                   </div>
@@ -70,8 +81,8 @@ watch(() => route.params.slug, (newValue) => {
       </div>
 
     </div>
-    
-    <ItineraryAll :back="true" :slug="slug"></ItineraryAll>
+
+    <ItineraryAll v-if="showBack" :back="true" :slug="slug"></ItineraryAll>
 
   </div>
 </template>
@@ -125,10 +136,10 @@ a .number {
 
 h2 {
   text-align: center;
-font-size: 30px;
-font-weight: 600;
-line-height: 32px;
-color: #003842;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 32px;
+  color: #003842;
 }
 
 .separa {
@@ -139,31 +150,41 @@ color: #003842;
   margin: auto;
 }
 
-h3{
+h3 {
   font-size: 18px;
-font-weight: 600;
-line-height: 22px;
-color: #003842;
+  font-weight: 600;
+  line-height: 22px;
+  color: #003842;
 }
+
 .place {
   font-size: 14px;
   line-height: 17px;
   color: #003842;
 }
-.city{
+
+.city {
   font-weight: 600;
 }
+
 h1 {
   color: var(--senpir-blau, #65B1AD);
+  color: var(--senpir-verd, #49A986);
+  color: var(--senpir-verd, #49A986);
 
   /* Text/Big */
   font-size: 21px;
+  font-style: normal;
   font-weight: 600;
   line-height: 24px;
+}
+
+.capsalera,
+.mapa {
+  width: 100%;
 }
 
 .character-bb {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-</style>
+}</style>

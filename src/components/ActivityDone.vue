@@ -37,14 +37,14 @@ const props = defineProps({
 
       <div class="activity-options mt-2 mb-4">
         <div class="activity-option mb-3" :class="'active'" v-for="(option, i) in activity.options" :key="option.id">
-          <div class="overlay-true" v-if="option.answer && activity.type !== 'sort'">
+          <!-- <div class="overlay-true" v-if="option.answer && activity.type !== 'sort'">
             <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />
           </div>
           <div class="overlay-false text-center" v-if="!option.answer && activity.type !== 'sort'">
             <img src="@/assets/images/tryagain.svg" class="tryagain" alt="" />
-          </div>
+          </div> -->
 
-          <ActivityOption :index="i" :option="option"></ActivityOption>
+          <ActivityOption v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" :index="i" :option="option"></ActivityOption>
 
         </div>
       </div>

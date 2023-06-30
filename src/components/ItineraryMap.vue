@@ -96,7 +96,9 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
           <div class="d-flex justify-content-center">
             <img src="@/assets/images/location.svg" class="location me-2" alt="" />
             <div class="text-start coords">
-              {{ latLng.lat }},<br>{{ latLng.lng }}
+              <a :href="`http://www.google.com/maps/place/${latLng.lat},${latLng.lng}`" target="_blank">
+                {{ latLng.lat }},<br>{{ latLng.lng }}
+              </a>
             </div>
           </div>          
         </div>
@@ -208,11 +210,13 @@ text-decoration: underline;
 color: #003842
 }
 
-.coords {
-  
-/* Text/Small */
-font-size: 14px;
-line-height: 17px;
+.coords, .coords a {
+  /* Text/Small */
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: normal;
+  text-decoration: none;
+  color: #003842;
 }
 
 @media (min-width: 1024px) {

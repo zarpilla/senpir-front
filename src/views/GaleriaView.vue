@@ -6,6 +6,7 @@ import { useGameStore } from '@/stores/game'
 import { useItineraryStore } from '@/stores/itinerary'
 import { useRouter, useRoute } from 'vue-router'
 import { RouterLink } from 'vue-router'
+import ItineraryAll from '../components/ItineraryAll.vue'
 
 
 const router = useRouter();
@@ -50,7 +51,7 @@ watch(() => route.params.slug, (newValue) => {
 
     <GaleriaHeader></GaleriaHeader>
 
-    <div class="container pb-5 text-center">
+    <div class="container pb-5 mb-3 text-center">
       <div class="character text-start mb-4" v-for="item in gallery">
         <div class="d-flex head">
           <div class="circle number">
@@ -90,6 +91,9 @@ watch(() => route.params.slug, (newValue) => {
       </div>
 
     </div>
+
+    <ItineraryAll :slug="itinerary.attributes.slug"></ItineraryAll>
+
     <!-- {{ gallery }} -->
     <!-- {{ itineraryStore.itineraries }} -->
 

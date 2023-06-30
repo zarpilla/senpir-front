@@ -12,7 +12,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: RoutesView
+      component: RoutesView,
+      props: { showBack: false }
     },
     {
       path: '/:slug',
@@ -56,7 +57,8 @@ const router = createRouter({
     {
       path: '/:slug/routes',
       name: 'view-all-routes',
-      component: RoutesView
+      component: RoutesView,
+      props: { showBack: true }
     }
   ],
   scrollBehavior(to, from, savedPosition) {

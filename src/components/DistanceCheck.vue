@@ -66,7 +66,9 @@ watch(() => locationStore.enabled, (newValue) => {
         <div class="d-flex justify-content-center">
           <img src="@/assets/images/location.svg" class="location me-2" alt="" />
           <div class="text-start coords">
-            {{ lngLat.lat }},<br>{{ lngLat.lng }}
+            <a :href="`http://www.google.com/maps/place/${lngLat.lat},${lngLat.lng}`" target="_blank">
+              {{ lngLat.lat }},<br>{{ lngLat.lng }}
+            </a>
           </div>
         </div>
       </div>
@@ -74,11 +76,11 @@ watch(() => locationStore.enabled, (newValue) => {
       <div class="d-flex justify-content-center">
         <img src="@/assets/images/distance.svg" class="mx-2" alt="" />
         <div v-if="enabled && lngLat && lngLat.lat">
-          <b class="mx-1">Distància fins la fita</b> {{ distance.toFixed(0) > 1000 ? (distance / 1000).toFixed(2) :
-            distance.toFixed(0) }}{{ distance.toFixed(0) > 1000 ? 'km' : 'm' }}
+          <b class="mx-1">Distància fins la fita</b>{{ distance.toFixed(0) > 1000 ? (distance / 1000).toFixed(2) :
+            distance.toFixed(0) }}{{ distance.toFixed(0) > 1000 ? ' km' : ' m' }}
         </div>
         <div v-else class="disabled-gps">
-Si vols, pots habilitar el GPS per saber a quina distància et trobes
+          Si vols, pots habilitar el GPS per saber a quina distància et trobes
         </div>
       </div>
 
@@ -109,12 +111,13 @@ Si vols, pots habilitar el GPS per saber a quina distància et trobes
   margin: auto;
 }
 
-.coords {
+.coords, .coords a {
   /* Text/Small */
   font-size: 14px;
   line-height: 17px;
   font-weight: normal;
-
+  text-decoration: none;
+  color: #003842;
 }
 </style>
 

@@ -25,7 +25,7 @@ const props = defineProps({
       <div class="bar">
         <RouterLink :to="back ? `/${slug}` : `/${slug}/routes`">
           <img src="@/assets/images/flag.svg" class="mt-3 mb-3" alt="" />
-        <span class="text">{{ !back ? 'ITINERARIS SENPIR' : 'COMENÇAR ITINERARI' }}</span>
+        <span class="text">{{ !back ? 'ITINERARIS SENPIR' : 'TORNAR' }}</span>
         <img v-if="!back" src="@/assets/images/arrow-right.svg" class="mt-2 mb-2" alt="" />
         <img v-if="back" src="@/assets/images/arrow-left.svg" class="mt-2 mb-2" alt="" />
         </RouterLink>
