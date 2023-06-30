@@ -68,7 +68,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
           <div class="row align-items-start">
             <div class="col">
               <b>Distància</b>
-              <div>{{ itinerary.attributes.distance || '3 Km' }}</div>
+              <div>{{ itinerary.attributes.distance || '-' }}</div>
             </div>
             <div class="col">
               <b>Dificultat</b>
@@ -76,7 +76,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
             </div>
             <div class="col">
               <b>Desnivell</b>
-              <div>{{ itinerary.attributes.unevenness || '130 m' }}</div>
+              <div>{{ itinerary.attributes.unevenness || '-' }}</div>
             </div>
           </div>
         </div>
