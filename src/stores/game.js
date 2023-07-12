@@ -102,6 +102,8 @@ export const useGameStore = defineStore('game', () => {
       localStorage.setItem(uidKey, uid)
     }
 
+    localStorage.setItem('uid.username', username)    
+
     let dt = new Date()
     const uidDateKey = 'uid.finish.' + slug + '.' + dt.toISOString().split('T')[0]      
     var uidDate = localStorage.getItem(uidDateKey)
@@ -115,7 +117,7 @@ export const useGameStore = defineStore('game', () => {
   }
 
 
-  async function loadGallery(userId) {
+  async function loadGallery() {
     try {
       if (navigator.onLine) {
 

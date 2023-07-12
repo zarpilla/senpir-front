@@ -48,7 +48,14 @@ watch(() => route.params.slug, (newValue) => {
 
       <h1 class="mt-4 text-start">Us proposem uns itineraris per a tota la família que, a través de jocs i reptes, ens
         ajudaran a conèixer i cuidar la biodiversitat dels Pirineus.</h1>
-      <img src="@/assets/images/arrow-green.svg" class="mt-1 mb-3" alt="" />
+      <div class="text-start">
+        SENPIR, és un projecte que fomenta la descoberta dels valors dels espais naturals i el seu respecte, cercant
+        l’equilibri entre les activitats de lleure a la natura i la seva conservació.
+        Els Pirineus són un món sensorial, ple de sensacions i sensualitat. Desperta els sentits, els sentiments i la
+        sensibilitat a les persones que s’hi apropen. I si volem que tothom continuï gaudint dels seus espais naturals ens
+        cal seny i un bon senderi.
+        <!-- Visteu senpir.org -->
+      </div>
 
     </div>
     <div class="zpb-5 text-center">

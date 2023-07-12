@@ -21,9 +21,9 @@ const route = query.getSlugFromHash()
 
     <div class="d-flex flex-row p-3 pt-2 pb-2">
       <div class="col0 zp-2">
-        <img v-if="!route" src="@/assets/Logo_SENPIR_blanc.png" class="logo" alt="senpir" />
+        <img v-if="!route" src="@/assets/images/logo-senpir.svg" class="logo" alt="senpir" />
         <RouterLink v-else :to="`/${route}`">
-          <img src="@/assets/Logo_SENPIR_blanc.png" class="logo" alt="senpir" />
+          <img src="@/assets/images/logo-senpir.svg" class="logo" alt="senpir" />
         </RouterLink>
         
     </div>    
@@ -48,7 +48,7 @@ const route = query.getSlugFromHash()
 h1 {
   font-style: normal;
 font-weight: 600;
-font-size: 10px;
+font-size: 11px;
 line-height: 11px;
 color: #FFFFFF;
 padding-left: 1rem;
@@ -60,6 +60,6 @@ padding-bottom: 4px;
   border-left: 1px solid #fff;
 }
 .col1 {
-  max-width: 140px;
+  max-width: 160px;
 }
 </style>

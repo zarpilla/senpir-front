@@ -26,14 +26,12 @@ const props = defineProps({
 <template>
   <div v-if="itinerary">
 
-    <!-- <Timer :activities="itinerary.attributes.activities"></Timer> -->
-
     <div class="step-0" v-show="!props.end">
 
       <div class="container mb-5">
 
         <div class="row">
-          <div class="col-12 col-md-12 pt-md-5">
+          <div class="col-12 col-md-12 pt-md-5 cccc">
 
             <Picture class="mt-4 mb-4" :image="itinerary.attributes.character"></Picture>
 

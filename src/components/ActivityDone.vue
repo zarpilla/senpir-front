@@ -27,7 +27,7 @@ const props = defineProps({
 
 <template>
   <div>
-    <div class="answer-done zmb-5" v-if="!last">
+    <div class="answer-done mb-4" v-if="!last">
 
       <div class="text-center mt-2">
         <img src="@/assets/images/ok.svg" class="ok" alt="" />
@@ -36,15 +36,10 @@ const props = defineProps({
       <h1 class="text-center mb-5 mt-2">Enhorabona!</h1>
 
       <div class="activity-options mt-2 mb-4">
-        <div class="activity-option mb-3" :class="'active'" v-for="(option, i) in activity.options" :key="option.id">
-          <!-- <div class="overlay-true" v-if="option.answer && activity.type !== 'sort'">
-            <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />
+        <div class="activity-option active" v-for="(option, i) in activity.options" :key="option.id">          
+          <div v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" class="mb-4">
+            <ActivityOption  :index="i" :option="option"></ActivityOption>
           </div>
-          <div class="overlay-false text-center" v-if="!option.answer && activity.type !== 'sort'">
-            <img src="@/assets/images/tryagain.svg" class="tryagain" alt="" />
-          </div> -->
-
-          <ActivityOption v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" :index="i" :option="option"></ActivityOption>
 
         </div>
       </div>
@@ -69,11 +64,11 @@ const props = defineProps({
         <img src="@/assets/images/perfect.svg" class="ok" alt="" />
       </div>
       <h1 class="text-center mb-4">
-        Perfecte,<br><span class="text-uppercase">{{ activity.answer_code }}</span>
+        Perfecte!
       </h1>
 
       <div class="activity-options mt-2 mb-4">
-        <div class="activity-option mb-3" :class="'active'" v-for="(option, i) in activity.options" :key="option.id">
+        <div class="activity-option mb-3 active" v-for="(option, i) in activity.options" :key="option.id">
           <!-- <div class="overlay-true" v-if="option.answer || activity.type === 'sort'">
             <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />
           </div>

@@ -42,7 +42,8 @@ console.log('offline loader')
       <Audio :audio="itinerary.attributes.answer_audio"></Audio>          
     </div>
     
-    <img src="/favicon.png" class="h0" alt="" />
+    <img src="/favicon.png" class="h0" alt="" />    
+    <img src="@/assets/images/logo-senpir.svg" class="h0" alt="" />
     <img src="@/assets/images/agla-enigma.svg" class="h0" alt="" />
     <img src="@/assets/images/agla-group.svg" class="h0" alt="" />
     <img src="@/assets/images/agla.svg" class="h0" alt="" />    

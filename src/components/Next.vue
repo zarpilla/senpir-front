@@ -17,14 +17,9 @@ const props = defineProps({
 
 
 const gameStore = useGameStore();
-// const itineraryStore = useItineraryStore();
 
 const game = ref({})
 game.value = gameStore.getGame(props.itinerary.attributes.slug)
-
-// const canFinish = computed(() => game.value.answers[game.value.answers.length - 1] !== '')
-
-const canFinish = computed(() => game.value.answers.every((val, idx) => val !== ""))
 
 </script>
 

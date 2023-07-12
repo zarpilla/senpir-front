@@ -1,6 +1,9 @@
 <script setup>
-const props = defineProps({
-})
+
+
+const username = localStorage.getItem('uid.username')
+
+
 
 </script>
 
@@ -14,7 +17,7 @@ const props = defineProps({
       <div class="separa mt-4 mb-3"></div>
     </div>
     <div class="help-text mt-4 mb-2">
-      Felicitats, ja heu aconseguit tots aquests personatges!
+      Felicitats {{ username }}, ja heu aconseguit tots aquests personatges!
     </div>
 
     <img src="@/assets/images/arrow-green.svg" class="mt-1 mb-3" alt="" />

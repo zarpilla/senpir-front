@@ -14,6 +14,7 @@ import ActivityDone from './ActivityDone.vue'
 import ActivityOption from './ActivityOption.vue'
 import NameForm from './NameForm.vue'
 import ItineraryClue from '../components/ItineraryClue.vue'
+import Timer from '../components/Timer.vue'
 
 const props = defineProps({
   itinerary: {
@@ -59,7 +60,13 @@ const unsorted = ref([...shuffleArray([...props.activity.options])])
 
 const unsortedAnswers = computed(() => (unsorted.value.map(o => o.option_code || o.id)))
 
-const answerOk = computed(() => answers.value.every((val, idx) => val === unsortedAnswers.value[idx]))
+const timerEnd = ref(!props.activity.timer)
+
+const end = () => {
+  timerEnd.value = true
+}
+
+const answerOk = computed(() => answers.value.every((val, idx) => val === unsortedAnswers.value[idx]) && props.activity && timerEnd.value)
 
 // const answerOk = ref(false)
 
@@ -95,6 +102,10 @@ watch(() => props.activity.options, (newValue) => {
   }
 })
 
+watch(() => props.activity.id, (newValue) => {
+  timerEnd.value = !props.activity.timer
+})
+
 // watch(() => props.activity.id, (newValue) => {
 //   answerOk.value = false
 //   if (newValue) {
@@ -109,8 +120,10 @@ watch(() => props.activity.options, (newValue) => {
   <div class="activity-outter" :class="!answerOk ? 'mt-4 pt-2' : 'pt-2'">
 
     <div class="text-center" v-if="last && !answerOk">
-      <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-4 mb-3" alt="" />
+      <img v-if="last" src="@/assets/images/agla-group.svg" class="mt-3 mb-2" alt="" />
     </div>
+
+    <Timer @end="end" :activity="activity"></Timer>
 
     <ItineraryNav v-if="!answerOk && !last" :itinerary="itinerary" :num="index + 1"></ItineraryNav>
 
@@ -118,7 +131,7 @@ watch(() => props.activity.options, (newValue) => {
 
     <DistanceCheck v-if="!answerOk && !last" :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
 
-    <Picture class="mt-5 mb-3 w-100-img" v-if="!answerOk && !last" :image="itinerary.attributes.map"></Picture>
+    <Picture class="mt-4 mb-3 w-100-img" v-if="!answerOk && !last" :image="itinerary.attributes.map"></Picture>
 
     <div class="activity container pt-3 pb-3" :class="!answerOk ? 'pb-activity' : 'z'">
 
@@ -129,7 +142,6 @@ watch(() => props.activity.options, (newValue) => {
 
       <div class="question" v-if="!answerOk">
 
-        
 
         <div class="text-center">
           <Audio class="pb-4" :audio="activity.audio"></Audio>
@@ -138,6 +150,10 @@ watch(() => props.activity.options, (newValue) => {
         <Picture class="mb-3 rounded" :image="activity.image"></Picture>
 
         <Markdown v-if="activity.description" :source="activity.description" />
+        <div v-else-if="last && !answerOk" :source="activity.description" class="mb-4">
+          <h2>Per últim, si voleu col·leccionar {{ itinerary.attributes.character_name }}...</h2>
+          Haureu de descobrir la nostra paraula secreta amb les pistes que heu anat recol·lectant al llarg de les 5 fites de l’Itinerari del Daró.
+        </div>
 
 
         <div class="text-center">
@@ -151,7 +167,8 @@ watch(() => props.activity.options, (newValue) => {
             <Markdown v-if="activity.help_text" :source="activity.help_text" />
           </div>
           <div class="text-center help-text mb-3 w-75 mr-auto ml-auto" v-else>
-            Cliqueu i arrossegueu per ordenar-les
+            <span v-if="!last">Cliqueu i arrossegueu per ordenar-les</span>
+            <span v-else>Cliqueu i arrossegueu les lletres per descobrir la nostra paraula secreta</span>
           </div>
           <img src="@/assets/images/arrow-green.svg" class="mt-1 mb-3" alt="" />
         </div>
@@ -183,7 +200,7 @@ watch(() => props.activity.options, (newValue) => {
     <ItineraryClue v-if="!last || (last && !answerOk)" :itinerary="itinerary"></ItineraryClue>
 
     <div class="mt-5" v-if="last && answerOk">
-      <ItineraryAll v-if="last && answerOk"></ItineraryAll>
+      <ItineraryAll :back="false" :slug="itinerary.attributes.slug" v-if="last && answerOk"></ItineraryAll>
     </div>
     
 

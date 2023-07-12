@@ -16,9 +16,9 @@ const props = defineProps({
 
     <img src="@/assets/images/walking.svg" class="walking mt-4 mb-4" alt="" />
     <h1 class="mb-3">{{ itinerary.attributes.name }}</h1>
-    <div class="separa mb-3"></div>
-    <div class="place">{{ itinerary.attributes.place }}</div>
-    <div class="mb-2">{{ itinerary.attributes.city }}</div>
+    <div class="separa mb-3"></div>    
+    <div class="place">{{ itinerary.attributes.city }}</div>
+    <div class="mb-2">{{ itinerary.attributes.place }}</div>
     
     <itinerary-offiline-loader :itinerary="itinerary"></itinerary-offiline-loader>
 

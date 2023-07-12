@@ -62,7 +62,7 @@ if (props.audio && props.audio.data && props.audio.data.attributes) {
 </script>
 
 <template>
-  <div class="audio-wrapper mb-4" :class="class" v-if="audio && audio.data && audio.data.attributes && loaded">        
+  <div class="audio-wrapper mb-45" :class="class" v-if="audio && audio.data && audio.data.attributes && loaded">        
     <div class="d-flex text-center justify-content-center sound-wrapper">
       <img src="@/assets/images/sound.svg" class="sound" alt="" />
       <img src="@/assets/images/ear.svg" class="sound ear" alt="" />
@@ -103,5 +103,8 @@ text-transform: uppercase;
 }
 audio {
   border-radius: 20px;
+}
+.mb-45{
+  margin-bottom: 2.2rem !important;
 }
 </style>

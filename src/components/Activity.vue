@@ -13,6 +13,7 @@ import ActivityTitle from './ActivityTitle.vue'
 import ActivityDone from './ActivityDone.vue'
 import ActivityOption from './ActivityOption.vue'
 import ItineraryClue from '../components/ItineraryClue.vue'
+import Timer from '../components/Timer.vue'
 
 const props = defineProps({
   itinerary: {
@@ -35,13 +36,27 @@ const checked = ref(props.activity.options.map(o => false))
 
 const answers = ref(props.activity.options.map(o => o.answer))
 
-const answerOk = computed(() => answers.value.every((val, idx) => val === checked.value[idx]))
+
+const timerEnd = ref(!props.activity.timer)
+
+const end = () => {
+  timerEnd.value = true
+}
+
+
+const answerOk = computed(() => answers.value.every((val, idx) => val === checked.value[idx]) && timerEnd.value)
 
 const answerOkCount = computed(() => props.activity.options.filter(o => o.answer).length)
 
 const checkOption = (i) => {
   if (answerOk.value === false) {
     checked.value[i] = !checked.value[i]
+  }
+
+  if (props.activity.options[i].answer === false) {
+    setTimeout(() => {
+      checked.value[i] = false
+    }, 1500)
   }
 
   // setTimeout(() => {
@@ -62,12 +77,14 @@ watch(() => props.activity.id, (newValue) => {
   if (newValue) {
     checked.value = props.activity.options.map(o => false)
     answers.value = props.activity.options.map(o => o.answer)
+    timerEnd.value = !props.activity.timer
   }
 })
 </script>
 
 <template>
   <div class="activity-outter" :class="!answerOk ? 'mt-4 pt-2' : 'pt-2'">
+    
     
 
     <ItineraryNav v-if="!answerOk" :itinerary="itinerary" :num="index + 1"></ItineraryNav>
@@ -76,7 +93,7 @@ watch(() => props.activity.id, (newValue) => {
 
     <DistanceCheck v-if="!answerOk" :coords1="{ latitude: activity.latitude, longitude: activity.longitude }"></DistanceCheck>
     
-    <Picture class="mt-5 mb-3 w-100-img" v-if="!answerOk" :image="itinerary.attributes.map"></Picture>
+    <Picture class="mt-4 mb-3 w-100-img" v-if="!answerOk" :image="itinerary.attributes.map"></Picture>
 
     <div class="activity container pt-3 pb-3" :class="!answerOk ? 'pb-activity' : 'z'">
       
@@ -87,11 +104,15 @@ watch(() => props.activity.id, (newValue) => {
           <Audio class="pb-4" :audio="activity.audio"></Audio>
         </div>
 
-        <Picture class="mb-3 rounded" :image="activity.image"></Picture>
+        <div class="text-center">
+          <Picture class="mb-3 rounded" :image="activity.image"></Picture>
+        </div>        
 
         <Markdown v-if="activity.description" :source="activity.description" />
 
-        <div class="text-center">
+        <Timer v-if="activity.timer" @end="end" :activity="activity"></Timer>
+
+        <div class="text-center" v-if="activity.options.length">
           <div class="text-center squirel">
             <img src="@/assets/images/squirel.svg" class="mt-4 mb-3" alt="" />
           </div>
@@ -110,7 +131,7 @@ watch(() => props.activity.id, (newValue) => {
         </div>
 
         <div class="activity-options mt-2 mb-4" v-if="checked">
-          <div class="activity-option mb-3" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in activity.options"
+          <div class="activity-option mb-4" :class="checked[i] ? 'active' : 'x'" v-for="(option, i) in activity.options"
             :key="option.id" @click="checkOption(i)">
             <div class="overlay-true" v-if="checked[i] && option.answer">
               <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />

@@ -119,6 +119,9 @@ watch(() => locationStore.enabled, (newValue) => {
   text-decoration: none;
   color: #003842;
 }
+.coords a:hover{
+  text-decoration: underline;
+}
 </style>
 
 

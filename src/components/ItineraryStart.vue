@@ -14,8 +14,6 @@ const props = defineProps({
 <template>
   <div v-if="itinerary">
 
-    <!-- <Timer :activities="itinerary.attributes.activities"></Timer> -->
-
     <div class="step-0" v-show="!props.end">
 
       <div class="container mb-5">
@@ -23,15 +21,19 @@ const props = defineProps({
         <div class="row">
           <div class="col-12 col-md-12 pt-md-5">
 
-            <div class="col-12 col-md-12 pt-md-5">
+            <div class="col-12 col-md-12 pt-md-5 text-center">
 
               <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture>
 
               <div class="text mt-5">
-                Esteu a punt de començar un dels itineraris SENPIR. Us proposem un seguit de jocs i reptes per a tota la
-                família durant el camí.
-                <br /><br />
+                Us proposem uns itineraris per a tota la família que, a través de jocs i reptes, ens ajudaran a conèixer i cuidar la biodiversitat dels Pirineus.
+                <br />
                 Us animeu?
+              </div>
+              <div class="text-zstart mt-4">
+                SENPIR, és un projecte que fomenta la descoberta dels valors dels espais naturals i el seu respecte, cercant l’equilibri entre les activitats de lleure a la natura i la seva conservació.
+Els Pirineus són un món sensorial, ple de sensacions i sensualitat. Desperta els sentits, els sentiments i la sensibilitat a les persones que s’hi apropen. I si volem que tothom continuï gaudint dels seus espais naturals ens cal seny i un bon senderi.
+
               </div>
               <div class="text-center">
                 <img src="@/assets/images/arrow-green.svg" class="mt-3 mb-0" alt="" />

@@ -55,7 +55,7 @@ watch(showInfo, (newValue) => {
               <RouterLink @click="showInfo = !showInfo" class="ball p-2" :class="game.answers[i] !== '' ? `bg-color-${i}` : 'bg-default'"
                 :to="`/${itinerary.attributes.slug}/p/${i + 1}`">{{ i + 1 }}
               </RouterLink>
-              <div class="answer mt-2">{{ game.answers[i] }}</div>
+              <div class="answer mt-2" :class="game.answers[i].length > 1 ? 'small-text' : 'z'">{{ game.answers[i] }}</div>
               <div v-if="i < balls.length - 1" class="ball-row"></div>
             </div>
           </div>
@@ -155,6 +155,10 @@ h1 {
   font-size: 20px;
   line-height: 20px;
   margin-top: 6px;
+}
+
+.answer.small-text{
+  font-size: 12px;
 }
 
 

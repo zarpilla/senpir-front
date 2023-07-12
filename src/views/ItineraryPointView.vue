@@ -90,6 +90,7 @@ watch(() => gameStore.started, (newValue) => {
 <template>
   <div v-if="itinerary && game">
     <ItineraryGPS></ItineraryGPS>
+
     <ActivitySort :itinerary="itinerary" v-if="game.started && activity && activity.id && activity.type === 'sort'"
       :activity="activity" :index="num - 1"></ActivitySort>
     <Activity :itinerary="itinerary" v-if="game.started && activity && activity.id && activity.type !== 'sort'"

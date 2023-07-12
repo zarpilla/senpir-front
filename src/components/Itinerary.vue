@@ -32,8 +32,6 @@ const props = defineProps({
 <template>
   <div v-if="itinerary">
 
-    <!-- <Timer :activities="itinerary.attributes.activities"></Timer> -->
-
     <div class="step-0" v-show="!props.end">
 
       <div class="container mb-5">

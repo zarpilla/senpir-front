@@ -20,7 +20,7 @@ const props = defineProps({
 <template>
   <div class="activity-title container text-center">
     <!-- <div v-if="!last" class="circle" :class="`bg-color-${index}`">{{index+1}}</div>     -->
-    <h1 class="mt-4 pt-2 pb-4">{{ activity.name }}</h1>
+    <h1 class="mt-3 pt-3 pb-3">{{ activity.name }}</h1>
   </div>
 </template>
 

@@ -45,20 +45,11 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
 <template>
   <div class="itinerary-map-info w-25-md mx-auto" v-if="itinerary">
 
-    <!-- <Timer :activities="itinerary.attributes.activities"></Timer> -->
-
     <Picture class="itinerary-map" :image="itinerary.attributes.map"></Picture>
 
     <div class="map-info pb-5">
       <div class="map-info-card p-3 text-center">
-        <!-- <img v-if="start" src="@/assets/images/boot.svg" class="boot mt-3 mb-2" alt="" /> -->
 
-        <!-- <h1 class="pt-2">
-          <RouterLink class="lnk" :to="`/${itinerary.attributes.slug}/inici`">
-            {{ itinerary.attributes.name }}
-          </RouterLink>
-        </h1> -->
-        
         <div v-if="!start" class="bordered-bottom pt-2 pb-2 mb-4">
         </div>
 
@@ -127,7 +118,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
         </span>        
       </div>
       <div class="help mt-1 mb-5 container" v-if="start && view">
-          Atenció, no pots començar aquest itinerari per què no has entrat des del codi QR
+          Atenció, no pots començar aquest itinerari per què no has entrat des del codi QR, ubicat a l'inici del camí.
         </div>
 
 
@@ -217,6 +208,9 @@ color: #003842
   font-weight: normal;
   text-decoration: none;
   color: #003842;
+}
+.coords a:hover{
+  text-decoration: underline;
 }
 
 @media (min-width: 1024px) {
