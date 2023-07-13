@@ -36,12 +36,11 @@ const props = defineProps({
       <h1 class="text-center mb-5 mt-2">Enhorabona!</h1>
 
       <div class="activity-options mt-2 mb-4">
-        <div class="activity-option active" v-for="(option, i) in activity.options" :key="option.id">          
-          <div v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" class="mb-4">
-            <ActivityOption  :index="i" :option="option"></ActivityOption>
+        <template v-for="(option, i) in activity.options">
+          <div v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" class="activity-option active mb-4">          
+            <ActivityOption  :index="i" :option="option"></ActivityOption>          
           </div>
-
-        </div>
+        </template>        
       </div>
 
       <div class="answer-content pb-4">
@@ -223,9 +222,9 @@ const props = defineProps({
 
 .option-with-name-large h3 {
   text-align: center;
-  font-size: 16px;
+  font-size: 30px;
   font-weight: 600;
-  line-height: 20px;
+  line-height: 50px;
   padding-bottom: 10px;
 }
 
