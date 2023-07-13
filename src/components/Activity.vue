@@ -152,7 +152,7 @@ watch(() => props.activity.id, (newValue) => {
 
     </div>
 
-    <Next :itinerary="itinerary" :index="index"></Next>
+    <Next :itinerary="itinerary" :index="index" :answer-ok="answerOk"></Next>
 
     <ItineraryClue :itinerary="itinerary"></ItineraryClue>
 

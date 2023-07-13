@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useGameStore } from '../stores/game'
 import { useItineraryStore } from '../stores/itinerary'
 import { RouterLink } from 'vue-router'
@@ -12,6 +12,10 @@ const props = defineProps({
   index: {
     type: Number,
     required: true
+  },
+  answerOk: {
+    type: Boolean,
+    required: true
   }
 })
 
@@ -21,6 +25,12 @@ const gameStore = useGameStore();
 const game = ref({})
 game.value = gameStore.getGame(props.itinerary.attributes.slug)
 
+const answerOk = ref(props.answerOk)
+
+watch(() => props.answerOk, (newvalue) => {
+  answerOk.value = newvalue
+})
+
 </script>
 
 <template>
@@ -28,7 +38,7 @@ game.value = gameStore.getGame(props.itinerary.attributes.slug)
 
     <RouterLink class="btn"
       :to="`/${itinerary.attributes.slug}/p/${props.index + 2}`">
-      {{ 'CONTINUAR' }}
+      {{ answerOk ? 'CONTINUAR' : 'SALTAR REPTE' }}
       <img src="@/assets/images/button.svg" class="button-img" alt="" />
     </RouterLink>
 

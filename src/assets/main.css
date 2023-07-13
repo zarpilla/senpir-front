@@ -70,6 +70,14 @@ svg.fill-color-3 path {
   background: #65B1AD !important;
 }
 
+.bg-color-5 {
+  background: #F3C857 !important;
+}
+
+.bg-color-6 {
+  background: #E0A166 !important;
+}
+
 svg.fill-color-4 path {
   fill: #65B1AD !important;
 }

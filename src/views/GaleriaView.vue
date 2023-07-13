@@ -54,13 +54,13 @@ watch(() => route.params.slug, (newValue) => {
     <div class="container pb-5 mb-3 text-center">
       <div class="character text-start mb-4" v-for="item in gallery">
         <div class="d-flex head">
-          <div class="circle number">
+          <div class="circle number">            
             {{ item.attributes.itinerary.data.attributes.order }}
           </div>
           <div class="name">
             <h2>{{ item.attributes.itinerary.data.attributes.character_name }}</h2>
             <div class="place">
-              {{ item.attributes.itinerary.data.attributes.name }}
+              {{ item.attributes.itinerary.data.attributes.name }} ({{ item.attributes.itinerary.data.attributes.city }})
             </div>
 
           </div>

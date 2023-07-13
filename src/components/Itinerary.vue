@@ -59,7 +59,7 @@ const props = defineProps({
 
     </div>
 
-    <Next :itinerary="itinerary" :index="-1"></Next>
+    <Next :itinerary="itinerary" :index="-1" :answer-ok="false"></Next>
 
   </div>
 </template>

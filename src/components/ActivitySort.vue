@@ -195,7 +195,7 @@ watch(() => props.activity.id, (newValue) => {
 
     <NameForm :itinerary-id="itinerary.id" v-if="answerOk && last"></NameForm>
 
-    <Next v-if="!last" :itinerary="itinerary" :index="index"></Next>
+    <Next v-if="!last" :itinerary="itinerary" :index="index" :answer-ok="answerOk"></Next>
 
     <ItineraryClue v-if="!last || (last && !answerOk)" :itinerary="itinerary"></ItineraryClue>
 

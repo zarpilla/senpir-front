@@ -39,7 +39,7 @@ const props = defineProps({
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>
-    <div v-if="!option.name && option.image" class="'option-without-name'">
+    <div v-if="!option.name && option.image" class="'option-without-name'" :class="option.image_bg   ? `bg-color-${index}`: 'z'">
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
