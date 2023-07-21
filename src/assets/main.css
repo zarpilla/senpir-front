@@ -107,8 +107,8 @@ svg.fill-color-4 path {
   margin-left: 6px;
 }
 
-@media (min-width: 600px) {
-  .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+@media (min-width: 600px) {  
+  .container {
     max-width: 420px;
   }
 }

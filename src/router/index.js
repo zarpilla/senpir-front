@@ -5,6 +5,7 @@ import ItineraryPointView from '../views/ItineraryPointView.vue'
 import FirstView from '../views/FirstView.vue'
 import GaleriaView from '../views/GaleriaView.vue'
 import RoutesView from '../views/RoutesView.vue'
+import QrView from '../views/QrView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -19,6 +20,11 @@ const router = createRouter({
       path: '/:slug',
       name: 'home-slug',
       component: FirstView
+    },
+    {
+      path: '/qr',
+      name: 'qr',
+      component: QrView
     },
     {
       path: '/:slug/inici',
