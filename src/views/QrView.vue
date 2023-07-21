@@ -48,7 +48,7 @@ watch(() => route.params.slug, (newValue) => {
           <div class="separa mb-4"></div>
 
           <div class="row mb-5">
-            <div class="col col-4" v-for="item in itineraries">
+            <div class="col-12 col-md-4" v-for="item in itineraries">
               <div class="character character-bb text-start mb-4">
                 <RouterLink class="to" :to="`/${item.attributes.slug}`">
                   <div class="d-flex head">
