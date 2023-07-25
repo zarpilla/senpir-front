@@ -214,7 +214,7 @@ color: #003842
 }
 
 @media (min-width: 1024px) {
-.w-25-md {
+.zw-25-md {
   width: 25%;
 }
 }

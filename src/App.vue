@@ -52,7 +52,9 @@ function reset() {
     </div>
 
   </header>
-  <RouterView />
+  <div class="router-view">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
@@ -113,6 +115,11 @@ nav a:first-of-type {
     font-size: 1rem;
     padding: 1rem 0;
     margin-top: 0rem;
+  }
+
+  .router-view{
+    max-width: 600px;
+    margin: 0 auto;
   }
 }
 </style>
