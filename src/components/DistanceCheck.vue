@@ -80,7 +80,7 @@ watch(() => locationStore.enabled, (newValue) => {
             distance.toFixed(0) }}{{ distance.toFixed(0) > 1000 ? ' km' : ' m' }}
         </div>
         <div v-else class="disabled-gps">
-          Si vols, pots habilitar el GPS per saber a quina distància et trobes
+          Si voleu, podeu habilitar el GPS per saber a quina distància us trobeu
         </div>
       </div>
 

@@ -124,7 +124,7 @@ watch(() => props.activity.id, (newValue) => {
           </div>
           <div class="text-center help-text mb-3 w-75 mr-auto ml-auto" v-else>
             <span v-if="answerOkCount === 1">Troba la opció correcta</span>
-            <span v-else>Troba les opcions correctes</span>
+            <span v-else>Trobeu les opcions correctes</span>
             
           </div>
           <img src="@/assets/images/arrow-green.svg" class="mt-1 mb-3" alt="" />
