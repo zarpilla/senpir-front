@@ -38,9 +38,9 @@ watch(() => route.params.slug, (newValue) => {
 <template>
   <div v-if="itineraries" class="bg">
 
-    <img src="@/assets/images/image007-2.jpg" class="capsalera" alt="" />
+    <img src="@/assets/images/lleure.jpg" class="capsalera" alt="" />
 
-    <img src="@/assets/images/mapa-pirineus.png" class="mapa mt-4" alt="" />
+    <img src="@/assets/images/mapa-general.png" class="mapa mt-4" alt="" />
 
     <div class="container pb-5 text-center">
 

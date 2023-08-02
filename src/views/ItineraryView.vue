@@ -61,7 +61,7 @@ watch(() => route.params.slug, (newValue) => {
     <ItineraryGPS></ItineraryGPS>
     <ItineraryHeader v-if="!start" :itinerary="itinerary"></ItineraryHeader>
     <ItineraryHeaderStart v-if="start" :itinerary="itinerary"></ItineraryHeaderStart>
-    <Itinerary :itinerary="itinerary" :mid="mid" :end="end"></Itinerary>
+    <Itinerary :start="start" :itinerary="itinerary" :mid="mid" :end="end"></Itinerary>
     <ItineraryClue :itinerary="itinerary"></ItineraryClue>
   </div>
 </template>

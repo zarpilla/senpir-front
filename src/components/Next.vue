@@ -38,7 +38,7 @@ watch(() => props.answerOk, (newvalue) => {
 
     <RouterLink class="btn"
       :to="`/${itinerary.attributes.slug}/p/${props.index + 2}`">
-      {{ answerOk ? 'CONTINUAR' : 'SALTAR REPTE' }}
+      {{ answerOk || index === -1 ? 'CONTINUAR' : 'SALTAR REPTE' }}
       <img src="@/assets/images/button.svg" class="button-img" alt="" />
     </RouterLink>
 

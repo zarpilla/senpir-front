@@ -48,7 +48,6 @@ const props = defineProps({
           <div class="col-12 col-md-12 pt-md-5">
 
             <Markdown v-if="itinerary.attributes.description" :source="itinerary.attributes.description" />
-            <!-- <Picture class="mt-4 mb-4 rounded" :image="itinerary.attributes.image"></Picture> -->
             <Markdown v-if="itinerary.attributes.description_more" :source="itinerary.attributes.description_more" />
 
           </div>
