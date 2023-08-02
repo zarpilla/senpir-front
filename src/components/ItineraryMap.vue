@@ -76,7 +76,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
           </div>
         </div>
 
-        <div class="d-flex justify-content-between mt-2" v-if="itinerary.attributes.activities.length">
+        <div class="d-flex justify-content-between mt-2" v-if="itinerary.attributes.activities && itinerary.attributes.activities.length > 5">
           <div class="fites-row"></div>
           <div class="fites">FITES</div>
           <div class="fites-row"></div>
@@ -116,7 +116,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
       </div>
 
       <div class="container text-center mt-5 mb-5"
-        v-if="start && itinerary.attributes.activities && itinerary.attributes.activities.length">
+        v-if="start && itinerary.attributes.activities && itinerary.attributes.activities.length > 5">
         <RouterLink class="btn btn-start" :to="`/${itinerary.attributes.slug}/inici`" v-if="!view">
           VOLEM COMENÇAR!
           <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
