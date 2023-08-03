@@ -22,16 +22,6 @@ const props = defineProps({
     
     <itinerary-offiline-loader :itinerary="itinerary"></itinerary-offiline-loader>
 
-    <!-- <div class="debug">
-      latitude: {{ location?.coords?.latitude }}<br>
-      longitude: {{ location?.coords?.longitude }}<br>
-      accuracy: {{ location?.coords?.accuracy }}<br>
-      answers: {{ gameStore.answers }}<br>
-      canFinish: {{ canFinish }}<br>
-      point: {{ gameStore.point }}
-    </div> -->
-
-
   </div>
 </template>
 

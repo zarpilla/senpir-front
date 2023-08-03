@@ -70,7 +70,7 @@ if (props.audio && props.audio.data && props.audio.data.attributes) {
     </div>
     <audio controls>
       <source :src="base64Audio" :type="audio.data.attributes.mime">
-      El teu navegador no permet escoltar audio
+      El vostre navegador no permet escoltar audio
     </audio> 
   </div>
 

@@ -62,7 +62,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
               <div>{{ itinerary.attributes.distance || '-' }}</div>
             </div>
             <div class="col" v-if="itinerary.attributes.duration">
-              <b>Dificultat</b>
+              <b>Durada</b>
               <div>{{ itinerary.attributes.duration }}</div>
             </div>
             <div class="col" v-else>
@@ -128,7 +128,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
         </span>
       </div>
       <div class="help mt-1 mb-5 container" v-if="start && view">
-        Atenció, no pots començar aquest itinerari per què no has entrat des del codi QR, ubicat a l'inici del camí.
+        Atenció, no podeu començar aquest itinerari per què no heu entrat des del codi QR, ubicat a l'inici del camí.
       </div>
 
 

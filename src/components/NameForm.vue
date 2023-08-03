@@ -55,14 +55,14 @@ const send = async () => {
   <div class="name-form container pt-5">
     <div>
       <div>
-        Escriu el teu nom i així apareixeràs a la “Galeria dels Pirineus”. Podràs veure els teus itineraris acabats o veure altres
-        rutes que et falten!
+        Escriviu el vostre nom i així apareixereu a la “Galeria dels Pirineus”. Podreu veure els vostres itineraris acabats o veure altres
+        rutes que us falten!
       </div>
 
       <input class="mt-3 mb-3 w-100" type="text" placeholder="NOM" v-model="form.username" />
       <div v-if="!onLine" class="mt-1 mb-3">
-        Atenció, no tens cobertura!
-        Només podràs accedir al saló de la fama quan tinguis dades.
+        Atenció, no teniu cobertura!
+        Només podreu accedir a la “Galeria dels Pirineus” de la fama quan tingueu dades.
       </div>
       <button class="w-100 mb-5" :disabled="!onLine || !form.username" @click="send">ENVIAR DADES I VEURE LA<br>GALERIA DELS PIRINEUS</button>
 

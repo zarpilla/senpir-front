@@ -123,7 +123,7 @@ watch(() => props.activity.id, (newValue) => {
             <Markdown v-if="activity.help_text" :source="activity.help_text" />
           </div>
           <div class="text-center help-text mb-3 w-75 mr-auto ml-auto" v-else>
-            <span v-if="answerOkCount === 1">Troba la opció correcta</span>
+            <span v-if="answerOkCount === 1">Trobeu l'opció correcta</span>
             <span v-else>Trobeu les opcions correctes</span>
             
           </div>

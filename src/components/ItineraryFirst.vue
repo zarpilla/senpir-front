@@ -47,8 +47,7 @@ const props = defineProps({
 
             <div class="text">
               Resoleu els reptes que trobareu a cada fita. Cada prova encertada rebreu una pista i amb aquesta hareu de
-              resoldre
-              l’enigma final.
+              resoldre l’enigma final.
               <br />
               <b>Som-hi!!!
               </b>
