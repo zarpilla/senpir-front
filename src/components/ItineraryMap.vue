@@ -43,7 +43,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
 </script>
 
 <template>
-  <div class="itinerary-map-info w-25-md mx-auto" v-if="itinerary">
+  <div class="itinerary-map-info w-25-md mx-auto" v-if="itinerary && itinerary.attributes.activities && itinerary.attributes.activities.length">
 
     <Picture class="itinerary-map" :image="itinerary.attributes.map"></Picture>
 
@@ -127,13 +127,18 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
           <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
         </span>
       </div>
-      <div class="help mt-1 mb-5 container" v-if="start && view">
+      <div class="help mt-1 mt-5 mb-5 container text-center" v-if="start && view">
         Atenció, no podeu començar aquest itinerari per què no heu entrat des del codi QR, ubicat a l'inici del camí.
       </div>
 
 
     </div>
 
+  </div>
+  <div v-else>
+    <div class="help mt-1 mb-50 container text-center mt-5 bold">
+        Aquest itinerari encara no està disponible
+      </div>
   </div>
 </template>
 
@@ -227,6 +232,14 @@ b {
 
 .coords a:hover {
   text-decoration: underline;
+}
+
+.mb-50{
+  margin-bottom: 10rem;
+}
+
+.bold{
+font-weight: bold;
 }
 
 @media (min-width: 1024px) {

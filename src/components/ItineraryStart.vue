@@ -12,7 +12,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-if="itinerary">
+  <div v-if="itinerary && itinerary.attributes.activities && itinerary.attributes.activities.length">
 
     <div class="step-0" v-show="!props.end">
 
