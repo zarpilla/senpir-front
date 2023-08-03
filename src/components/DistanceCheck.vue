@@ -76,7 +76,7 @@ watch(() => locationStore.enabled, (newValue) => {
       <div class="d-flex justify-content-center">
         <img src="@/assets/images/distance.svg" class="mx-2" alt="" />
         <div v-if="enabled && lngLat && lngLat.lat">
-          <b class="mx-1">Distància fins la fita</b>{{ distance.toFixed(0) > 1000 ? (distance / 1000).toFixed(2) :
+          <b class="mx-1">Distància fins a la fita</b>{{ distance.toFixed(0) > 1000 ? (distance / 1000).toFixed(2) :
             distance.toFixed(0) }}{{ distance.toFixed(0) > 1000 ? ' km' : ' m' }}
         </div>
         <div v-else class="disabled-gps">
