@@ -43,7 +43,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
 </script>
 
 <template>
-  <div class="itinerary-map-info w-25-md mx-auto" v-if="itinerary && itinerary.attributes.activities && itinerary.attributes.activities.length">
+  <div class="itinerary-map-info w-25-md mx-auto" v-if="itinerary && itinerary.attributes.activities && itinerary.attributes.activities.length && !(itinerary.attributes.disabled === true)">
 
     <Picture class="itinerary-map" :image="itinerary.attributes.map"></Picture>
 
