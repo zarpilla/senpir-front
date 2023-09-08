@@ -116,7 +116,7 @@ const latLng = ref(props.itinerary.attributes.latitude ? gps.gpsUtil({ latitude:
       </div>
 
       <div class="container text-center mt-5 mb-5"
-        v-if="start && itinerary.attributes.activities && itinerary.attributes.activities.length > 5">
+        v-if="start && itinerary.attributes.activities && itinerary.attributes.activities.length > 0">
         <RouterLink class="btn btn-start" :to="`/${itinerary.attributes.slug}/inici`" v-if="!view">
           VOLEM COMENÇAR!
           <img src="@/assets/images/brujula.svg" class="button-img" alt="" />
