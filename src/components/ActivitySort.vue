@@ -152,7 +152,7 @@ watch(() => props.activity.id, (newValue) => {
         <Markdown v-if="activity.description" :source="activity.description" />
         <div v-else-if="last && !answerOk" :source="activity.description" class="mb-4">
           <h2>Per últim, si voleu col·leccionar {{ itinerary.attributes.character_name }}...</h2>
-          Haureu de descobrir la nostra paraula secreta amb les pistes que heu anat recol·lectant al llarg de les 5 fites de l’Itinerari del Daró.
+          Haureu de descobrir la nostra paraula secreta amb les pistes que heu anat recol·lectant al llarg de les 5 fites de l’Itinerari.
         </div>
 
 
