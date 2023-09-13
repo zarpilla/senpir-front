@@ -16,6 +16,10 @@ const props = defineProps({
   last: {
     type: Boolean,
     required: false
+  },
+  done: {
+    type: Boolean,
+    required: false
   }
 })
 
@@ -23,29 +27,39 @@ const props = defineProps({
 
 <template>
   <div>
+    
     <div v-if="option.name && option.name.length < 2" class="option-with-name text-center pt-4 pb-4"
       :class="`bg-color-${index}`">
       <div class="circle ml-auto mr-auto">
         {{ option.name }}
-      </div>
+      </div>      
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>
     <div v-else-if="option.name && option.name.length >= 2"
-      class="option-with-name-large text-center pt-4 pb-4" :class="option.image_bg   ? `bg-color-${index}`: 'z'">
+      class="option-with-name-large text-center pt-4 pb-4" :class="option.image_bg ? `bg-color-${index}`: 'z'">
       <h3 class="mb-0 zpb-0" :class="last ? 'pb-0 last-h3' : 'z'" v-if="option.name">{{ option.name }}</h3>
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>    
-    <div v-else-if="!option.name && option.image && option.image.data && option.image.data.id" class="'option-without-name'" :class="option.image_bg   ? `bg-color-${index}`: 'z'">
+    <div v-else-if="done && option.answer_name" class="option-with-name-large text-center pt-4 pb-4"
+    :class="option.image_bg ? `bg-color-${index}`: 'z'">
+    <h3 class="mb-0 zpb-0" :class="last ? 'pb-0 last-h3' : 'z'">{{ option.answer_name }}</h3>
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>
+    <div v-else-if="!option.name && option.image && option.image.data && option.image.data.id" class="'option-without-name'" :class="option.image_bg   ? `bg-color-${index}`: 'z'">
+      <h3 v-if="done && option.answer_name" class="mb-0 zpb-0" :class="last ? 'pb-0 last-h3' : 'z'" >{{ option.answer_name }}</h3>
+      <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
+      <Audio :audio="option.audio"></Audio>
+      <Markdown v-if="option.description" :source="option.description" />
+    </div>
+    
     <div v-else
-      class="option-with-name-large text-center pt-4 pb-4">      
+      class="option-with-name-large text-center pt-4 pb-4">
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />

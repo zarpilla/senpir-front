@@ -188,7 +188,7 @@ watch(() => props.activity.id, (newValue) => {
       </div>
 
       <div v-if="answerOk" class="answer-ok">
-        <ActivityDone :itinerary="itinerary" :last="last" :index="index" :activity="activity"></ActivityDone>
+        <ActivityDone :itinerary="itinerary" :last="last" :index="index" :activity="activity" :done="true"></ActivityDone>
       </div>
 
     </div>

@@ -38,7 +38,7 @@ const props = defineProps({
       <div class="activity-options mt-2 mb-4">
         <template v-for="(option, i) in activity.options">
           <div v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" class="activity-option active mb-4">          
-            <ActivityOption  :index="i" :option="option"></ActivityOption>          
+            <ActivityOption :done="true" :index="i" :option="option"></ActivityOption>          
           </div>
         </template>        
       </div>
@@ -68,15 +68,7 @@ const props = defineProps({
 
       <div class="activity-options mt-2 mb-4">
         <div class="activity-option mb-3 active" v-for="(option, i) in activity.options" :key="option.id">
-          <!-- <div class="overlay-true" v-if="option.answer || activity.type === 'sort'">
-            <img src="@/assets/images/agla-group.svg" class="tryagain" alt="" />
-          </div>
-          <div class="overlay-false text-center" v-else>
-            <img src="@/assets/images/tryagain.svg" class="tryagain" alt="" />
-          </div> -->
-
           <ActivityOption :index="i" :option="option"></ActivityOption>
-
         </div>
       </div>
 
