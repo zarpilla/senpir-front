@@ -40,7 +40,7 @@ const props = defineProps({
           <div v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" class="activity-option active mb-4">          
             <ActivityOption :done="true" :index="i" :option="option"></ActivityOption>          
           </div>
-        </template>        
+        </template>
       </div>
 
       <div class="answer-content pb-4">
@@ -67,9 +67,11 @@ const props = defineProps({
       </h1>
 
       <div class="activity-options mt-2 mb-4">
-        <div class="activity-option mb-3 active" v-for="(option, i) in activity.options" :key="option.id">
-          <ActivityOption :index="i" :option="option"></ActivityOption>
-        </div>
+        <template v-for="(option, i) in activity.options">
+          <div v-if="(option.answer && activity.type !== 'sort') || activity.type === 'sort'" class="activity-option active mb-4">          
+            <ActivityOption :done="true" :index="i" :option="option"></ActivityOption>          
+          </div>
+        </template>
       </div>
 
       <div class="zanswer-content pb-4">

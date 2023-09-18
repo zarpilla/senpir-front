@@ -65,6 +65,8 @@ const checkOption = (i) => {
   
 }
 
+const last = computed(() => props.index === props.itinerary.attributes.activities.length - 1)
+
 watch(answerOk, (newValue) => {
   if (newValue) {
     gameStore.answer(props.itinerary.attributes.slug, props.index, props.activity.answer_code || "-")
@@ -147,7 +149,7 @@ watch(() => props.activity.id, (newValue) => {
       </div>
 
       <div v-if="answerOk" class="answer-ok">
-        <ActivityDone :itinerary="itinerary" :index="index" :activity="activity"></ActivityDone>
+        <ActivityDone :last="last" :itinerary="itinerary" :index="index" :activity="activity"></ActivityDone>
       </div>
 
     </div>
