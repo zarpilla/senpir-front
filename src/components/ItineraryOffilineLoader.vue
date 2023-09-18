@@ -66,7 +66,7 @@ console.log('offline loader')
     <img src="@/assets/images/flag.svg" class="h0" alt="" />
     <img src="@/assets/images/arrow-right.svg" class="h0" alt="" />
     <img src="@/assets/images/arrow-left.svg" class="h0" alt="" />
-    <img src="@/assets/images/mapa-general.png" class="h0" alt="" />
+    <img src="@/assets/images/mapa-general-petit.png" class="h0" alt="" />
     <img src="@/assets/images/location.svg" class="h0" alt="" />
     <img src="@/assets/images/lleure.jpg" class="h0" alt="" />
     

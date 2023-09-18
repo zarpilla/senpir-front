@@ -40,7 +40,7 @@ watch(() => route.params.slug, (newValue) => {
 
     <img src="@/assets/images/lleure.jpg" class="capsalera" alt="" />
 
-    <img src="@/assets/images/mapa-general.png" class="mapa mt-4" alt="" />
+    <img src="@/assets/images/mapa-general-petit.png" class="mapa mt-4" alt="" />
 
     <div class="container pb-5 text-center">
 
