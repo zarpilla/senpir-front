@@ -147,7 +147,7 @@ watch(() => props.activity.id, (newValue) => {
           <Audio class="pb-4" :audio="activity.audio"></Audio>
         </div>
 
-        <Picture class="mb-3 rounded" :image="activity.image"></Picture>
+        <Picture class="mb-3 rounded w-100-img" :image="activity.image"></Picture>
 
         <Markdown v-if="activity.description" :source="activity.description" />
         <div v-else-if="last && !answerOk" :source="activity.description" class="mb-4">

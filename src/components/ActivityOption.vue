@@ -28,7 +28,7 @@ const props = defineProps({
 <template>
   <div>
     
-    <div v-if="option.name && option.name.length < 2" class="option-with-name text-center pt-4 pb-4"
+    <div v-if="option.name && option.name.length < 3" class="option-with-name text-center pt-4 pb-4"
       :class="`bg-color-${index}`">
       <div class="circle ml-auto mr-auto">
         {{ option.name }}
@@ -37,7 +37,7 @@ const props = defineProps({
       <Audio :audio="option.audio"></Audio>
       <Markdown v-if="option.description" :source="option.description" />
     </div>
-    <div v-else-if="option.name && option.name.length >= 2"
+    <div v-else-if="option.name && option.name.length >= 3"
       class="option-with-name-large text-center pt-4 pb-4" :class="option.image_bg ? `bg-color-${index}`: 'z'">
       <h3 class="mb-0 zpb-0" :class="last ? 'pb-0 last-h3' : 'z'" v-if="option.name">{{ option.name }}</h3>
       <Picture :overlay="option.image_overlay" :cover="option.image_cover" :index="index" class="w-100-img rounded" :image="option.image"></Picture>

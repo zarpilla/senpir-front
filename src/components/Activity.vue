@@ -107,7 +107,7 @@ watch(() => props.activity.id, (newValue) => {
         </div>
 
         <div class="text-center">
-          <Picture class="mb-3 rounded" :image="activity.image"></Picture>
+          <Picture class="mb-3 rounded w-100-img" :image="activity.image"></Picture>
         </div>        
 
         <Markdown v-if="activity.description" :source="activity.description" />
