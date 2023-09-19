@@ -14,6 +14,7 @@ import ActivityDone from './ActivityDone.vue'
 import ActivityOption from './ActivityOption.vue'
 import ItineraryClue from '../components/ItineraryClue.vue'
 import Timer from '../components/Timer.vue'
+import NameForm from './NameForm.vue'
 
 const props = defineProps({
   itinerary: {
@@ -154,9 +155,17 @@ watch(() => props.activity.id, (newValue) => {
 
     </div>
 
-    <Next :itinerary="itinerary" :index="index" :answer-ok="answerOk"></Next>
 
-    <ItineraryClue :itinerary="itinerary"></ItineraryClue>
+    <NameForm :itinerary-id="itinerary.id" v-if="answerOk && last"></NameForm>
+
+    <Next v-if="!last" :itinerary="itinerary" :index="index" :answer-ok="answerOk"></Next>
+
+    <ItineraryClue v-if="!last || (last && !answerOk)" :itinerary="itinerary"></ItineraryClue>
+
+    <!-- <div class="mt-5" v-if="last && answerOk">
+      <ItineraryAll :back="false" :slug="itinerary.attributes.slug" v-if="last && answerOk"></ItineraryAll>
+    </div> -->
+
 
   </div>
 </template>

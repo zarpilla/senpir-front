@@ -82,6 +82,7 @@ watch(() => route.params.slug, (newValue) => {
               <h2>{{ item.attributes.character_name }}</h2>
               <div class="place">
                 {{ item.attributes.name }} ({{ item.attributes.city }})
+                <div class="mt-2 text-bold">{{ item.attributes.place }}</div>              
               </div>
 
             </div>
@@ -176,5 +177,8 @@ h1 {
 .character-bb {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.text-bold{
+  font-weight: bold;
 }
 </style>
