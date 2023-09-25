@@ -13,7 +13,7 @@ const username = localStorage.getItem('uid.username')
       <img src="@/assets/images/flor.svg" class="mt-4 mb-3" alt="" />
     </div>
     <div class="text-center squirel-text mb-3">
-      <h1>Galeria <br>dels Pirineus</h1>
+      <h1>Galeria <br>dels personatges<br>dels Pirineus</h1>
       <div class="separa mt-4 mb-3"></div>
     </div>
     <div class="help-text mt-4 mb-2">
