@@ -3,6 +3,12 @@ import { ref, watch } from 'vue'
 import distanceSvc from '../utils/distance'
 import { useLocationStore } from '../stores/location'
 import utmLatlng from 'utm-latlng'
+import { playTada } from '../utils/sound'
+
+// Play a sound when the user gets close to the point.
+// Re-arm only after moving clearly away, so GPS jitter doesn't repeat it.
+const NEAR_DISTANCE = 30 // meters
+const REARM_DISTANCE = 80 // meters
 
 const props = defineProps({
   coords1: {
@@ -25,6 +31,18 @@ lngLat.value = utm.convertUtmToLatLng(props.coords1.latitude, props.coords1.long
 
 const enabled = ref(false)
 enabled.value = locationStore.enabled
+
+let arrived = false
+
+watch(distance, (d) => {
+  if (!locationStore.enabled || !locationStore.latitude || !lngLat.value.lat) return
+  if (!arrived && d <= NEAR_DISTANCE) {
+    arrived = true
+    playTada()
+  } else if (arrived && d > REARM_DISTANCE) {
+    arrived = false
+  }
+})
 
 if (props.coords1 && props.coords1.latitude) {
   lngLat.value = utm.convertUtmToLatLng(props.coords1.latitude, props.coords1.longitude, '31', 'T')
